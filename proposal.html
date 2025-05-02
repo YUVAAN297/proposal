@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Question for Khushboo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700&family=Caveat&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'Poppins', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%); /* Softer gradient */
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; overflow: hidden; /* Prevent scrollbars from moving button */ padding: 1rem;
+        }
+        .romantic-font { font-family: 'Pacifico', cursive; }
+        .handwritten-font { font-family: 'Caveat', cursive; font-size: 1.75rem; line-height: 1.4; }
+
+        /* Interactive & Animation Styles */
+        /* Style for the moving 'No' button - position fixed for viewport movement */
+        #no-button.moving {
+            position: fixed; /* Use fixed ONLY when actively moving */
+            transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease; /* Smooth movement and scaling */
+            z-index: 50; /* Ensure it's above other elements when moving */
+        }
+        .heart-bg { position: absolute; font-size: 20px; color: rgba(255, 105, 180, 0.15); animation: float 8s ease-in-out infinite; user-select: none; pointer-events: none; z-index: 0; }
+        @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.15; } 50% { transform: translateY(-25px) rotate(15deg); opacity: 0.4; } }
+        .confetti { position: fixed; opacity: 1; pointer-events: none; z-index: 9999; transition: transform 1s linear, opacity 1s linear; }
+        .pulsing-heart { font-size: 4rem; color: #e11d48; animation: pulse 1.5s ease-in-out infinite; display: inline-block; cursor: pointer; transition: color 0.3s ease; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+        .fade-in-slow { animation: fadeInAnimation 1.2s ease-in forwards; opacity: 0; }
+        @keyframes fadeInAnimation { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .action-button { padding: 12px 28px; font-size: 1rem; border-radius: 50px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: inline-block; margin-top: 15px; min-width: 160px; border: none; }
+        .action-button:hover { /* Apply hover effect to all buttons */
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .content-container { text-align: center; width: 100%; padding: 1rem 0; }
+        .content-container > * { margin-bottom: 1.5rem; } .content-container > *:last-child { margin-bottom: 0; }
+
+        /* Input styling */
+        input[type="date"], input[type="time"], textarea { border: 1px solid #f472b6; padding: 10px 14px; border-radius: 10px; background-color: white; margin-top: 5px; width: 100%; font-size: 0.95rem; }
+        textarea { resize: vertical; min-height: 70px; } input[type="date"], input[type="time"] { cursor: pointer; }
+        input:focus, textarea:focus { outline: none; box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.3); }
+        .radio-label { display: block; margin-bottom: 10px; cursor: pointer; background-color: rgba(255,255,255,0.6); padding: 10px 15px; border-radius: 8px; transition: background-color 0.3s ease; border: 1px solid transparent; }
+        .radio-label:has(input:checked) { background-color: rgba(255, 105, 180, 0.2); border-color: #f472b6; }
+        .radio-input { margin-right: 10px; accent-color: #ec4899; transform: scale(1.1); }
+
+        /* Page Specific Styles */
+        #page2-state { background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, rgba(255,223,230,0.3) 70%); border-radius: 15px; padding: 20px; }
+        #page4-state img { border: 4px solid #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        #page5-state ul { list-style: none; padding: 0; margin-top: 1rem; }
+        #page5-state li { background-color: rgba(255,255,255,0.7); padding: 10px; border-radius: 8px; margin-bottom: 8px; cursor: pointer; transition: transform 0.2s ease; }
+        #page5-state li:hover { transform: scale(1.03); }
+        #page6-state .star { position: absolute; color: #ffd700; font-size: 1rem; animation: twinkle 3s infinite ease-in-out; opacity: 0; }
+        @keyframes twinkle { 0%, 100% { opacity: 0; transform: scale(0.5); } 50% { opacity: 1; transform: scale(1); } }
+        #page7-state .final-burst { font-size: 4rem; animation: burst 1s ease-out forwards; }
+        @keyframes burst { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+
+        /* Checkmark Animation */
+        .checkmark-container { width: 80px; height: 80px; margin: 1.5rem auto; }
+        .checkmark-circle { stroke-dasharray: 166; stroke-dashoffset: 166; stroke-width: 3; stroke-miterlimit: 10; stroke: #7ac142; fill: none; animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards; }
+        .checkmark { transform-origin: 50% 50%; stroke-dasharray: 48; stroke-dashoffset: 48; animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.6s forwards; }
+        .checkmark-check { transform-origin: 50% 50%; stroke-dasharray: 48; stroke-dashoffset: 48; stroke-width: 3; stroke: #7ac142; fill: none; animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards; }
+        @keyframes stroke { 100% { stroke-dashoffset: 0; } }
+    </style>
+</head>
+<body class="bg-pink-100">
+
+    <div id="hearts-bg-container" class="fixed inset-0 z-0 overflow-hidden"></div>
+
+    <div id="main-container" class="relative z-10 bg-white bg-opacity-90 p-6 md:p-10 rounded-2xl shadow-xl text-center max-w-lg w-full mx-auto transition-all duration-500 ease-in-out">
+
+        <div id="question-state" class="content-container">
+            <h1 id="question-text" class="text-2xl md:text-3xl font-bold text-pink-600 romantic-font">?? Will you be my girlfriend Khushboo? ??</h1>
+            <div id="button-container" class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 mt-4 relative min-h-[5rem]">
+                <button id="yes-button" class="action-button bg-green-500 hover:bg-green-600 text-white w-full sm:w-auto">Yes! ??</button>
+                <button id="no-button" class="action-button bg-red-500 hover:bg-red-600 text-white w-full sm:w-auto">No ??</button>
+            </div>
+        </div>
+
+        <div id="gift-state" class="hidden fade-in-slow content-container">
+            <h2 class="text-2xl md:text-3xl font-bold text-pink-600 romantic-font">A little something for you... Click it!</h2>
+            <button id="gift-box" class="text-6xl md:text-8xl cursor-pointer animate-bounce">??</button>
+        </div>
+
+        <div id="final-state" class="hidden fade-in-slow content-container">
+             <h1 class="text-3xl md:text-4xl font-bold text-pink-600 romantic-font animate-pulse">Yay! You made me so happy! ??</h1>
+             <p class="text-gray-800 text-lg">So... when and where for our first date? ??</p>
+             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
+                 <div><label for="date-input" class="block text-sm font-medium text-gray-700 mb-1">Pick a Date:</label><input type="date" id="date-input" name="date"></div>
+                 <div><label for="time-input" class="block text-sm font-medium text-gray-700 mb-1">Pick a Time:</label><input type="time" id="time-input" name="time"></div>
+             </div>
+             <div class="text-left mt-4">
+                 <label class="block text-sm font-medium text-gray-700 mb-2">Date Idea:</label>
+                 <label class="radio-label"><input type="radio" name="date_idea" value="Coffee & Chat ?" class="radio-input"> Coffee & Chat ?</label>
+                 <label class="radio-label"><input type="radio" name="date_idea" value="Movie Night ????" class="radio-input"> Movie Night ????</label>
+                 <label class="radio-label"><input type="radio" name="date_idea" value="Dinner Date ????" class="radio-input"> Dinner Date ????</label>
+                 <label class="radio-label"><input type="radio" name="date_idea" value="Custom" class="radio-input" id="radio-custom"> Something else...</label>
+                 <textarea id="custom-idea-text" name="custom_idea" placeholder="Your amazing date idea..." class="mt-2 hidden"></textarea>
+             </div>
+             <button id="whatsapp-button" class="action-button bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white">Let's Make it Official! ?</button>
+             <p id="whatsapp-error" class="text-red-500 text-sm mt-2 hidden">Please select Date, Time, and a Date Idea (or write one!).</p>
+        </div>
+
+        <div id="page1-state" class="hidden fade-in-slow content-container">
+            <div class="checkmark-container">
+                <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"> <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/> <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/> </svg>
+            </div>
+            <h2 class="text-2xl md:text-3xl font-bold text-green-600 romantic-font">Date Details Sent! (Check WhatsApp!) ??</h2>
+            <p class="text-gray-700 text-lg">Okay, the serious part is over... Now for some fun!</p>
+            <button id="goto-page2-button" class="action-button bg-pink-500 hover:bg-pink-600 text-white">Let the Fun Begin! ??</button>
+        </div>
+
+        <div id="page2-state" class="hidden fade-in-slow content-container" style="background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, rgba(255,223,230,0.3) 70%); border-radius: 15px; padding: 20px;">
+             <div id="interactive-heart" class="pulsing-heart mb-6" onclick="changeHeartColor()">??</div>
+             <p class="text-gray-800 text-xl italic leading-relaxed">"Meeting you was like listening to a song for the first time and knowing it would be my favorite."</p>
+             <p class="text-sm text-gray-600 mt-2">(Click the heart!)</p>
+             <button id="goto-page3-button" class="action-button bg-teal-500 hover:bg-teal-600 text-white">A Quick Compliment... ??</button>
+        </div>
+
+        <div id="page3-state" class="hidden fade-in-slow content-container">
+            <div class="text-6xl mb-4 animate-bounce">?</div>
+            <h2 class="text-3xl md:text-4xl font-bold text-orange-500 romantic-font">Just Had to Say...</h2>
+             <p class="text-gray-700 text-lg handwritten-font">Your presence literally brightens up the room (and my day)!</p>
+             <button id="goto-page4-button" class="action-button bg-cyan-500 hover:bg-cyan-600 text-white">Did You Know...? ??</button>
+        </div>
+
+        <div id="page4-state" class="hidden fade-in-slow content-container">
+             <h2 class="text-2xl md:text-3xl font-bold text-lime-600 romantic-font">Random Cuteness!</h2>
+             <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2VqZ2ZkY3N1Z3F6N2F1dmJsdXN3eGJwZ2w4d3g2bTU2N2Zta3NnayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1MI7djBqXTWrm/giphy.gif" alt="Otters holding hands" class="mx-auto rounded-lg shadow-md mt-4 max-w-xs w-full border-4 border-white" onerror="this.style.display='none'">
+             <p class="text-gray-700 text-lg mt-4">Otters hold hands while sleeping. Speaking of which...</p>
+             <button id="goto-page5-button" class="action-button bg-yellow-500 hover:bg-yellow-600 text-white">Future Date Ideas? ??</button>
+        </div>
+
+        <div id="page5-state" class="hidden fade-in-slow content-container">
+            <h2 class="text-2xl md:text-3xl font-bold text-fuchsia-600 romantic-font">Future Adventures!</h2>
+            <p class="text-gray-700 text-lg">Just brainstorming here... What sounds fun?</p>
+            <ul class="text-left max-w-xs mx-auto">
+                <li><label class="radio-label"><input type="checkbox" class="radio-input"> Stargazing Night ???</label></li>
+                <li><label class="radio-label"><input type="checkbox" class="radio-input"> Epic Pillow Fort Battle ?????</label></li>
+                <li><label class="radio-label"><input type="checkbox" class="radio-input"> Board Game Cafe ???</label></li>
+                <li><label class="radio-label"><input type="checkbox" class="radio-input"> Spontaneous Road Trip? ????</label></li>
+            </ul>
+             <p class="text-sm text-gray-600 mt-2">(Don't worry, checking these does nothing... yet! ??)</p>
+            <button id="goto-page6-button" class="action-button bg-red-500 hover:bg-red-600 text-white">Getting Sentimental... </button>
+        </div>
+
+        <div id="page6-state" class="hidden fade-in-slow content-container relative overflow-hidden min-h-[250px]" style="background: linear-gradient(to bottom, #1e3a8a, #3b82f6); border-radius: 15px; padding: 20px;">
+             <div id="star-container" class="absolute inset-0"></div> <h2 class="text-2xl md:text-3xl font-bold text-yellow-300 romantic-font relative z-10">Looking Up...</h2>
+             <p class="text-gray-100 text-lg relative z-10">...and feeling incredibly lucky our paths crossed. Seriously. ??</p>
+             <button id="goto-page7-button" class="action-button bg-emerald-500 hover:bg-emerald-600 text-white relative z-10">The Grand Finale! ??</button>
+        </div>
+
+        <div id="page7-state" class="hidden fade-in-slow content-container">
+            <div class="final-burst text-yellow-400 mb-4">?????</div>
+            <h2 class="text-3xl md:text-4xl font-bold text-indigo-600 romantic-font">See you soon, Khushboo!</h2>
+             <p class="text-gray-800 text-lg">Counting down the moments until our date! Get ready for fun!</p>
+             <div class="text-4xl mt-4 text-red-500">??????</div>
+             </div>
+
+    </div>
+
+    <script>
+        // --- DOM Elements ---
+        const states = { question: document.getElementById('question-state'), gift: document.getElementById('gift-state'), final: document.getElementById('final-state'), page1: document.getElementById('page1-state'), page2: document.getElementById('page2-state'), page3: document.getElementById('page3-state'), page4: document.getElementById('page4-state'), page5: document.getElementById('page5-state'), page6: document.getElementById('page6-state'), page7: document.getElementById('page7-state'), };
+        const questionText = document.getElementById('question-text');
+        const yesButton = document.getElementById('yes-button');
+        const noButton = document.getElementById('no-button');
+        const giftBox = document.getElementById('gift-box');
+        const heartsBgContainer = document.getElementById('hearts-bg-container');
+        const dateInput = document.getElementById('date-input');
+        const timeInput = document.getElementById('time-input');
+        const customIdeaRadio = document.getElementById('radio-custom');
+        const customIdeaText = document.getElementById('custom-idea-text');
+        const whatsappButton = document.getElementById('whatsapp-button');
+        const whatsappError = document.getElementById('whatsapp-error');
+        const interactiveHeart = document.getElementById('interactive-heart');
+        const starContainer = document.getElementById('star-container');
+        // Navigation Buttons
+        const gotoPage2Button = document.getElementById('goto-page2-button'); const gotoPage3Button = document.getElementById('goto-page3-button'); const gotoPage4Button = document.getElementById('goto-page4-button'); const gotoPage5Button = document.getElementById('goto-page5-button'); const gotoPage6Button = document.getElementById('goto-page6-button'); const gotoPage7Button = document.getElementById('goto-page7-button');
+
+        // --- State Variables ---
+        let noClickCount = 0; let yesButtonScale = 1; let heartColorIndex = 0;
+        const heartColors = ['#e11d48', '#ec4899', '#f472b6', '#f9a8d4'];
+        const YOUR_WHATSAPP_NUMBER = "919625737622";
+
+        // --- Functions ---
+        // Shows the specified state div and hides all others
+        function showState(stateToShow) {
+            console.log("Showing state:", stateToShow.id); // For debugging
+            Object.values(states).forEach(state => {
+                if (state === stateToShow) {
+                    state.classList.remove('hidden');
+                    resetPage(state); // Re-trigger fade-in animation
+                    // Special actions for specific pages
+                    if (state === states.page6) createStars(); // Create stars when page 6 is shown
+                } else {
+                    state.classList.add('hidden'); // Hide other states
+                }
+            });
+        }
+        // Helper to reset fade-in animation class
+        function resetPage(element) {
+            element.classList.remove('fade-in-slow');
+            // Force reflow to ensure animation restarts
+            void element.offsetWidth;
+            requestAnimationFrame(() => {
+                element.classList.add('fade-in-slow');
+            });
+        }
+
+        // Handles clicks on the "No" button
+        function handleNoClick() {
+            console.log("No button clicked! Count:", noClickCount + 1);
+            noClickCount++;
+
+            // Always increase Yes button size on No click
+            yesButtonScale += 0.2;
+            yesButton.style.transform = `scale(${yesButtonScale})`;
+
+            if (noClickCount === 1) {
+                // First "No" click: Change message, START the moving behavior
+                questionText.textContent = 'Please you can think about it.. ??';
+                // Add the event listener that triggers movement on hover
+                noButton.addEventListener('mouseover', moveNoButton);
+                console.log("Mouseover listener added to No button.");
+                // Move it once immediately too, just to show it's active
+                moveNoButton();
+            } else {
+                // Subsequent "No" clicks: Keep moving it if they manage to click
+                console.log("Subsequent No click - moving button again.");
+                moveNoButton();
+            }
+        }
+
+        // Moves the "No" button to a random position on the screen
+        function moveNoButton() {
+            console.log("moveNoButton called"); // For debugging
+             // Ensure the button has the 'moving' class for fixed positioning
+            if (!noButton.classList.contains('moving')) {
+                 noButton.classList.add('moving');
+                 console.log("Added 'moving' class");
+            }
+            // Get viewport dimensions for positioning boundaries
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            // Get button dimensions to prevent it going off-screen
+            const buttonRect = noButton.getBoundingClientRect();
+
+            // Calculate maximum possible top and left positions within the viewport
+            const maxTop = viewportHeight - buttonRect.height - 20; // 20px buffer
+            const maxLeft = viewportWidth - buttonRect.width - 20;  // 20px buffer
+
+            // Generate random positions
+            let newTop = Math.random() * maxTop;
+            let newLeft = Math.random() * maxLeft;
+
+            // Simple Collision Check with Yes button to avoid overlap
+            const yesRect = yesButton.getBoundingClientRect(); // Get Yes button position
+            let attempts = 0;
+            const maxAttempts = 20; // Prevent infinite loops
+            while (attempts < maxAttempts &&
+                   newLeft < yesRect.right && newLeft + buttonRect.width > yesRect.left &&
+                   newTop < yesRect.bottom && newTop + buttonRect.height > yesRect.top) {
+                // Overlap detected, generate new positions
+                newTop = Math.random() * maxTop; newLeft = Math.random() * maxLeft;
+                attempts++;
+            }
+
+            // Apply new position using fixed positioning
+            noButton.style.top = `${newTop}px`;
+            noButton.style.left = `${newLeft}px`;
+             console.log(`Moved No button to: top=${newTop.toFixed(0)}px, left=${newLeft.toFixed(0)}px`);
+        }
+
+        // Creates floating hearts in the background
+        function createBgHearts() {
+             heartsBgContainer.innerHTML = ''; // Clear existing hearts
+             const heartCount = 30; // Number of hearts
+             for (let i = 0; i < heartCount; i++) {
+                 const heart = document.createElement('div');
+                 heart.classList.add('heart-bg');
+                 heart.textContent = ['??', '??', '??'][Math.floor(Math.random() * 3)]; // Use random heart emoji
+                 heart.style.left = `${Math.random() * 100}vw`; // Random horizontal start
+                 heart.style.top = `${Math.random() * 100}vh`; // Random vertical start
+                 heart.style.animationDelay = `${Math.random() * 8}s`; // Stagger animation
+                 heart.style.fontSize = `${10 + Math.random() * 20}px`; // Random size
+                 heartsBgContainer.appendChild(heart);
+             }
+        }
+
+        // Creates a confetti burst effect
+        function createConfetti() {
+             const confettiCount = 200;
+             const colors = ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4caf50', '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107', '#ff9800', '#ff5722'];
+             // Determine origin based on which state is visible (gift or final)
+             const originEl = states.final.classList.contains('hidden') ? states.gift : states.final;
+             const originRect = originEl.getBoundingClientRect();
+             const originX = originRect.left + originRect.width / 2;
+             const originY = originRect.top + originRect.height / 3;
+
+             for (let i = 0; i < confettiCount; i++) {
+                 const conf = document.createElement('div');
+                 conf.classList.add('confetti');
+                 // Set initial position, size, color, rotation
+                 conf.style.left = `${originX}px`; conf.style.top = `${originY}px`;
+                 conf.style.width = `${4 + Math.random() * 6}px`; conf.style.height = conf.style.width;
+                 conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                 conf.style.opacity = '1'; conf.style.transform = `rotate(${Math.random() * 360}deg)`;
+                 document.body.appendChild(conf); // Add to body for fixed positioning
+
+                 // Calculate animation parameters
+                 const angle = Math.random() * Math.PI * 2; const vel = 60 + Math.random() * 110;
+                 const grav = 0.9; let vx = Math.cos(angle) * vel; let vy = Math.sin(angle) * vel;
+                 let x = originX; let y = originY;
+                 let rot = parseFloat(conf.style.transform.replace('rotate(', '').replace('deg)', ''));
+                 const rotSpd = (Math.random() - 0.5) * 15;
+
+                 // Animation loop
+                 const fall = () => {
+                     vy -= grav; x += vx * 0.018; y -= vy * 0.018; rot += rotSpd; // Update physics
+                     conf.style.left = `${x}px`; conf.style.top = `${y}px`;
+                     conf.style.transform = `rotate(${rot}deg)`;
+                     conf.style.opacity = `${parseFloat(conf.style.opacity) - 0.008}`; // Fade out
+
+                     // Continue animation or remove element
+                     if (y < window.innerHeight + 60 && parseFloat(conf.style.opacity) > 0) {
+                         requestAnimationFrame(fall);
+                     } else {
+                         conf.remove();
+                     }
+                 };
+                 requestAnimationFrame(fall); // Start animation
+             }
+        }
+
+        // Changes the color of the interactive heart
+        function changeHeartColor() {
+             heartColorIndex = (heartColorIndex + 1) % heartColors.length;
+             interactiveHeart.style.color = heartColors[heartColorIndex];
+        }
+
+        // Creates twinkling stars in the specified container
+        function createStars() {
+             if (!starContainer) return; // Exit if container not found
+             starContainer.innerHTML = ''; // Clear existing stars
+             const starCount = 50; // Number of stars
+             for (let i = 0; i < starCount; i++) {
+                 const star = document.createElement('div');
+                 star.classList.add('star');
+                 star.textContent = '?'; // Star emoji
+                 star.style.left = `${Math.random() * 100}%`; // Random horizontal position
+                 star.style.top = `${Math.random() * 100}%`; // Random vertical position
+                 star.style.animationDelay = `${Math.random() * 3}s`; // Stagger animation start
+                 starContainer.appendChild(star);
+             }
+        }
+
+        // --- Event Listeners Setup ---
+        // Use DOMContentLoaded to ensure all elements are loaded before adding listeners
+        document.addEventListener('DOMContentLoaded', (event) => {
+            console.log("DOM fully loaded and parsed"); // For debugging
+
+            // Select buttons safely after DOM load
+            const yesBtn = document.getElementById('yes-button');
+            const noBtn = document.getElementById('no-button');
+            console.log("Buttons selected inside DOMContentLoaded:", { yesBtn, noBtn });
+
+            // Add listener for YES button
+            if (yesBtn) {
+                yesBtn.addEventListener('click', () => {
+                    console.log("Yes button clicked!");
+                    showState(states.gift); // Show gift state
+                    createBgHearts(); // Start background hearts
+                });
+                 console.log("Yes button listener added.");
+            } else { console.error("Could not find Yes button!"); }
+
+            // Add listener for NO button
+            if (noBtn) {
+                // Attach the click handler which manages the moving behavior
+                noBtn.addEventListener('click', handleNoClick);
+                console.log("No button click listener added.");
+            } else { console.error("Could not find No button!"); }
+
+            // Add listener for Gift Box click
+            if (giftBox) giftBox.addEventListener('click', () => { showState(states.final); createConfetti(); });
+
+            // Add listeners for Date Idea radio buttons (show/hide custom text area)
+            document.querySelectorAll('input[name="date_idea"]').forEach(radio => {
+                radio.addEventListener('change', () => {
+                    customIdeaText.classList.toggle('hidden', !customIdeaRadio.checked);
+                    if (!customIdeaRadio.checked) customIdeaText.value = ''; // Clear custom text if another option is chosen
+                });
+            });
+
+            // Add listener for WhatsApp button click
+            if (whatsappButton) whatsappButton.addEventListener('click', () => {
+                const dateVal = dateInput.value;
+                const timeVal = timeInput.value;
+                const ideaRadio = document.querySelector('input[name="date_idea"]:checked');
+                let ideaVal = '';
+                if (ideaRadio) { // Check if an option was selected
+                    ideaVal = ideaRadio.value === 'Custom' ? customIdeaText.value.trim() : ideaRadio.value;
+                }
+                // Validate inputs
+                if (!dateVal || !timeVal || !ideaVal) {
+                    whatsappError.classList.remove('hidden'); // Show error message
+                    return; // Stop execution
+                }
+                whatsappError.classList.add('hidden'); // Hide error message if validation passes
+
+                // Construct message and WhatsApp link
+                const msg = `Hey! Khushboo said YES! ??\n\nDate Suggestion:\nDate: ${dateVal}\nTime: ${timeVal}\nIdea: ${ideaVal}\n\nCan't wait! ??`;
+                const link = `https://wa.me/${YOUR_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+
+                // Open WhatsApp
+                window.open(link, '_blank');
+
+                // Transition to the next page
+                showState(states.page1);
+            });
+
+            // Add listeners for page navigation buttons
+            if (gotoPage2Button) gotoPage2Button.addEventListener('click', () => showState(states.page2));
+            if (gotoPage3Button) gotoPage3Button.addEventListener('click', () => showState(states.page3));
+            if (gotoPage4Button) gotoPage4Button.addEventListener('click', () => showState(states.page4));
+            if (gotoPage5Button) gotoPage5Button.addEventListener('click', () => showState(states.page5));
+            if (gotoPage6Button) gotoPage6Button.addEventListener('click', () => showState(states.page6));
+            if (gotoPage7Button) gotoPage7Button.addEventListener('click', () => showState(states.page7));
+
+            // Initialize Background Hearts on page load
+            createBgHearts();
+        });
+
+    </script>
+</body>
+</html>
