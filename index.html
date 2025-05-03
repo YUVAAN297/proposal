@@ -36,19 +36,23 @@
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
         .fade-in-slow { animation: fadeInAnimation 1.2s ease-in forwards; opacity: 0; }
         @keyframes fadeInAnimation { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        .action-button { padding: 12px 24px; /* Slightly less padding */ font-size: 0.9rem; /* Smaller base font */ border-radius: 50px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: inline-block; margin-top: 15px; min-width: 140px; /* Smaller min-width */ border: none; }
-        @media (min-width: 640px) { /* sm breakpoint */
-             .action-button { padding: 12px 28px; font-size: 1rem; min-width: 160px; }
-        }
+        .action-button { padding: 12px 24px; font-size: 0.9rem; border-radius: 50px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: inline-block; margin-top: 15px; min-width: 140px; border: none; }
+        @media (min-width: 640px) { .action-button { padding: 12px 28px; font-size: 1rem; min-width: 160px; } }
         .action-button:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
         .action-button:disabled { opacity: 0.7; cursor: not-allowed; background-image: none; background-color: #9ca3af; }
         .action-button-small { padding: 10px 20px; font-size: 0.9rem; min-width: 120px; }
 
         /* Main container adjustments */
-        #main-container { width: 100%; max-width: 720px; margin: auto; padding: 1.5rem; /* Adjusted padding */ background-color: rgba(255, 255, 255, 0.92); border-radius: 1.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        @media (min-width: 640px) { /* sm breakpoint */
-             #main-container { padding: 2rem 1.5rem; }
+        #main-container {
+            width: 100%;
+            max-width: 600px; /* Reverted max-width */
+            margin: auto;
+            padding: 1.5rem; /* Adjusted padding */
+            background-color: rgba(255, 255, 255, 0.92);
+            border-radius: 1.5rem; /* Tailwind rounded-2xl */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
+        @media (min-width: 640px) { #main-container { padding: 2rem 1.5rem; } }
         .content-container { text-align: center; width: 100%; padding: 0; }
         .content-container > *:not(:last-child) { margin-bottom: 1.5rem; }
 
@@ -77,7 +81,7 @@
         #clickable-heart { position: absolute; font-size: 3rem; color: red; cursor: pointer; transition: top 0.1s, left 0.1s; user-select: none; }
         #tarot-result { background-color: #ede9fe; border: 1px solid #c4b5fd; border-radius: 10px; padding: 1rem; margin-top: 1.5rem; font-style: italic; color: #5b21b6; min-height: 3em; font-size: 1.1rem; }
         #love-letter-result { background-color: #fff1f2; border: 1px dashed #fda4af; border-radius: 10px; padding: 1.5rem; margin-top: 1.5rem; font-family: 'Caveat', cursive; font-size: 1.6rem; line-height: 1.6; color: #be185d; text-align: left; white-space: pre-wrap; min-height: 100px; }
-        .letter-options { display: flex; flex-direction: column; sm:flex-direction: row; justify-content: center; gap: 1rem; sm:gap: 2rem; margin-top: 1rem; flex-wrap: wrap;} /* Stack options on small screens */
+        .letter-options { display: flex; flex-direction: column; sm:flex-direction: row; justify-content: center; gap: 1rem; sm:gap: 2rem; margin-top: 1rem; flex-wrap: wrap;}
         .letter-options div { text-align: left;}
         .letter-options label { font-size: 1rem; font-weight: bold; color: #4b5563; margin-bottom: 0.5rem; display: block;}
         .letter-options .radio-label { background-color: transparent; padding: 5px 0; }
@@ -108,11 +112,11 @@
         .prev:hover, .next:hover { background-color: rgba(0,0,0,0.8); }
 
         /* Music Controls */
-        #music-controls { position: fixed; bottom: 10px; left: 10px; right: 10px; z-index: 100; display: flex; justify-content: space-between; align-items: center; gap: 10px; pointer-events: none; /* Allow clicks only on buttons/slider */ }
-        #music-toggle { background-color: rgba(0,0,0,0.5); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: background-color 0.3s ease; pointer-events: auto; /* Enable clicks */ }
+        #music-controls { position: fixed; bottom: 10px; left: 10px; right: 10px; z-index: 100; display: flex; justify-content: space-between; align-items: center; gap: 10px; pointer-events: none; }
+        #music-toggle { background-color: rgba(0,0,0,0.5); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: background-color 0.3s ease; pointer-events: auto; }
         #music-toggle:hover { background-color: rgba(0,0,0,0.7); }
         #music-toggle svg { width: 20px; height: 20px; }
-        #volume-slider { -webkit-appearance: none; appearance: none; width: 100px; /* Adjust width */ height: 8px; background: rgba(255, 255, 255, 0.5); border-radius: 5px; outline: none; opacity: 0.7; transition: opacity .2s; cursor: pointer; pointer-events: auto; /* Enable clicks */ }
+        #volume-slider { -webkit-appearance: none; appearance: none; width: 100px; height: 8px; background: rgba(255, 255, 255, 0.5); border-radius: 5px; outline: none; opacity: 0.7; transition: opacity .2s; cursor: pointer; pointer-events: auto; }
         #volume-slider:hover { opacity: 1; }
         #volume-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 16px; height: 16px; background: #f472b6; border-radius: 50%; cursor: pointer; }
         #volume-slider::-moz-range-thumb { width: 16px; height: 16px; background: #f472b6; border-radius: 50%; cursor: pointer; border: none; }
@@ -127,37 +131,14 @@
         /* Failure Modal Styles */
         #failure-modal-overlay { position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.6); display: flex; justify-content: center; align-items: center; z-index: 1000; opacity: 0; transition: opacity 0.3s ease-out; pointer-events: none; }
         #failure-modal-overlay.visible { opacity: 1; pointer-events: auto; }
-        #failure-modal-content { background-color: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center; max-width: 90%; width: 350px; transform: scale(0.9); transition: transform 0.3s ease-out; border: 3px solid #dc2626; /* Red border */ }
+        #failure-modal-content { background-color: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center; max-width: 90%; width: 350px; transform: scale(0.9); transition: transform 0.3s ease-out; border: 3px solid #dc2626; }
         #failure-modal-overlay.visible #failure-modal-content { transform: scale(1); }
 
         /* Typewriter Effect */
-        .typewriter {
-            overflow: hidden; /* Ensures the content is not revealed until the animation */
-            border-right: .15em solid #ec4899; /* The cursor */
-            white-space: nowrap; /* Keeps the content on a single line */
-            margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-            letter-spacing: .1em; /* Adjust as needed */
-            animation:
-                typing 3.5s steps(40, end),
-                blink-caret .75s step-end infinite;
-        }
-        /* The typing effect */
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
-        }
-        /* The typewriter cursor effect */
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: #ec4899; }
-        }
-        /* Class to remove animation after completion */
-        .typing-done .typewriter-target {
-            border-right: none; /* Remove cursor */
-            white-space: normal; /* Allow text wrapping */
-            width: auto; /* Allow natural width */
-            animation: none; /* Stop animations */
-        }
+        .typewriter { overflow: hidden; border-right: .15em solid #ec4899; white-space: nowrap; margin: 0 auto; letter-spacing: .1em; animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite; }
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: #ec4899; } }
+        .typing-done .typewriter-target { border-right: none; white-space: normal; width: auto; animation: none; }
 
     </style>
 </head>
@@ -176,10 +157,7 @@
 
     <div id="main-container" class="relative z-10 rounded-2xl shadow-xl text-center mx-auto">
 
-        <div id="question-state" class="content-container">
-            <h1 id="question-text" class="text-3xl md:text-4xl lg:text-5xl font-bold text-pink-600 romantic-font typewriter-target"></h1>
-            <div id="button-container" class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 mt-6 relative min-h-[5rem]"> <button id="yes-button" class="action-button bg-green-500 hover:bg-green-600 text-white w-full sm:w-auto">Yes! 🥰</button> <button id="no-button" class="action-button bg-red-500 hover:bg-red-600 text-white w-full sm:w-auto">No 😟</button> </div>
-        </div>
+        <div id="question-state" class="content-container"> <h1 id="question-text" class="text-3xl md:text-4xl lg:text-5xl font-bold text-pink-600 romantic-font typewriter-target"></h1> <div id="button-container" class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 mt-6 relative min-h-[5rem]"> <button id="yes-button" class="action-button bg-green-500 hover:bg-green-600 text-white w-full sm:w-auto">Yes! 🥰</button> <button id="no-button" class="action-button bg-red-500 hover:bg-red-600 text-white w-full sm:w-auto">No 😟</button> </div> </div>
         <div id="eligibility-form-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-purple-600 romantic-font">Hold On! Eligibility Check Required! 🧐</h2> <p class="text-lg md:text-xl text-gray-700">To proceed, please confirm a few details...</p> <form id="eligibility-form" class="text-left max-w-md mx-auto space-y-4 mt-4"> <div> <label for="eligibility-name" class="form-label">Your Full Name:</label> <input type="text" id="eligibility-name" name="eligibility_name" required> </div> <div> <label for="eligibility-birthday" class="form-label">Date of Birth:</label> <input type="date" id="eligibility-birthday" name="eligibility_birthday" required> </div> <div> <label class="form-label">Height (Approx is fine!):</label> <div class="height-input-group"> <input type="number" id="eligibility-height-ft" name="eligibility_height_ft" placeholder="Feet" min="3" max="7" required> <span>ft</span> <input type="number" id="eligibility-height-in" name="eligibility_height_in" placeholder="Inches" min="0" max="11" required> <span>in</span> </div> </div> <div> <label for="eligibility-rating" class="form-label">Rate My Persistence (1=A little, 5=Impressive!):</label> <select id="eligibility-rating" name="eligibility_rating" required> <option value="" disabled selected>Select a rating...</option> <option value="1">1 ⭐</option> <option value="2">2 ⭐⭐</option> <option value="3">3 ⭐⭐⭐</option> <option value="4">4 ⭐⭐⭐⭐</option> <option value="5">5 ⭐⭐⭐⭐⭐ (Wow!)</option> </select> </div> <div> <label for="eligibility-fav-color" class="form-label">Favorite Color (Optional but appreciated!):</label> <input type="text" id="eligibility-fav-color" name="eligibility_fav_color" placeholder="e.g., Sky Blue, Sunshine Yellow"> </div> <div> <label class="form-label">Coffee or Tea Person?</label> <div class="flex space-x-4 justify-center mt-1"> <label class="radio-label flex-1"><input type="radio" name="eligibility_drink" value="Coffee" class="radio-input"> Coffee ☕</label> <label class="radio-label flex-1"><input type="radio" name="eligibility_drink" value="Tea" class="radio-input"> Tea 🍵</label> <label class="radio-label flex-1"><input type="radio" name="eligibility_drink" value="Both/Other" class="radio-input"> Both/Other</label> </div> </div> <button type="submit" id="submit-eligibility-button" class="action-button bg-blue-500 hover:bg-blue-600 text-white w-full"> Submit & Check Eligibility... 🤞 </button> <p id="eligibility-error" class="text-red-500 text-sm mt-2 hidden text-center">Oops! Please fill out all required fields accurately!</p> </form> </div>
         <div id="verifying-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-gray-700 romantic-font">Verifying Eligibility...</h2> <p class="text-lg md:text-xl text-gray-600">Running complex algorithms... checking star alignment...</p> <div class="loader"></div> <p class="text-sm text-gray-500">(This might take a moment... important stuff!)</p> </div>
         <div id="eligible-state" class="hidden fade-in-slow content-container"> <div class="text-6xl mb-4">🎉💯✅</div> <h2 class="text-3xl md:text-4xl font-bold text-green-600 romantic-font">Congratulations! Eligible!</h2> <p class="text-lg md:text-xl text-gray-700">You've met the (extremely high) standards required to proceed!</p> <p class="text-sm text-gray-500">(Phew! That was close 😉)</p> </div>
@@ -306,7 +284,7 @@
         let storedCustomInstruction = "";
         let currentSlideIndex = 0;
         let countdownIntervalId = null;
-        let typewriterTimeoutId = null; // To manage typewriter timeouts
+        let typewriterTimeoutId = null;
         const fortunes = [ "A surprise chocolate delivery is imminent! 🍫", "Prepare for maximum cuddles in the near future. 🤗", "Someone thinks you're incredibly cute (it's me!). 😉", "Adventure calls! A fun outing is on the horizon. 🚀", "This guy is planning to love you forever. 💍", "Your smile will brighten someone's day (mine!). ✨", "Expect a message that will make you happy very soon... 💞" ];
         const loveLetters = { funny_short: "Roses are red, violets are blue, I'm not great at poems, but I really like you! 😄", funny_long: "My dearest Khushboo,\n\nI tried writing a serious love letter, but honestly, thinking about you just makes me goofy and happy. It's like my brain turns into happy mush. Is that romantic? Probably not, but it's true! Looking forward to more happy mush moments with you.\n\nYours goofily,\nMe", romantic_short: "Khushboo, just thinking about you makes my day brighter. Can't wait to see you soon. ❤️", romantic_long: "Dearest Khushboo,\n\nEver since I met you, things just seem... better. Brighter. More fun. You have this amazing way about you that I can't get enough of. Thinking of you always brings a smile to my face, and I feel incredibly lucky that you said yes.\n\nWith all my affection,\nMe", cheesy_short: "Are you made of copper and tellurium? Because you're Cu-Te! 😉 See you soon!", cheesy_long: "To the amazing Khushboo,\n\nDo you have a map? Because I just keep getting lost in your eyes. Okay, okay, that was cheesy, but seriously, I'm so incredibly happy you said yes. You're the best!\n\nYours cheesily,\nMe" };
 
@@ -321,29 +299,18 @@
         // --- Typewriter Function ---
         function typewriterEffect(element, text, speed = 50, callback) {
             if (!element) return;
-            // Clear previous timeouts if any
-            if (typewriterTimeoutId) {
-                clearTimeout(typewriterTimeoutId);
-                typewriterTimeoutId = null;
-            }
-            element.textContent = ''; // Clear existing text
-            element.classList.remove('typing-done'); // Ensure animation can restart
-            element.classList.add('typewriter'); // Add class to start animation
+            if (typewriterTimeoutId) { clearTimeout(typewriterTimeoutId); typewriterTimeoutId = null; }
+            element.textContent = ''; element.classList.remove('typing-done'); element.classList.add('typewriter');
             let i = 0;
             function type() {
                 if (i < text.length) {
-                    element.textContent += text.charAt(i);
-                    i++;
+                    element.textContent += text.charAt(i); i++;
                     typewriterTimeoutId = setTimeout(type, speed);
                 } else {
-                    // Animation finished
-                    element.classList.remove('typewriter');
-                    element.classList.add('typing-done');
-                    typewriterTimeoutId = null; // Clear timeout ID
-                     if (callback) callback(); // Execute callback if provided
+                    element.classList.remove('typewriter'); element.classList.add('typing-done');
+                    typewriterTimeoutId = null; if (callback) callback();
                 }
-            }
-            type(); // Start typing
+            } type();
         }
 
 
@@ -360,11 +327,9 @@
                     if (state.id === 'voice-message-state') playVoiceMessageSound();
                     if (state.id === 'page4-state') startGame();
                     if (state.id === 'page6-state') createStars();
-                    if (state.id === 'page7-state') { // Start countdown and typewriter for final page
-                        playFinaleSound();
-                        startCountdownTimer(storedDate, storedTime);
-                        if (finalHeading) typewriterEffect(finalHeading, "See you soon, Khushboo!"); // Typewriter for final heading
-                    }
+                    if (state.id === 'page7-state') { playFinaleSound(); startCountdownTimer(storedDate, storedTime); if (finalHeading) typewriterEffect(finalHeading, "See you soon, Khushboo!"); }
+                    // Start typewriter for initial question
+                    if (state.id === 'question-state' && questionText) { typewriterEffect(questionText, "💖 Will you be my girlfriend Khushboo? 💖", 75); }
                 } else if (state && state.id !== 'failure-modal-overlay') {
                     state.classList.add('hidden');
                 }
@@ -436,7 +401,7 @@
             console.log("DOM fully loaded and parsed");
              // Initial typewriter effect for the question
              if(questionText) {
-                 typewriterEffect(questionText, "💖 Will you be my girlfriend Khushboo? 💖", 75); // Slightly slower speed
+                 typewriterEffect(questionText, "💖 Will you be my girlfriend Khushboo? 💖", 75);
              }
 
             // Select elements safely after DOM load
@@ -504,7 +469,7 @@
                         if (isNameMatch && isBdayMatch) {
                             console.log("Eligibility PASSED!"); playSuccessSound();
                             showState(states.eligible);
-                            setTimeout(() => { showState(states.welcomeAnimation); createConfetti(); }, 3000);
+                            setTimeout(() => { showState(states.welcomeAnimation); /* Confetti removed */ }, 3000);
                             setTimeout(() => { showState(states.gift); }, 7000); // Adjusted timing
                         } else {
                             console.log("Eligibility FAILED!"); playFailureSound();
