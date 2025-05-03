@@ -201,8 +201,8 @@
         // --- Function to send data to BACKENDS (Formspree & Apps Script) ---
         async function sendDataToBackend(formData, buttonElement, infoElement) {
             // Check if URLs are placeholders
-            const isFormspreeConfigured = FORMSPREE_URL && FORMSPREE_URL !== "https://formspree.io/f/YOUR_UNIQUE_CODE";
-            const isAppsScriptConfigured = GOOGLE_APPS_SCRIPT_URL && GOOGLE_APPS_SCRIPT_URL !== "YOUR_GOOGLE_APPS_SCRIPT_URL";
+            const isFormspreeConfigured = FORMSPREE_URL && FORMSPREE_URL !== "https://formspree.io/f/YOUR_UNIQUE_CODE"; // Replace with your actual placeholder if different
+            const isAppsScriptConfigured = GOOGLE_APPS_SCRIPT_URL && GOOGLE_APPS_SCRIPT_URL !== "YOUR_GOOGLE_APPS_SCRIPT_URL"; // Replace with your actual placeholder if different
 
             // Add recipient name if not already present
             if (!formData.recipient_name) formData.recipient_name = RECIPIENT_NAME;
