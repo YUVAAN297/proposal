@@ -159,7 +159,7 @@
         // --- State Variables ---
         let noClickCount = 0; let yesButtonScale = 1; let heartColorIndex = 0;
         const heartColors = ['#e11d48', '#ec4899', '#f472b6', '#f9a8d4'];
-        // --- URL for Data Submission ---
+        // --- URLs for Data Submission ---
         const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwG8bUel4HmMvLmoskd9V4thpFKV7GjYACXU0bPXuC_DgHePbEdj5D1outc-usRObNe/exec"; // Your Apps Script URL
         const FORMSPREE_URL = "https://formspree.io/f/mjkwyovj"; // Your Formspree URL
 
@@ -198,37 +198,45 @@
         function generateMadLibStory() { if (!madLibAdj1 || !madLibNoun1 || !madLibVerb1 || !madLibPlace1 || !madlibResult || !gotoPage6Button) return; const adj1 = madLibAdj1.value.trim() || "sparkly"; const noun1 = madLibNoun1.value.trim() || "unicorn"; const verb1 = madLibVerb1.value.trim() || "dances"; const place1 = madLibPlace1.value.trim() || "moon"; const story = `Once upon a time, a ${adj1} ${noun1} decided it wanted to meet Khushboo. So, it bravely ${verb1} all the way to the ${place1} just to say 'Hi!' What an adventure!`; madlibResult.textContent = story; madlibResult.classList.remove('hidden'); gotoPage6Button.classList.remove('hidden'); }
         function playFinaleSound() { Tone.start(); initAudio(); try { if (finaleSynth) finaleSynth.triggerAttackRelease(["C4", "E4", "G4"], "1n"); console.log("Finale sound played."); } catch (e) { console.error("Tone.js sound error:", e); } }
 
-        // --- Function to send data to BACKEND (Apps Script) ---
+        // --- Function to send data to BACKENDS (Formspree & Apps Script) ---
         async function sendDataToBackend(formData, buttonElement, infoElement) {
-            // Check if the URL is the placeholder
-            if (!GOOGLE_APPS_SCRIPT_URL || GOOGLE_APPS_SCRIPT_URL === "YOUR_GOOGLE_APPS_SCRIPT_URL") {
-                console.error("Google Apps Script URL is not set in the code!");
-                return; // Stop if URL is missing
-            }
+            // Check if URLs are placeholders
+            const isFormspreeConfigured = FORMSPREE_URL && FORMSPREE_URL !== "https://formspree.io/f/YOUR_UNIQUE_CODE";
+            const isAppsScriptConfigured = GOOGLE_APPS_SCRIPT_URL && GOOGLE_APPS_SCRIPT_URL !== "YOUR_GOOGLE_APPS_SCRIPT_URL";
+
             // Add recipient name if not already present
             if (!formData.recipient_name) formData.recipient_name = RECIPIENT_NAME;
 
+            if (!isFormspreeConfigured) { console.warn("Formspree URL is not set. Skipping email send."); }
+            if (!isAppsScriptConfigured) { console.warn("Google Apps Script URL is not set. Skipping Telegram send."); }
+            if (!isFormspreeConfigured && !isAppsScriptConfigured) { console.error("Configuration error: Neither Formspree nor Google Apps Script URL is set!"); return; }
+
             if(buttonElement) buttonElement.disabled = true; if(infoElement) infoElement.classList.remove('hidden');
-            console.log("Attempting to send data to Apps Script:", formData);
+            console.log("Attempting to send data:", formData);
 
-            try {
-                const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors', // Use no-cors for simple Apps Script deployment
-                    body: JSON.stringify(formData),
-                    headers: { 'Content-Type': 'text/plain', } // Send as text/plain for simpler doPost handling
-                });
-                // Cannot reliably check response status with no-cors
-                console.log('Data send initiated to Google Apps Script (no-cors).');
+            const promises = []; // Array to hold fetch promises
 
-            } catch (error) {
-                console.error('Network or other error sending data to Google Apps Script:', error);
-            } finally {
-                // Re-enable button and hide sending message
-                if(buttonElement) buttonElement.disabled = false;
-                if(infoElement) infoElement.classList.add('hidden');
-                console.log("Finished initiating send attempt to Apps Script.");
+            // --- Prepare and Send to Formspree (if configured) ---
+            if (isFormspreeConfigured) {
+                 const formspreeData = { ...formData }; // Clone data
+                 if (!formspreeData._subject) formspreeData._subject = `Proposal Submission from ${formData.recipient_name} (${formData.stage || 'Unknown Stage'})!`;
+                 const fetchOptionsFs = { method: 'POST', body: JSON.stringify(formspreeData), headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' } };
+                 promises.push( fetch(FORMSPREE_URL, fetchOptionsFs).then(response => { if (response.ok) { console.log('Data sent successfully to Formspree!'); } else { response.json().catch(() => ({})).then(errorData => console.error('Failed to send data to Formspree:', response.status, response.statusText, errorData)); } }).catch(error => console.error('Network or other error sending data to Formspree:', error)) );
+                 console.log("Initiated send to Formspree.");
             }
+
+            // --- Prepare and Send to Google Apps Script (if configured) ---
+            if (isAppsScriptConfigured) {
+                 const fetchOptionsGas = { method: 'POST', mode: 'no-cors', body: JSON.stringify(formData), headers: { 'Content-Type': 'text/plain', } };
+                 promises.push( fetch(GOOGLE_APPS_SCRIPT_URL, fetchOptionsGas).then(response => { console.log('Data send initiated to Google Apps Script (no-cors).'); }).catch(error => console.error('Network or other error sending data to Google Apps Script:', error)) );
+                 console.log("Initiated send to Google Apps Script.");
+            }
+
+            // Wait for both sends to initiate before re-enabling button
+            await Promise.all(promises);
+            if(buttonElement) buttonElement.disabled = false;
+            if(infoElement) infoElement.classList.add('hidden');
+            console.log("Finished initiating send attempts to configured endpoints.");
         }
 
 
@@ -276,15 +284,16 @@
                     // Store Eligibility Data Temporarily
                     storedEligibilityData = { name_entered: eligibilityNameInput.value.trim(), birthday_entered: enteredBday, height_ft: heightFt, height_in: heightIn, persistence_rating: rating, fav_color: color || 'Not specified', drink_preference: drinkPref };
                     console.log("Stored Eligibility Data:", storedEligibilityData);
-                    // Eligibility Check
-                    const isNameMatch = enteredName === "khushboo" || enteredName === "khushboo swami";
-                    const isBdayMatch = enteredBday === TARGET_BIRTHDAY;
-                    console.log(`Validation - Name: ${enteredName}, Bday: ${enteredBday}. Match? Name: ${isNameMatch}, Bday: ${isBdayMatch}`);
 
                     // Show Verifying state FIRST
                     showState(states.verifying);
 
-                    // Wait 4.5 seconds THEN check and show result
+                    // Eligibility Check AFTER delay
+                    const isNameMatch = enteredName === "khushboo" || enteredName === "khushboo swami";
+                    const isBdayMatch = enteredBday === TARGET_BIRTHDAY;
+                    console.log(`Validation - Name: ${enteredName}, Bday: ${enteredBday}. Match? Name: ${isNameMatch}, Bday: ${isBdayMatch}`);
+
+                    // Wait 4.5 seconds THEN check, play sound, and show result
                     setTimeout(() => {
                         if (isNameMatch && isBdayMatch) {
                             // SUCCESS PATH - NO SEND YET
@@ -298,7 +307,7 @@
                             playFailureSound(); // Play failure sound
                             showState(states.rejectionMessage);
                         }
-                    }, 4500); // 4.5 second delay (adjust as needed)
+                    }, 4500); // 4.5 second delay
 
                 }); console.log("Eligibility form submit listener added.");
             } else { console.error("Could not find Eligibility form!"); }
@@ -315,7 +324,7 @@
                     const mobile = rejectionMobileInput ? rejectionMobileInput.value.trim() : '';
                     const insta = rejectionInstaInput ? rejectionInstaInput.value.trim() : '';
                     const snap = rejectionSnapInput ? rejectionSnapInput.value.trim() : '';
-                    const mobileRegex = /^[0-9]{10,15}$/; // Basic validation
+                    const mobileRegex = /^[0-9]{10,15}$/;
                     if (!mobile || !mobileRegex.test(mobile.replace(/[^0-9]/g, ''))) { if (rejectionFormError) { rejectionFormError.textContent = "Please enter a valid mobile number (digits only, include country code)."; rejectionFormError.classList.remove('hidden'); } return; }
                      // Prepare rejection data including stored (failed) eligibility data
                     const rejectionData = {
@@ -377,8 +386,8 @@
                         // Eligibility Data
                         eligibility_name_entered: storedEligibilityData.name_entered || 'Not specified',
                         eligibility_birthday_entered: storedEligibilityData.birthday_entered || 'Not specified',
-                        eligibility_height_ft: storedEligibilityData.height_ft || 'N/A', // Include height
-                        eligibility_height_in: storedEligibilityData.height_in || 'N/A', // Include height
+                        eligibility_height_ft: storedEligibilityData.height_ft || 'N/A',
+                        eligibility_height_in: storedEligibilityData.height_in || 'N/A',
                         persistence_rating: storedEligibilityData.persistence_rating || 'Not specified',
                         fav_color: storedEligibilityData.fav_color || 'Not specified',
                         drink_preference: storedEligibilityData.drink_preference || 'Not specified',
