@@ -49,7 +49,7 @@
         .content-container > *:not(:last-child) { margin-bottom: 1.5rem; }
 
         /* Input styling */
-        input[type="date"], input[type="time"], textarea, input[type="text"], input[type="tel"], input[type="number"], select { border: 1px solid #f472b6; padding: 10px 14px; border-radius: 10px; background-color: white; margin-top: 5px; width: 100%; font-size: 1rem; box-sizing: border-box; }
+        input[type="date"], input[type="time"], textarea, input[type="text"], input[type="tel"], input[type="number"], input[type="password"], select { border: 1px solid #f472b6; padding: 10px 14px; border-radius: 10px; background-color: white; margin-top: 5px; width: 100%; font-size: 1rem; box-sizing: border-box; }
         textarea { resize: vertical; min-height: 70px; }
         input[type="date"], input[type="time"], select { cursor: pointer; }
         input:focus, textarea:focus, select:focus { outline: none; box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.3); }
@@ -156,6 +156,7 @@
         <div id="rejection-message-state" class="hidden fade-in-slow content-container"> <div class="text-6xl mb-4">🤔🚫❓</div> <h2 class="text-2xl md:text-3xl font-bold text-red-600 romantic-font">Eligibility Check Failed...</h2> <p class="text-lg md:text-xl text-gray-700">You are not the girl I am looking for. Thank you for your shown interest.</p> <p class="text-md md:text-lg text-gray-600">If in future I think about it we can think of it..</p> <button id="goto-rejection-form-button" class="action-button bg-gray-500 hover:bg-gray-600 text-white">Continue...</button> </div>
         <div id="rejection-form-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-gray-700 romantic-font">For Future Reference...</h2> <p class="text-lg md:text-xl text-gray-600">If you'd like, please leave your contact details below.</p> <form id="rejection-form" class="text-left max-w-md mx-auto space-y-4 mt-4"> <div> <label for="rejection-mobile" class="form-label">Mobile Number (with country code, e.g., 91xxxxxxxxxx):</label> <input type="tel" id="rejection-mobile" name="rejection_mobile" pattern="[0-9]{10,15}" placeholder="e.g. 911234567890" required> </div> <div> <label for="rejection-insta" class="form-label">Instagram ID (Optional):</label> <input type="text" id="rejection-insta" name="rejection_insta" placeholder="@your_insta"> </div> <div> <label for="rejection-snap" class="form-label">Snapchat ID (Optional):</label> <input type="text" id="rejection-snap" name="rejection_snap" placeholder="your_snap_id"> </div> <button type="submit" id="submit-rejection-button" class="action-button bg-purple-500 hover:bg-purple-600 text-white w-full"> Submit Contact Info </button> <p id="rejection-form-error" class="text-red-500 text-sm mt-2 hidden text-center">Please enter a valid mobile number format.</p> <p id="rejection-sending-info" class="text-gray-500 text-sm mt-2 hidden text-center">Submitting...</p> </form> </div>
         <div id="rejection-thanks-state" class="hidden fade-in-slow content-container"> <div class="text-6xl mb-4">👍✉️</div> <h2 class="text-2xl md:text-3xl font-bold text-gray-700 romantic-font">Thank You!</h2> <p class="text-lg md:text-xl text-gray-600">Your contact information has been noted.</p> <p class="text-sm text-gray-500">(Maybe we'll connect in the future!)</p> </div>
+        <div id="secret-code-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-purple-700 romantic-font">🔒 PRIVATE AREA ACCESS 🔒</h2> <p class="text-lg md:text-xl text-gray-700">Please enter the secret code to continue:</p> <form id="secret-code-form" class="max-w-xs mx-auto mt-4"> <input type="password" id="secret-code-input" name="secret_code" class="text-center tracking-widest" required> <button type="submit" id="submit-secret-code-button" class="action-button bg-purple-600 hover:bg-purple-700 text-white w-full"> Unlock ✨ </button> <p id="secret-code-error" class="text-red-500 text-sm mt-2 hidden">Incorrect code. Try again!</p> </form> </div>
         <div id="welcome-animation-state" class="hidden fade-in-slow content-container"> <h2 id="welcome-animation-text" class="text-3xl md:text-4xl lg:text-5xl font-bold text-pink-600 romantic-font"> Welcome back, [Name]! 🎉💖 </h2> </div>
         <div id="gift-state" class="hidden fade-in-slow content-container"> <h2 id="gift-greeting" class="text-2xl md:text-3xl lg:text-4xl font-bold text-pink-600 romantic-font">Okay, [Name], Now For Real... Click the Gift!</h2> <button id="gift-box" class="text-6xl md:text-8xl cursor-pointer animate-bounce">🎁</button> </div>
         <div id="memory-lane-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-rose-600 romantic-font">📸 Memory Lane 📸</h2> <p class="text-lg md:text-xl text-gray-700">Remember these moments?</p> <div class="slider-container"> <div class="slide active"> <img src="https://github.com/YUVAAN297/Made-for-khushboo/blob/main/Farewell.jpeg?raw=true" alt="Memory 1" onerror="this.src='https://placehold.co/400x300/cccccc/ffffff?text=Image+1+Error'; this.alt='Image failed to load'"> <div class="caption">Remember this farewell? 😄</div> </div> <div class="slide"> <img src="https://github.com/YUVAAN297/Made-for-khushboo/blob/main/scribble.jpeg?raw=true" alt="Memory 2" onerror="this.src='https://placehold.co/400x300/cccccc/ffffff?text=Image+2+Error'; this.alt='Image failed to load'"> <div class="caption">This scribble! 😂</div> </div> <a class="prev" onclick="changeSlide(-1)">&#10094;</a> <a class="next" onclick="changeSlide(1)">&#10095;</a> </div> <button id="goto-final-state-button" class="action-button bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white"> Okay, Let's Plan the Date! 📅 </button> </div>
@@ -166,18 +167,9 @@
         <div id="page3-state" class="hidden fade-in-slow content-container"> <div class="text-6xl mb-4 animate-bounce">😊</div> <h2 class="text-3xl md:text-4xl font-bold text-orange-500 romantic-font">Quick! Compliment Me Back!</h2> <p class="text-lg md:text-xl text-gray-700 handwritten-font">What's one nice thing you'd say about me?</p> <input type="text" id="compliment-input" placeholder="(Be nice! 😉)" class="mt-2"> <button id="compliment-next-button" class="action-button bg-cyan-500 hover:bg-cyan-600 text-white mt-4"> Send & Play Game! 🤔 </button> <p id="compliment-sending-info" class="text-gray-500 text-sm mt-2 hidden">Sending info...</p> </div>
         <div id="page4-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-lime-600 romantic-font">Quick! Click the Heart!</h2> <p class="text-lg md:text-xl text-gray-700 mt-4">You have 10 seconds... Go!</p> <div id="page4-game-area"> <span id="clickable-heart" style="display: none;">💖</span> </div> <p class="mt-2 text-lg">Score: <span id="game-score">0</span> | Time Left: <span id="game-time">10</span>s</p> <p id="game-message" class="text-pink-600 font-bold mt-2"></p> <button id="goto-tarot-button-from-game" class="action-button bg-yellow-500 hover:bg-yellow-600 text-white block mx-auto mt-6 hidden">What's My Fortune? 🔮</button> </div>
         <div id="tarot-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-purple-700 romantic-font">🔮 Valentine Tarot 🔮</h2> <p class="text-lg md:text-xl text-gray-700">Let's see what the future holds for us...</p> <button id="reveal-fortune-button" class="action-button bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-white"> Reveal My Love Fortune! </button> <p id="tarot-result" class="text-gray-800 text-lg italic mt-4 p-3 bg-purple-100 rounded-lg hidden"></p> <button id="goto-love-letter-button" class="action-button bg-red-500 hover:bg-red-600 text-white hidden">A Letter For You...</button> </div>
-        <div id="love-letter-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-rose-700 romantic-font">📝 A Little Note... 📝</h2> <p class="text-lg md:text-xl text-gray-700">How should I write it?</p> <div class="letter-options"> <div> <label>Mood:</label> <label class="radio-label"><input type="radio" name="letter_mood" value="funny" class="radio-input" checked> Funny 😂</label> <label class="radio-label"><input type="radio" name="letter_mood" value="romantic" class="radio-input"> Romantic 🥰</label> <label class="radio-label"><input type="radio" name="letter_mood" value="cheesy" class="radio-input"> Cheesy 🧀</label> </div> <div> <label>Length:</label> <label class="radio-label"><input type="radio" name="letter_length" value="short" class="radio-input" checked> Short & Sweet</label> <label class="radio-label"><input type="radio" name="letter_length" value="long" class="radio-input"> Long & Deep</label> </div> </div> <button id="generate-letter-button" class="action-button bg-gradient-to-r from-rose-400 to-red-500 text-white mt-4"> Write My Letter! </button>
-            <p id="love-letter-result" class="text-gray-800 text-lg italic mt-4 p-3 bg-pink-100 rounded-lg hidden typewriter-target"></p>
-            <button id="goto-page6-button-from-letter" class="action-button bg-emerald-500 hover:bg-emerald-600 text-white hidden">Almost Done!</button>
-        </div>
+        <div id="love-letter-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-rose-700 romantic-font">📝 A Little Note... 📝</h2> <p class="text-lg md:text-xl text-gray-700">How should I write it?</p> <div class="letter-options"> <div> <label>Mood:</label> <label class="radio-label"><input type="radio" name="letter_mood" value="funny" class="radio-input" checked> Funny 😂</label> <label class="radio-label"><input type="radio" name="letter_mood" value="romantic" class="radio-input"> Romantic 🥰</label> <label class="radio-label"><input type="radio" name="letter_mood" value="cheesy" class="radio-input"> Cheesy 🧀</label> </div> <div> <label>Length:</label> <label class="radio-label"><input type="radio" name="letter_length" value="short" class="radio-input" checked> Short & Sweet</label> <label class="radio-label"><input type="radio" name="letter_length" value="long" class="radio-input"> Long & Deep</label> </div> </div> <button id="generate-letter-button" class="action-button bg-gradient-to-r from-rose-400 to-red-500 text-white mt-4"> Write My Letter! </button> <p id="love-letter-result" class="text-gray-800 text-lg italic mt-4 p-3 bg-pink-100 rounded-lg hidden typewriter-target"></p> <button id="goto-page6-button-from-letter" class="action-button bg-emerald-500 hover:bg-emerald-600 text-white hidden">Almost Done!</button> </div>
         <div id="page6-state" class="hidden fade-in-slow content-container relative overflow-hidden min-h-[250px]" style="background: linear-gradient(to bottom, #1e3a8a, #3b82f6); border-radius: 15px; padding: 20px;"> <div id="star-container" class="absolute inset-0 pointer-events-none"></div> <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-yellow-300 romantic-font relative z-10">Feeling Lucky!</h2> <p class="text-lg md:text-xl text-gray-100 relative z-10 mb-4">On a scale of 1-5 stars, how happy am I right now?</p> <div class="rating-stars relative z-10" id="rating-stars"> <span data-value="1">☆</span><span data-value="2">☆</span><span data-value="3">☆</span><span data-value="4">☆</span><span data-value="5">☆</span> </div> <p class="text-yellow-300 text-sm mt-2 relative z-10">(Hint: It's definitely 5! ⭐⭐⭐⭐⭐)</p> <button id="goto-page7-button" class="action-button bg-emerald-500 hover:bg-emerald-600 text-white relative z-10 mt-6">The Grand Finale! 🏁</button> </div>
-        <div id="page7-state" class="hidden fade-in-slow content-container"> <div class="final-burst text-yellow-400 mb-4">🎉✨🥳</div>
-            <h2 id="final-heading" class="text-3xl md:text-4xl lg:text-5xl font-bold text-indigo-600 romantic-font typewriter-target"></h2>
-            <div id="countdown-timer" class="text-xl font-semibold text-pink-600 mt-4"></div>
-            <p class="text-lg md:text-xl text-gray-800">Counting down the moments until our date! Get ready for fun!</p>
-            <p class="text-md md:text-lg text-gray-600 mt-6 italic">I’m waiting for you. Happy Valentine’s, love.</p>
-            <div class="text-4xl mt-4 text-red-500">❤️💖❤️</div>
-        </div>
+        <div id="page7-state" class="hidden fade-in-slow content-container"> <div class="final-burst text-yellow-400 mb-4">🎉✨🥳</div> <h2 id="final-heading" class="text-3xl md:text-4xl lg:text-5xl font-bold text-indigo-600 romantic-font typewriter-target"></h2> <div id="countdown-timer" class="text-xl font-semibold text-pink-600 mt-4"></div> <p class="text-lg md:text-xl text-gray-800">Counting down the moments until our date! Get ready for fun!</p> <p class="text-md md:text-lg text-gray-600 mt-6 italic">I’m waiting for you. Happy Valentine’s, love.</p> <div class="text-4xl mt-4 text-red-500">❤️💖❤️</div> </div>
 
     </div>
 
@@ -191,7 +183,7 @@
 
     <script>
         // --- DOM Elements ---
-        const states = { question: document.getElementById('question-state'), eligibilityForm: document.getElementById('eligibility-form-state'), verifying: document.getElementById('verifying-state'), welcomeAnimation: document.getElementById('welcome-animation-state'), eligible: document.getElementById('eligible-state'), failurePopup: document.getElementById('failure-modal-overlay'), rejectionMessage: document.getElementById('rejection-message-state'), rejectionForm: document.getElementById('rejection-form-state'), rejectionThanks: document.getElementById('rejection-thanks-state'), gift: document.getElementById('gift-state'), memoryLane: document.getElementById('memory-lane-state'), final: document.getElementById('final-state'), page1: document.getElementById('page1-state'), page2: document.getElementById('page2-state'), voiceMessage: document.getElementById('voice-message-state'), page3: document.getElementById('page3-state'), page4: document.getElementById('page4-state'), tarot: document.getElementById('tarot-state'), loveLetter: document.getElementById('love-letter-state'), page6: document.getElementById('page6-state'), page7: document.getElementById('page7-state') };
+        const states = { question: document.getElementById('question-state'), eligibilityForm: document.getElementById('eligibility-form-state'), verifying: document.getElementById('verifying-state'), secretCode: document.getElementById('secret-code-state'), welcomeAnimation: document.getElementById('welcome-animation-state'), eligible: document.getElementById('eligible-state'), failurePopup: document.getElementById('failure-modal-overlay'), rejectionMessage: document.getElementById('rejection-message-state'), rejectionForm: document.getElementById('rejection-form-state'), rejectionThanks: document.getElementById('rejection-thanks-state'), gift: document.getElementById('gift-state'), memoryLane: document.getElementById('memory-lane-state'), final: document.getElementById('final-state'), page1: document.getElementById('page1-state'), page2: document.getElementById('page2-state'), voiceMessage: document.getElementById('voice-message-state'), page3: document.getElementById('page3-state'), page4: document.getElementById('page4-state'), tarot: document.getElementById('tarot-state'), loveLetter: document.getElementById('love-letter-state'), page6: document.getElementById('page6-state'), page7: document.getElementById('page7-state') };
         const failureModalOverlay = document.getElementById('failure-modal-overlay');
         const welcomeAnimationText = document.getElementById('welcome-animation-text');
         const questionText = document.getElementById('question-text');
@@ -209,6 +201,9 @@
         const eligibilityColorInput = document.getElementById('eligibility-fav-color');
         const submitEligibilityButton = document.getElementById('submit-eligibility-button');
         const eligibilityError = document.getElementById('eligibility-error');
+        const secretCodeForm = document.getElementById('secret-code-form');
+        const secretCodeInput = document.getElementById('secret-code-input');
+        const secretCodeError = document.getElementById('secret-code-error');
         const gotoRejectionFormButton = document.getElementById('goto-rejection-form-button');
         const rejectionFormEl = document.getElementById('rejection-form');
         const rejectionMobileInput = document.getElementById('rejection-mobile');
@@ -265,12 +260,13 @@
         const FORMSPREE_URL = "https://formspree.io/f/mjkwyovj"; // Your Formspree URL
         const RECIPIENT_NAME = "Khushboo"; // Default if localStorage fails
         const TARGET_BIRTHDAY = "2007-09-23";
+        let currentSecretCode = 1868; // Initial secret code
 
         let gameScore = 0; let gameTimerId = null; let gameTimeLeft = 10; let gameActive = false;
         let gameSynth = null; let finaleSynth = null;
         let successSynth = null; let failureSynth = null;
         let isMusicPlaying = false;
-        let musicWasPlayingBeforeVoiceNote = false; // Flag to remember music state
+        let musicWasPlayingBeforeVoiceNote = false;
         let storedEligibilityData = {};
         let storedDate = ""; let storedTime = ""; let storedIdea = "";
         let storedDateInstructions = [];
@@ -288,17 +284,9 @@
         function playSuccessSound() { /* ... keep existing playSuccessSound ... */ if (successSynth) { const now = Tone.now(); successSynth.triggerAttackRelease(["C5", "E5", "G5", "C6"], "8n", now); } }
         function playFailureSound() { /* ... keep existing playFailureSound ... */ if (failureSynth) { failureSynth.triggerAttackRelease("C3", "2n", Tone.now()); failureSynth.triggerAttackRelease("C#3", "2n", Tone.now() + 0.1); } }
         function playVoiceMessageSound() {
-            // Pause background music if it's playing
-            musicWasPlayingBeforeVoiceNote = isMusicPlaying; // Remember state
-            if (isMusicPlaying && backgroundAudioPlayer && !backgroundAudioPlayer.paused) {
-                 console.log("Pausing background music for voice note.");
-                 toggleBackgroundMusic(); // This will pause and update the icon AND set isMusicPlaying to false
-            }
-            // Play the voice message
-            if (voiceAudioPlayer) {
-                voiceAudioPlayer.currentTime = 0;
-                voiceAudioPlayer.play().catch(error => { console.error("Audio play failed:", error); });
-            } else { console.error("Voice audio player not found!"); }
+            musicWasPlayingBeforeVoiceNote = isMusicPlaying;
+            if (isMusicPlaying && backgroundAudioPlayer && !backgroundAudioPlayer.paused) { console.log("Pausing background music for voice note."); toggleBackgroundMusic(); }
+            if (voiceAudioPlayer) { voiceAudioPlayer.currentTime = 0; voiceAudioPlayer.play().catch(error => { console.error("Audio play failed:", error); }); } else { console.error("Voice audio player not found!"); }
         }
 
         // --- Typewriter Function ---
@@ -333,12 +321,8 @@
                     if (state.id === 'page4-state') startGame();
                     if (state.id === 'page6-state') createStars();
                     if (state.id === 'page7-state') { playFinaleSound(); startCountdownTimer(storedDate, storedTime); if (finalHeading) typewriterEffect(finalHeading, "See you soon, Khushboo!"); }
-                    if (state.id === 'question-state' && questionText) { typewriterEffect(questionText, "💖 Wanna Be My Girlfriend? 💖", 75); } // Generic question
-                    if (state.id === 'love-letter-state' && loveLetterResult) { // Reset love letter on show
-                        loveLetterResult.classList.add('hidden');
-                        if(generateLetterButton) generateLetterButton.disabled = false;
-                        if(gotoPage6ButtonFromLetter) gotoPage6ButtonFromLetter.classList.add('hidden');
-                    }
+                    if (state.id === 'question-state' && questionText) { typewriterEffect(questionText, "💖 Wanna Be My Girlfriend? 💖", 75); }
+                    if (state.id === 'love-letter-state' && loveLetterResult) { loveLetterResult.classList.add('hidden'); if(generateLetterButton) generateLetterButton.disabled = false; if(gotoPage6ButtonFromLetter) gotoPage6ButtonFromLetter.classList.add('hidden'); }
                 } else if (state && state.id !== 'failure-modal-overlay') {
                     state.classList.add('hidden');
                 }
@@ -411,6 +395,7 @@
             const noBtn = document.getElementById('no-button');
             const giftBtn = document.getElementById('gift-box');
             const submitEligibilityBtn = document.getElementById('submit-eligibility-button');
+            const secretCodeFormEl = document.getElementById('secret-code-form'); // Secret code form
             const gotoRejectionFormBtn = document.getElementById('goto-rejection-form-button');
             const rejectionFormEl = document.getElementById('rejection-form');
             const submitRejectionBtn = document.getElementById('submit-rejection-button');
@@ -470,9 +455,10 @@
                     setTimeout(() => { // Wait THEN check
                         if (isNameMatch && isBdayMatch) {
                             console.log("Eligibility PASSED!"); playSuccessSound();
-                            showState(states.eligible); // Show eligible message FIRST
-                            setTimeout(() => { showState(states.welcomeAnimation); /* Confetti removed */ }, 3000); // THEN show welcome animation after 3s
-                            setTimeout(() => { showState(states.gift); }, 7000); // THEN show gift after welcome (3s + 4s animation)
+                            currentSecretCode = 1868; // Reset secret code on successful eligibility
+                            if(secretCodeInput) secretCodeInput.value = ''; // Clear previous attempts
+                            if(secretCodeError) secretCodeError.classList.add('hidden');
+                            showState(states.secretCode); // Show secret code page
                         } else {
                             console.log("Eligibility FAILED!"); playFailureSound();
                             if (failureModalOverlay) failureModalOverlay.classList.add('visible');
@@ -481,6 +467,30 @@
                     }, 4500); // Wait time
                 }); console.log("Eligibility form submit listener added.");
             } else { console.error("Could not find Eligibility form!"); }
+
+             // --- Listener for Secret Code Form Submission ---
+             if (secretCodeFormEl) {
+                 secretCodeFormEl.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    console.log("Secret code submitted.");
+                    if(secretCodeError) secretCodeError.classList.add('hidden');
+                    const enteredCode = secretCodeInput ? secretCodeInput.value.trim() : '';
+
+                    if (enteredCode === String(currentSecretCode)) { // Compare as strings
+                        console.log("Secret code CORRECT!");
+                        // Proceed to the welcome animation flow
+                        showState(states.welcomeAnimation);
+                        setTimeout(() => { showState(states.gift); createConfetti(); }, 4000); // Show gift after welcome animation
+                    } else {
+                        console.log("Secret code INCORRECT!");
+                        currentSecretCode++; // Increment the expected code
+                        console.log("Secret code incremented to:", currentSecretCode);
+                        if(secretCodeError) secretCodeError.classList.remove('hidden'); // Show error
+                        if(secretCodeInput) secretCodeInput.value = ''; // Clear input
+                    }
+                 });
+                 console.log("Secret code form listener added.");
+             } else { console.error("Could not find Secret Code form!"); }
 
             // Listener for button on rejection message page
             if (gotoRejectionFormButton) { gotoRejectionFormButton.addEventListener('click', () => { showState(states.rejectionForm); }); console.log("Goto Rejection Form button listener added."); } else { console.error("Could not find Goto Rejection Form button!"); }
@@ -569,11 +579,7 @@
              if (voiceAudioPlayer) {
                  voiceAudioPlayer.addEventListener('ended', () => {
                      console.log("Voice note ended.");
-                     // Resume background music ONLY if it was playing before
-                     if (musicWasPlayingBeforeVoiceNote && backgroundAudioPlayer) {
-                         console.log("Resuming background music.");
-                         toggleBackgroundMusic(); // This will restart it and update icon
-                     }
+                     if (musicWasPlayingBeforeVoiceNote && backgroundAudioPlayer) { console.log("Resuming background music."); toggleBackgroundMusic(); }
                  });
                  console.log("Voice note 'ended' listener added.");
              }
