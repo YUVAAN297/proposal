@@ -34,6 +34,9 @@
         .action-button { padding: 12px 28px; font-size: 1rem; border-radius: 50px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: inline-block; margin-top: 15px; min-width: 160px; border: none; }
         .action-button:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
         .action-button:disabled { opacity: 0.7; cursor: not-allowed; background-image: none; background-color: #9ca3af; }
+         /* Smaller button variant */
+        .action-button-small { padding: 10px 20px; font-size: 0.9rem; min-width: 120px; }
+
 
         /* Main container adjustments */
         #main-container { width: 100%; max-width: 600px; margin: auto; padding: 2rem 1.5rem; background-color: rgba(255, 255, 255, 0.92); border-radius: 1.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
@@ -61,11 +64,7 @@
         #voice-message-player { background-color: #fce7f3; border: 1px solid #fbcfe8; border-radius: 12px; padding: 1rem 1.5rem; display: flex; align-items: center; gap: 1rem; max-width: 350px; margin: 1rem auto; }
         #voice-message-player svg { flex-shrink: 0; color: #db2777; }
         #voice-message-text { font-style: italic; color: #4b5563; text-align: left; }
-        /* Hide default audio controls */
-        #voice-audio::-webkit-media-controls-panel { display: none !important; -webkit-appearance: none; }
-        #voice-audio::-webkit-media-controls-play-button { display: none !important; -webkit-appearance: none; }
-        #voice-audio::-webkit-media-controls-start-playback-button { display: none !important; -webkit-appearance: none; }
-
+        #voice-audio::-webkit-media-controls-panel, #voice-audio::-webkit-media-controls-play-button, #voice-audio::-webkit-media-controls-start-playback-button { display: none !important; -webkit-appearance: none; }
 
         #page4-game-area { position: relative; height: 200px; background-color: rgba(255, 182, 193, 0.2); border-radius: 10px; margin-top: 1rem; border: 1px dashed #f472b6; overflow: hidden; }
         #clickable-heart { position: absolute; font-size: 3rem; color: red; cursor: pointer; transition: top 0.1s, left 0.1s; user-select: none; }
@@ -109,8 +108,12 @@
             </div>
              <audio id="voice-audio" src="xyz.mp3" preload="auto"></audio>
              <p class="text-sm text-gray-500 mt-2">(Sound should play automatically!)</p>
-            <button id="goto-page3-button" class="action-button bg-orange-500 hover:bg-orange-600 text-white">Okay, Got It! 👍</button>
+             <div class="flex flex-col sm:flex-row justify-center items-center sm:space-x-4 space-y-3 sm:space-y-0 mt-4">
+                 <button id="replay-audio-button" class="action-button action-button-small bg-gray-400 hover:bg-gray-500 text-white">Replay 🔁</button>
+                 <button id="goto-page3-button" class="action-button action-button-small bg-orange-500 hover:bg-orange-600 text-white">Okay, Got It! 👍</button>
+             </div>
         </div>
+
 
         <div id="page3-state" class="hidden fade-in-slow content-container"> <div class="text-6xl mb-4 animate-bounce">😊</div> <h2 class="text-3xl md:text-4xl font-bold text-orange-500 romantic-font">Quick! Compliment Me Back!</h2> <p class="text-gray-700 text-lg handwritten-font">What's one nice thing you'd say about me?</p> <input type="text" id="compliment-input" placeholder="(Be nice! 😉)" class="mt-2"> <button id="compliment-next-button" class="action-button bg-cyan-500 hover:bg-cyan-600 text-white mt-4"> Send & Play Game! 🤔 </button> <p id="compliment-sending-info" class="text-gray-500 text-sm mt-2 hidden">Sending info...</p> </div>
         <div id="page4-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-lime-600 romantic-font">Quick! Click the Heart!</h2> <p class="text-gray-700 text-lg mt-4">You have 10 seconds... Go!</p> <div id="page4-game-area"> <span id="clickable-heart" style="display: none;">💖</span> </div> <p class="mt-2">Score: <span id="game-score">0</span> | Time Left: <span id="game-time">10</span>s</p> <p id="game-message" class="text-pink-600 font-bold mt-2"></p> <button id="goto-page6-button-from-game" class="action-button bg-yellow-500 hover:bg-yellow-600 text-white block mx-auto mt-6 hidden">One Last Thought... 🤞</button> </div>
@@ -152,6 +155,7 @@
         const dateConfirmButton = document.getElementById('date-confirm-button');
         const dateError = document.getElementById('date-error');
         const voiceAudioPlayer = document.getElementById('voice-audio'); // Audio element
+        const replayAudioButton = document.getElementById('replay-audio-button'); // Replay Button
         const complimentInput = document.getElementById('compliment-input');
         const complimentNextButton = document.getElementById('compliment-next-button');
         const complimentSendingInfo = document.getElementById('compliment-sending-info');
@@ -183,7 +187,7 @@
         let gameScore = 0; let gameTimerId = null; let gameTimeLeft = 10; let gameActive = false;
         let gameSynth = null; let finaleSynth = null;
         let successSynth = null; let failureSynth = null;
-        // Removed voiceSynth, using HTML audio now
+        // Removed voiceSynth
         let storedEligibilityData = {};
         let storedDate = ""; let storedTime = ""; let storedIdea = "";
         let storedDateInstructions = [];
@@ -196,13 +200,11 @@
         // Play custom audio file
         function playVoiceMessageSound() {
              if (voiceAudioPlayer) {
+                 voiceAudioPlayer.currentTime = 0; // Rewind to start
                  voiceAudioPlayer.play().catch(error => {
                      console.error("Audio play failed:", error);
-                     // Autoplay might be blocked, user might need to interact first
                  });
-             } else {
-                 console.error("Voice audio player not found!");
-             }
+             } else { console.error("Voice audio player not found!"); }
         }
 
         function showState(stateToShow) { console.log("Showing state:", stateToShow ? stateToShow.id : 'null'); Object.values(states).forEach(state => { if (state && stateToShow && state.id === stateToShow.id) { state.classList.remove('hidden'); resetPage(state); if (state.id === 'voice-message-state') playVoiceMessageSound(); if (state.id === 'page4-state') startGame(); if (state.id === 'page6-state') createStars(); if (state.id === 'page7-state') playFinaleSound(); } else if (state) { state.classList.add('hidden'); } }); }
@@ -226,18 +228,13 @@
         async function sendDataToBackend(formData, buttonElement, infoElement) {
             const isFormspreeConfigured = FORMSPREE_URL && FORMSPREE_URL !== "https://formspree.io/f/YOUR_UNIQUE_CODE";
             const isAppsScriptConfigured = GOOGLE_APPS_SCRIPT_URL && GOOGLE_APPS_SCRIPT_URL !== "YOUR_GOOGLE_APPS_SCRIPT_URL";
-
             if (!formData.recipient_name) formData.recipient_name = RECIPIENT_NAME;
-
             if (!isFormspreeConfigured) { console.warn("Formspree URL is not set. Skipping email send."); }
             if (!isAppsScriptConfigured) { console.warn("Google Apps Script URL is not set. Skipping Telegram send."); }
             if (!isFormspreeConfigured && !isAppsScriptConfigured) { console.error("Configuration error: Neither Formspree nor Google Apps Script URL is set!"); return; }
-
             if(buttonElement) buttonElement.disabled = true; if(infoElement) infoElement.classList.remove('hidden');
             console.log("Attempting to send data:", formData);
-
             const promises = [];
-
             if (isFormspreeConfigured) {
                  const formspreeData = { ...formData };
                  if (!formspreeData._subject) formspreeData._subject = `Proposal Submission from ${formData.recipient_name} (${formData.stage || 'Unknown Stage'})!`;
@@ -250,7 +247,6 @@
                  promises.push( fetch(GOOGLE_APPS_SCRIPT_URL, fetchOptionsGas).then(response => { console.log('Data send initiated to Google Apps Script (no-cors).'); }).catch(error => console.error('Network or other error sending data to Google Apps Script:', error)) );
                  console.log("Initiated send to Google Apps Script.");
             }
-
             await Promise.all(promises);
             if(buttonElement) buttonElement.disabled = false;
             if(infoElement) infoElement.classList.add('hidden');
@@ -274,6 +270,7 @@
             // Removed Mad Libs button
             const clickableHeartBtn = document.getElementById('clickable-heart');
             const ratingStarsCont = document.getElementById('rating-stars');
+            const replayAudioBtn = document.getElementById('replay-audio-button'); // Replay button
             // Navigation buttons
             const page2Btn = document.getElementById('goto-page2-button');
             const gotoVoiceMessageBtn = document.getElementById('goto-voice-message-button'); // Renamed
@@ -429,6 +426,17 @@
             // Page 4 Game Listener
             if (clickableHeartBtn) { clickableHeartBtn.addEventListener('click', clickHeart); console.log("Clickable Heart listener added."); } else { console.error("Could not find Clickable Heart button!"); }
             // Removed Mad Libs listener
+
+            // --- Listener for Replay Audio Button ---
+            if (replayAudioButton) {
+                replayAudioButton.addEventListener('click', () => {
+                    console.log("Replay audio button clicked");
+                    playVoiceMessageSound(); // Call the same function to play audio
+                });
+                console.log("Replay audio listener added.");
+            } else { console.error("Could not find Replay Audio button!"); }
+
+
             // Navigation (remaining buttons)
             if (page2Btn) { page2Btn.addEventListener('click', () => showState(states.page2)); console.log("Goto Page 2 listener added."); } else { console.error("Could not find Goto Page 2 button!"); }
             // Updated listener for button on Page 2
