@@ -16,9 +16,14 @@
             font-family: 'Poppins', 'Arial', sans-serif;
             background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
             display: flex; justify-content: center; align-items: flex-start; /* Align top for scroll */
-            min-height: 100vh; padding: 2rem 1rem; box-sizing: border-box;
+            min-height: 100vh; padding: 1rem; /* Reduced padding for small screens */
+             box-sizing: border-box;
             overflow-y: auto; /* Ensure scrolling */
         }
+        @media (min-width: 640px) { /* sm breakpoint */
+             body { padding: 2rem; }
+        }
+
         .romantic-font { font-family: 'Pacifico', cursive; }
         .handwritten-font { font-family: 'Caveat', cursive; font-size: 1.75rem; line-height: 1.4; }
 
@@ -31,50 +36,56 @@
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
         .fade-in-slow { animation: fadeInAnimation 1.2s ease-in forwards; opacity: 0; }
         @keyframes fadeInAnimation { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        .action-button { padding: 12px 28px; font-size: 1rem; border-radius: 50px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: inline-block; margin-top: 15px; min-width: 160px; border: none; }
+        .action-button { padding: 12px 24px; /* Slightly less padding */ font-size: 0.9rem; /* Smaller base font */ border-radius: 50px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: inline-block; margin-top: 15px; min-width: 140px; /* Smaller min-width */ border: none; }
+        @media (min-width: 640px) { /* sm breakpoint */
+             .action-button { padding: 12px 28px; font-size: 1rem; min-width: 160px; }
+        }
         .action-button:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
         .action-button:disabled { opacity: 0.7; cursor: not-allowed; background-image: none; background-color: #9ca3af; }
         .action-button-small { padding: 10px 20px; font-size: 0.9rem; min-width: 120px; }
 
         /* Main container adjustments */
-        #main-container { width: 100%; max-width: 720px; margin: auto; padding: 2rem 1.5rem; background-color: rgba(255, 255, 255, 0.92); border-radius: 1.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        #main-container { width: 100%; max-width: 720px; margin: auto; padding: 1.5rem; /* Adjusted padding */ background-color: rgba(255, 255, 255, 0.92); border-radius: 1.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        @media (min-width: 640px) { /* sm breakpoint */
+             #main-container { padding: 2rem 1.5rem; }
+        }
         .content-container { text-align: center; width: 100%; padding: 0; }
         .content-container > *:not(:last-child) { margin-bottom: 1.5rem; }
 
         /* Input styling */
-        input[type="date"], input[type="time"], textarea, input[type="text"], input[type="tel"], input[type="number"], select { border: 1px solid #f472b6; padding: 10px 14px; border-radius: 10px; background-color: white; margin-top: 5px; width: 100%; font-size: 0.95rem; box-sizing: border-box; }
+        input[type="date"], input[type="time"], textarea, input[type="text"], input[type="tel"], input[type="number"], select { border: 1px solid #f472b6; padding: 10px 14px; border-radius: 10px; background-color: white; margin-top: 5px; width: 100%; font-size: 1rem; box-sizing: border-box; }
         textarea { resize: vertical; min-height: 70px; }
         input[type="date"], input[type="time"], select { cursor: pointer; }
         input:focus, textarea:focus, select:focus { outline: none; box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.3); }
-        .radio-label { display: block; margin-bottom: 10px; cursor: pointer; background-color: rgba(255,255,255,0.6); padding: 10px 15px; border-radius: 8px; transition: background-color 0.3s ease; border: 1px solid transparent; }
+        .radio-label { display: block; margin-bottom: 10px; cursor: pointer; background-color: rgba(255,255,255,0.6); padding: 10px 15px; border-radius: 8px; transition: background-color 0.3s ease; border: 1px solid transparent; font-size: 1rem; }
         .radio-label:has(input:checked) { background-color: rgba(255, 105, 180, 0.2); border-color: #f472b6; }
         .radio-input { margin-right: 10px; accent-color: #ec4899; transform: scale(1.1); }
-        .form-label { display: block; text-align: left; font-weight: bold; color: #4b5563; margin-bottom: 0.25rem; font-size: 0.9rem;}
-        .instruction-label { display: inline-flex; align-items: center; margin-right: 1rem; cursor: pointer; font-size: 0.9rem; color: #4b5563;}
+        .form-label { display: block; text-align: left; font-weight: bold; color: #4b5563; margin-bottom: 0.25rem; font-size: 1rem; }
+        .instruction-label { display: inline-flex; align-items: center; margin-right: 1rem; cursor: pointer; font-size: 1rem; color: #4b5563;}
         .instruction-checkbox { margin-right: 0.5rem; accent-color: #db2777; width: 1rem; height: 1rem;}
         .height-input-group { display: flex; gap: 0.5rem; align-items: flex-end; }
         .height-input-group input { width: auto; flex-grow: 1; }
-        .height-input-group span { padding-bottom: 10px; color: #4b5563; font-size: 0.9rem;}
+        .height-input-group span { padding-bottom: 10px; color: #4b5563; font-size: 1rem; }
 
         /* Page Specific Styles & Loading Spinner */
         #page2-state { background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, rgba(255,223,230,0.3) 70%); border-radius: 15px; padding: 20px; }
         #voice-message-player { background-color: #fce7f3; border: 1px solid #fbcfe8; border-radius: 12px; padding: 1rem 1.5rem; display: flex; align-items: center; gap: 1rem; max-width: 350px; margin: 1rem auto; }
         #voice-message-player svg { flex-shrink: 0; color: #db2777; }
-        #voice-message-text { font-style: italic; color: #4b5563; text-align: left; }
+        #voice-message-text { font-style: italic; color: #4b5563; text-align: left; font-size: 1rem; }
         #voice-audio::-webkit-media-controls-panel, #voice-audio::-webkit-media-controls-play-button, #voice-audio::-webkit-media-controls-start-playback-button { display: none !important; -webkit-appearance: none; }
         #page4-game-area { position: relative; height: 200px; background-color: rgba(255, 182, 193, 0.2); border-radius: 10px; margin-top: 1rem; border: 1px dashed #f472b6; overflow: hidden; }
         #clickable-heart { position: absolute; font-size: 3rem; color: red; cursor: pointer; transition: top 0.1s, left 0.1s; user-select: none; }
-        #tarot-result { background-color: #ede9fe; border: 1px solid #c4b5fd; border-radius: 10px; padding: 1rem; margin-top: 1.5rem; font-style: italic; color: #5b21b6; min-height: 3em; }
-        #love-letter-result { background-color: #fff1f2; border: 1px dashed #fda4af; border-radius: 10px; padding: 1.5rem; margin-top: 1.5rem; font-family: 'Caveat', cursive; font-size: 1.5rem; line-height: 1.6; color: #be185d; text-align: left; white-space: pre-wrap; min-height: 100px; }
-        .letter-options { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; flex-wrap: wrap;}
+        #tarot-result { background-color: #ede9fe; border: 1px solid #c4b5fd; border-radius: 10px; padding: 1rem; margin-top: 1.5rem; font-style: italic; color: #5b21b6; min-height: 3em; font-size: 1.1rem; }
+        #love-letter-result { background-color: #fff1f2; border: 1px dashed #fda4af; border-radius: 10px; padding: 1.5rem; margin-top: 1.5rem; font-family: 'Caveat', cursive; font-size: 1.6rem; line-height: 1.6; color: #be185d; text-align: left; white-space: pre-wrap; min-height: 100px; }
+        .letter-options { display: flex; flex-direction: column; sm:flex-direction: row; justify-content: center; gap: 1rem; sm:gap: 2rem; margin-top: 1rem; flex-wrap: wrap;} /* Stack options on small screens */
         .letter-options div { text-align: left;}
-        .letter-options label { font-size: 0.9rem; font-weight: bold; color: #4b5563; margin-bottom: 0.5rem; display: block;}
+        .letter-options label { font-size: 1rem; font-weight: bold; color: #4b5563; margin-bottom: 0.5rem; display: block;}
         .letter-options .radio-label { background-color: transparent; padding: 5px 0; }
         #page6-state .star { position: absolute; color: #ffd700; font-size: 1rem; animation: twinkle 3s infinite ease-in-out; opacity: 0; }
         @keyframes twinkle { 0%, 100% { opacity: 0; transform: scale(0.5); } 50% { opacity: 1; transform: scale(1); } }
         #page7-state .final-burst { font-size: 4rem; animation: burst 1.5s ease-out forwards; display: inline-block; }
         @keyframes burst { 0% { transform: scale(0.3) rotate(-45deg); opacity: 0; } 60% { transform: scale(1.6) rotate(360deg); opacity: 1; } 100% { transform: scale(1.2) rotate(350deg); opacity: 1; } }
-        .rating-stars span { font-size: 2rem; cursor: pointer; color: #cbd5e1; transition: color 0.2s ease; }
+        .rating-stars span { font-size: 2.25rem; cursor: pointer; color: #cbd5e1; transition: color 0.2s ease; }
         .rating-stars span:hover, .rating-stars span.active { color: #facc15; }
         .checkmark-container { width: 80px; height: 80px; margin: 1.5rem auto; }
         .checkmark-circle { stroke-dasharray: 166; stroke-dashoffset: 166; stroke-width: 3; stroke-miterlimit: 10; stroke: #7ac142; fill: none; animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards; }
@@ -85,10 +96,10 @@
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         /* Memory Lane Slider Styles */
-        .slider-container { position: relative; overflow: hidden; width: 100%; max-width: 400px; margin: 1rem auto; border-radius: 15px; background-color: #fdf2f8; padding: 1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .slider-container { position: relative; overflow: hidden; width: 100%; max-width: 450px; margin: 1rem auto; border-radius: 15px; background-color: #fdf2f8; padding: 1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .slide { display: none; animation: fadeEffect 1s; }
         .slide img { display: block; width: 100%; height: auto; border-radius: 10px; margin-bottom: 0.75rem; }
-        .slide .caption { font-size: 0.9rem; color: #be185d; font-style: italic; min-height: 2.5em; }
+        .slide .caption { font-size: 1rem; color: #be185d; font-style: italic; min-height: 2.5em; }
         .slide.active { display: block; }
         @keyframes fadeEffect { from {opacity: .4} to {opacity: 1} }
         .prev, .next { cursor: pointer; position: absolute; top: 50%; width: auto; transform: translateY(-50%); padding: 12px; color: white; font-weight: bold; font-size: 18px; transition: 0.6s ease; border-radius: 0 3px 3px 0; user-select: none; background-color: rgba(0,0,0,0.4); z-index: 2; }
@@ -96,17 +107,22 @@
         .prev { left: 1rem; border-radius: 0 3px 3px 0; }
         .prev:hover, .next:hover { background-color: rgba(0,0,0,0.8); }
 
-        /* Music Toggle */
-        #music-toggle { position: fixed; bottom: 10px; right: 10px; z-index: 100; background-color: rgba(0,0,0,0.5); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: background-color 0.3s ease; }
+        /* Music Controls */
+        #music-controls { position: fixed; bottom: 10px; left: 10px; right: 10px; z-index: 100; display: flex; justify-content: space-between; align-items: center; gap: 10px; pointer-events: none; /* Allow clicks only on buttons/slider */ }
+        #music-toggle { background-color: rgba(0,0,0,0.5); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: background-color 0.3s ease; pointer-events: auto; /* Enable clicks */ }
         #music-toggle:hover { background-color: rgba(0,0,0,0.7); }
         #music-toggle svg { width: 20px; height: 20px; }
+        #volume-slider { -webkit-appearance: none; appearance: none; width: 100px; /* Adjust width */ height: 8px; background: rgba(255, 255, 255, 0.5); border-radius: 5px; outline: none; opacity: 0.7; transition: opacity .2s; cursor: pointer; pointer-events: auto; /* Enable clicks */ }
+        #volume-slider:hover { opacity: 1; }
+        #volume-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 16px; height: 16px; background: #f472b6; border-radius: 50%; cursor: pointer; }
+        #volume-slider::-moz-range-thumb { width: 16px; height: 16px; background: #f472b6; border-radius: 50%; cursor: pointer; border: none; }
 
         /* Welcome Animation */
         #welcome-animation-text { animation: zoomFadeIn 4s ease-out forwards; opacity: 0; transform: scale(0.5); }
         @keyframes zoomFadeIn { 0% { opacity: 0; transform: scale(0.5); } 100% { opacity: 1; transform: scale(1); } }
 
         /* Countdown Timer Style */
-        #countdown-timer { font-size: 1.1rem; font-weight: 600; color: #4a044e; margin-top: 1.5rem; background-color: rgba(255, 255, 255, 0.7); padding: 0.5rem 1rem; border-radius: 8px; display: inline-block; }
+        #countdown-timer { font-size: 1.25rem; font-weight: 600; color: #4a044e; margin-top: 1.5rem; background-color: rgba(255, 255, 255, 0.7); padding: 0.5rem 1rem; border-radius: 8px; display: inline-block; }
 
         /* Failure Modal Styles */
         #failure-modal-overlay { position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.6); display: flex; justify-content: center; align-items: center; z-index: 1000; opacity: 0; transition: opacity 0.3s ease-out; pointer-events: none; }
@@ -114,40 +130,84 @@
         #failure-modal-content { background-color: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center; max-width: 90%; width: 350px; transform: scale(0.9); transition: transform 0.3s ease-out; border: 3px solid #dc2626; /* Red border */ }
         #failure-modal-overlay.visible #failure-modal-content { transform: scale(1); }
 
+        /* Typewriter Effect */
+        .typewriter {
+            overflow: hidden; /* Ensures the content is not revealed until the animation */
+            border-right: .15em solid #ec4899; /* The cursor */
+            white-space: nowrap; /* Keeps the content on a single line */
+            margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+            letter-spacing: .1em; /* Adjust as needed */
+            animation:
+                typing 3.5s steps(40, end),
+                blink-caret .75s step-end infinite;
+        }
+        /* The typing effect */
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        /* The typewriter cursor effect */
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #ec4899; }
+        }
+        /* Class to remove animation after completion */
+        .typing-done .typewriter-target {
+            border-right: none; /* Remove cursor */
+            white-space: normal; /* Allow text wrapping */
+            width: auto; /* Allow natural width */
+            animation: none; /* Stop animations */
+        }
+
     </style>
 </head>
 <body>
     <div id="hearts-bg-container" class="fixed inset-0 z-0 overflow-hidden pointer-events-none"></div>
 
-    <button id="music-toggle" title="Toggle Music">
-        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class=""> <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" /> </svg>
-        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="hidden"> <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 011-1h1a1 1 0 110 2H8a1 1 0 01-1-1zm5 0a1 1 0 011-1h1a1 1 0 110 2h-1a1 1 0 01-1-1z" clip-rule="evenodd" /> </svg>
-    </button>
+    <div id="music-controls">
+        <input type="range" id="volume-slider" min="0" max="100" value="50" title="Volume">
+        <button id="music-toggle" title="Toggle Music">
+            <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class=""> <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" /> </svg>
+            <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="hidden"> <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 011-1h1a1 1 0 110 2H8a1 1 0 01-1-1zm5 0a1 1 0 011-1h1a1 1 0 110 2h-1a1 1 0 01-1-1z" clip-rule="evenodd" /> </svg>
+        </button>
+    </div>
      <audio id="background-audio" src="bg.mp3" loop preload="auto"></audio>
 
 
     <div id="main-container" class="relative z-10 rounded-2xl shadow-xl text-center mx-auto">
 
-        <div id="question-state" class="content-container"> <h1 id="question-text" class="text-2xl md:text-3xl font-bold text-pink-600 romantic-font">💖 Will you be my girlfriend Khushboo? 💖</h1> <div id="button-container" class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 mt-4 relative min-h-[5rem]"> <button id="yes-button" class="action-button bg-green-500 hover:bg-green-600 text-white w-full sm:w-auto">Yes! 🥰</button> <button id="no-button" class="action-button bg-red-500 hover:bg-red-600 text-white w-full sm:w-auto">No 😟</button> </div> </div>
-        <div id="eligibility-form-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-purple-600 romantic-font">Hold On! Eligibility Check Required! 🧐</h2> <p class="text-gray-700 text-lg">To proceed, please confirm a few details...</p> <form id="eligibility-form" class="text-left max-w-md mx-auto space-y-4 mt-4"> <div> <label for="eligibility-name" class="form-label">Your Full Name:</label> <input type="text" id="eligibility-name" name="eligibility_name" required> </div> <div> <label for="eligibility-birthday" class="form-label">Date of Birth:</label> <input type="date" id="eligibility-birthday" name="eligibility_birthday" required> </div> <div> <label class="form-label">Height (Approx is fine!):</label> <div class="height-input-group"> <input type="number" id="eligibility-height-ft" name="eligibility_height_ft" placeholder="Feet" min="3" max="7" required> <span>ft</span> <input type="number" id="eligibility-height-in" name="eligibility_height_in" placeholder="Inches" min="0" max="11" required> <span>in</span> </div> </div> <div> <label for="eligibility-rating" class="form-label">Rate My Persistence (1=A little, 5=Impressive!):</label> <select id="eligibility-rating" name="eligibility_rating" required> <option value="" disabled selected>Select a rating...</option> <option value="1">1 ⭐</option> <option value="2">2 ⭐⭐</option> <option value="3">3 ⭐⭐⭐</option> <option value="4">4 ⭐⭐⭐⭐</option> <option value="5">5 ⭐⭐⭐⭐⭐ (Wow!)</option> </select> </div> <div> <label for="eligibility-fav-color" class="form-label">Favorite Color (Optional but appreciated!):</label> <input type="text" id="eligibility-fav-color" name="eligibility_fav_color" placeholder="e.g., Sky Blue, Sunshine Yellow"> </div> <div> <label class="form-label">Coffee or Tea Person?</label> <div class="flex space-x-4 justify-center mt-1"> <label class="radio-label flex-1"><input type="radio" name="eligibility_drink" value="Coffee" class="radio-input"> Coffee ☕</label> <label class="radio-label flex-1"><input type="radio" name="eligibility_drink" value="Tea" class="radio-input"> Tea 🍵</label> <label class="radio-label flex-1"><input type="radio" name="eligibility_drink" value="Both/Other" class="radio-input"> Both/Other</label> </div> </div> <button type="submit" id="submit-eligibility-button" class="action-button bg-blue-500 hover:bg-blue-600 text-white w-full"> Submit & Check Eligibility... 🤞 </button> <p id="eligibility-error" class="text-red-500 text-sm mt-2 hidden text-center">Oops! Please fill out all required fields accurately!</p> </form> </div>
-        <div id="verifying-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-gray-700 romantic-font">Verifying Eligibility...</h2> <p class="text-gray-600 text-lg">Running complex algorithms... checking star alignment...</p> <div class="loader"></div> <p class="text-sm text-gray-500">(This might take a moment... important stuff!)</p> </div>
-        <div id="eligible-state" class="hidden fade-in-slow content-container"> <div class="text-6xl mb-4">🎉💯✅</div> <h2 class="text-3xl md:text-4xl font-bold text-green-600 romantic-font">Congratulations! Eligible!</h2> <p class="text-gray-700 text-lg">You've met the (extremely high) standards required to proceed!</p> <p class="text-sm text-gray-500">(Phew! That was close 😉)</p> </div>
-        <div id="rejection-message-state" class="hidden fade-in-slow content-container"> <div class="text-6xl mb-4">🤔🚫❓</div> <h2 class="text-2xl md:text-3xl font-bold text-red-600 romantic-font">Eligibility Check Failed...</h2> <p class="text-gray-700 text-lg">You are not the girl I am looking for. Thank you for your shown interest.</p> <p class="text-gray-600 text-md">If in future I think about it we can think of it..</p> <button id="goto-rejection-form-button" class="action-button bg-gray-500 hover:bg-gray-600 text-white">Continue...</button> </div>
-        <div id="rejection-form-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-gray-700 romantic-font">For Future Reference...</h2> <p class="text-gray-600 text-lg">If you'd like, please leave your contact details below.</p> <form id="rejection-form" class="text-left max-w-md mx-auto space-y-4 mt-4"> <div> <label for="rejection-mobile" class="form-label">Mobile Number (with country code, e.g., 91xxxxxxxxxx):</label> <input type="tel" id="rejection-mobile" name="rejection_mobile" pattern="[0-9]{10,15}" placeholder="e.g. 911234567890" required> </div> <div> <label for="rejection-insta" class="form-label">Instagram ID (Optional):</label> <input type="text" id="rejection-insta" name="rejection_insta" placeholder="@your_insta"> </div> <div> <label for="rejection-snap" class="form-label">Snapchat ID (Optional):</label> <input type="text" id="rejection-snap" name="rejection_snap" placeholder="your_snap_id"> </div> <button type="submit" id="submit-rejection-button" class="action-button bg-purple-500 hover:bg-purple-600 text-white w-full"> Submit Contact Info </button> <p id="rejection-form-error" class="text-red-500 text-sm mt-2 hidden text-center">Please enter a valid mobile number format.</p> <p id="rejection-sending-info" class="text-gray-500 text-sm mt-2 hidden text-center">Submitting...</p> </form> </div>
-        <div id="rejection-thanks-state" class="hidden fade-in-slow content-container"> <div class="text-6xl mb-4">👍✉️</div> <h2 class="text-2xl md:text-3xl font-bold text-gray-700 romantic-font">Thank You!</h2> <p class="text-gray-600 text-lg">Your contact information has been noted.</p> <p class="text-sm text-gray-500">(Maybe we'll connect in the future!)</p> </div>
-        <div id="welcome-animation-state" class="hidden fade-in-slow content-container"> <h2 id="welcome-animation-text" class="text-3xl md:text-4xl font-bold text-pink-600 romantic-font"> Welcome back, [Name]! 🎉💖 </h2> </div>
-        <div id="gift-state" class="hidden fade-in-slow content-container"> <h2 id="gift-greeting" class="text-2xl md:text-3xl font-bold text-pink-600 romantic-font">Okay, [Name], Now For Real... Click the Gift!</h2> <button id="gift-box" class="text-6xl md:text-8xl cursor-pointer animate-bounce">🎁</button> </div>
-        <div id="memory-lane-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-rose-600 romantic-font">📸 Memory Lane 📸</h2> <p class="text-gray-700 text-lg">Remember these moments?</p> <div class="slider-container"> <div class="slide active"> <img src="https://github.com/YUVAAN297/Made-for-khushboo/blob/main/Farewell.jpeg?raw=true" alt="Memory 1" onerror="this.src='https://placehold.co/400x300/cccccc/ffffff?text=Image+1+Error'; this.alt='Image failed to load'"> <div class="caption">Remember this farewell? 😄</div> </div> <div class="slide"> <img src="https://github.com/YUVAAN297/Made-for-khushboo/blob/main/scribble.jpeg?raw=true" alt="Memory 2" onerror="this.src='https://placehold.co/400x300/cccccc/ffffff?text=Image+2+Error'; this.alt='Image failed to load'"> <div class="caption">This scribble! 😂</div> </div> <a class="prev" onclick="changeSlide(-1)">&#10094;</a> <a class="next" onclick="changeSlide(1)">&#10095;</a> </div> <button id="goto-final-state-button" class="action-button bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white"> Okay, Let's Plan the Date! 📅 </button> </div>
-        <div id="final-state" class="hidden fade-in-slow content-container"> <h1 class="text-3xl md:text-4xl font-bold text-pink-600 romantic-font animate-pulse">Yay! You made me so happy! 🥰</h1> <p class="text-gray-800 text-lg">So... when and where for our first date? 😉</p> <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left"> <div><label for="date-input" class="block text-sm font-medium text-gray-700 mb-1">Pick a Date:</label><input type="date" id="date-input" name="date"></div> <div><label for="time-input" class="block text-sm font-medium text-gray-700 mb-1">Pick a Time:</label><input type="time" id="time-input" name="time"></div> </div> <div class="text-left mt-4"> <label class="block text-sm font-medium text-gray-700 mb-2">Date Idea:</label> <label class="radio-label"><input type="radio" name="date_idea" value="Coffee & Chat ☕" class="radio-input"> Coffee & Chat ☕</label> <label class="radio-label"><input type="radio" name="date_idea" value="Movie Night 🎬🍿" class="radio-input"> Movie Night 🎬🍿</label> <label class="radio-label"><input type="radio" name="date_idea" value="Dinner Date 🍽️✨" class="radio-input"> Dinner Date 🍽️✨</label> <label class="radio-label"><input type="radio" name="date_idea" value="Custom" class="radio-input" id="radio-custom"> Something else...</label> <textarea id="custom-idea-text" name="custom_idea" placeholder="Your amazing date idea..." class="mt-2 hidden"></textarea> </div> <div class="text-left mt-6 border-t border-pink-200 pt-4"> <p class="text-sm font-bold text-gray-600 mb-2">Optional Date Perks (Check any that apply! 😉):</p> <div class="flex flex-wrap justify-center gap-x-4 gap-y-2"> <label class="instruction-label"> <input type="checkbox" id="instruction-flowers" name="instruction_flowers" class="instruction-checkbox"> Bring flowers? 🌹 </label> <label class="instruction-label"> <input type="checkbox" id="instruction-chocolate" name="instruction_chocolate" class="instruction-checkbox"> Chocolate involved? 🍫 </label> <label class="instruction-label"> <input type="checkbox" id="instruction-punctual" name="instruction_punctual" class="instruction-checkbox"> Be on time! ⏰ </label> </div> <div class="mt-3"> <label for="custom-instruction-input" class="form-label text-sm text-gray-600">Any other requests/instructions?</label> <textarea id="custom-instruction-input" name="custom_instruction" placeholder="e.g., 'Pick me up', 'Wear something nice!'" rows="2"></textarea> </div> </div> <button id="date-confirm-button" class="action-button bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"> Got it, What's Next? ✨ </button> <p id="date-error" class="text-red-500 text-sm mt-2 hidden">Please select Date, Time, and a Date Idea (or write one!).</p> </div>
-        <div id="page1-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-purple-600 romantic-font">Okay, Date Info Noted! 📝</h2> <p class="text-gray-700 text-lg">Just a couple more things...</p> <button id="goto-page2-button" class="action-button bg-pink-500 hover:bg-pink-600 text-white">Continue... 🎉</button> </div>
-        <div id="page2-state" class="hidden fade-in-slow content-container" style="background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, rgba(255,223,230,0.3) 70%); border-radius: 15px; padding: 20px;"> <div id="interactive-heart" class="pulsing-heart mb-6" onclick="changeHeartColor()">❤️</div> <p class="text-gray-800 text-xl italic leading-relaxed">"Meeting you was like listening to a song for the first time and knowing it would be my favorite."</p> <p class="text-sm text-gray-600 mt-2">(Click the heart!)</p> <button id="goto-voice-message-button" class="action-button bg-teal-500 hover:bg-teal-600 text-white">Hear Something... 🎤</button> </div>
-        <div id="voice-message-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-indigo-600 romantic-font">Incoming Message...</h2> <div id="voice-message-player"> <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" /> </svg> <div id="voice-message-text">"Detecting cuteness... overload reached 💘"</div> </div> <audio id="voice-audio" src="xyz.mp3" preload="auto"></audio> <p class="text-sm text-gray-500 mt-2">(Sound should play automatically!)</p> <div class="flex flex-col sm:flex-row justify-center items-center sm:space-x-4 space-y-3 sm:space-y-0 mt-4"> <button id="replay-audio-button" class="action-button action-button-small bg-gray-400 hover:bg-gray-500 text-white">Replay 🔁</button> <button id="goto-page3-button" class="action-button action-button-small bg-orange-500 hover:bg-orange-600 text-white">Okay, Got It! 👍</button> </div> </div>
-        <div id="page3-state" class="hidden fade-in-slow content-container"> <div class="text-6xl mb-4 animate-bounce">😊</div> <h2 class="text-3xl md:text-4xl font-bold text-orange-500 romantic-font">Quick! Compliment Me Back!</h2> <p class="text-gray-700 text-lg handwritten-font">What's one nice thing you'd say about me?</p> <input type="text" id="compliment-input" placeholder="(Be nice! 😉)" class="mt-2"> <button id="compliment-next-button" class="action-button bg-cyan-500 hover:bg-cyan-600 text-white mt-4"> Send & Play Game! 🤔 </button> <p id="compliment-sending-info" class="text-gray-500 text-sm mt-2 hidden">Sending info...</p> </div>
-        <div id="page4-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-lime-600 romantic-font">Quick! Click the Heart!</h2> <p class="text-gray-700 text-lg mt-4">You have 10 seconds... Go!</p> <div id="page4-game-area"> <span id="clickable-heart" style="display: none;">💖</span> </div> <p class="mt-2">Score: <span id="game-score">0</span> | Time Left: <span id="game-time">10</span>s</p> <p id="game-message" class="text-pink-600 font-bold mt-2"></p> <button id="goto-tarot-button-from-game" class="action-button bg-yellow-500 hover:bg-yellow-600 text-white block mx-auto mt-6 hidden">What's My Fortune? 🔮</button> </div>
-        <div id="tarot-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-purple-700 romantic-font">🔮 Valentine Tarot 🔮</h2> <p class="text-gray-700 text-lg">Let's see what the future holds for us...</p> <button id="reveal-fortune-button" class="action-button bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-white"> Reveal My Love Fortune! </button> <p id="tarot-result" class="text-gray-800 text-lg italic mt-4 p-3 bg-purple-100 rounded-lg hidden"></p> <button id="goto-love-letter-button" class="action-button bg-red-500 hover:bg-red-600 text-white hidden">A Letter For You...</button> </div>
-        <div id="love-letter-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-rose-700 romantic-font">📝 A Little Note... 📝</h2> <p class="text-gray-700 text-lg">How should I write it?</p> <div class="letter-options"> <div> <label>Mood:</label> <label class="radio-label"><input type="radio" name="letter_mood" value="funny" class="radio-input" checked> Funny 😂</label> <label class="radio-label"><input type="radio" name="letter_mood" value="romantic" class="radio-input"> Romantic 🥰</label> <label class="radio-label"><input type="radio" name="letter_mood" value="cheesy" class="radio-input"> Cheesy 🧀</label> </div> <div> <label>Length:</label> <label class="radio-label"><input type="radio" name="letter_length" value="short" class="radio-input" checked> Short & Sweet</label> <label class="radio-label"><input type="radio" name="letter_length" value="long" class="radio-input"> Long & Deep</label> </div> </div> <button id="generate-letter-button" class="action-button bg-gradient-to-r from-rose-400 to-red-500 text-white mt-4"> Write My Letter! </button> <p id="love-letter-result" class="text-gray-800 text-lg italic mt-4 p-3 bg-pink-100 rounded-lg hidden"></p> <button id="goto-page6-button-from-letter" class="action-button bg-emerald-500 hover:bg-emerald-600 text-white hidden">Almost Done!</button> </div>
-        <div id="page6-state" class="hidden fade-in-slow content-container relative overflow-hidden min-h-[250px]" style="background: linear-gradient(to bottom, #1e3a8a, #3b82f6); border-radius: 15px; padding: 20px;"> <div id="star-container" class="absolute inset-0 pointer-events-none"></div> <h2 class="text-2xl md:text-3xl font-bold text-yellow-300 romantic-font relative z-10">Feeling Lucky!</h2> <p class="text-gray-100 text-lg relative z-10 mb-4">On a scale of 1-5 stars, how happy am I right now?</p> <div class="rating-stars relative z-10" id="rating-stars"> <span data-value="1">☆</span><span data-value="2">☆</span><span data-value="3">☆</span><span data-value="4">☆</span><span data-value="5">☆</span> </div> <p class="text-yellow-300 text-sm mt-2 relative z-10">(Hint: It's definitely 5! ⭐⭐⭐⭐⭐)</p> <button id="goto-page7-button" class="action-button bg-emerald-500 hover:bg-emerald-600 text-white relative z-10 mt-6">The Grand Finale! 🏁</button> </div>
-        <div id="page7-state" class="hidden fade-in-slow content-container"> <div class="final-burst text-yellow-400 mb-4">🎉✨🥳</div> <h2 class="text-3xl md:text-4xl font-bold text-indigo-600 romantic-font">See you soon, Khushboo!</h2> <div id="countdown-timer" class="text-xl font-semibold text-pink-600 mt-4"></div> <p class="text-gray-800 text-lg">Counting down the moments until our date! Get ready for fun!</p> <p class="text-gray-600 text-md mt-6 italic">I’m waiting for you. Happy Valentine’s, love.</p> <div class="text-4xl mt-4 text-red-500">❤️💖❤️</div> </div>
+        <div id="question-state" class="content-container">
+            <h1 id="question-text" class="text-3xl md:text-4xl lg:text-5xl font-bold text-pink-600 romantic-font typewriter-target"></h1>
+            <div id="button-container" class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 mt-6 relative min-h-[5rem]"> <button id="yes-button" class="action-button bg-green-500 hover:bg-green-600 text-white w-full sm:w-auto">Yes! 🥰</button> <button id="no-button" class="action-button bg-red-500 hover:bg-red-600 text-white w-full sm:w-auto">No 😟</button> </div>
+        </div>
+        <div id="eligibility-form-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-purple-600 romantic-font">Hold On! Eligibility Check Required! 🧐</h2> <p class="text-lg md:text-xl text-gray-700">To proceed, please confirm a few details...</p> <form id="eligibility-form" class="text-left max-w-md mx-auto space-y-4 mt-4"> <div> <label for="eligibility-name" class="form-label">Your Full Name:</label> <input type="text" id="eligibility-name" name="eligibility_name" required> </div> <div> <label for="eligibility-birthday" class="form-label">Date of Birth:</label> <input type="date" id="eligibility-birthday" name="eligibility_birthday" required> </div> <div> <label class="form-label">Height (Approx is fine!):</label> <div class="height-input-group"> <input type="number" id="eligibility-height-ft" name="eligibility_height_ft" placeholder="Feet" min="3" max="7" required> <span>ft</span> <input type="number" id="eligibility-height-in" name="eligibility_height_in" placeholder="Inches" min="0" max="11" required> <span>in</span> </div> </div> <div> <label for="eligibility-rating" class="form-label">Rate My Persistence (1=A little, 5=Impressive!):</label> <select id="eligibility-rating" name="eligibility_rating" required> <option value="" disabled selected>Select a rating...</option> <option value="1">1 ⭐</option> <option value="2">2 ⭐⭐</option> <option value="3">3 ⭐⭐⭐</option> <option value="4">4 ⭐⭐⭐⭐</option> <option value="5">5 ⭐⭐⭐⭐⭐ (Wow!)</option> </select> </div> <div> <label for="eligibility-fav-color" class="form-label">Favorite Color (Optional but appreciated!):</label> <input type="text" id="eligibility-fav-color" name="eligibility_fav_color" placeholder="e.g., Sky Blue, Sunshine Yellow"> </div> <div> <label class="form-label">Coffee or Tea Person?</label> <div class="flex space-x-4 justify-center mt-1"> <label class="radio-label flex-1"><input type="radio" name="eligibility_drink" value="Coffee" class="radio-input"> Coffee ☕</label> <label class="radio-label flex-1"><input type="radio" name="eligibility_drink" value="Tea" class="radio-input"> Tea 🍵</label> <label class="radio-label flex-1"><input type="radio" name="eligibility_drink" value="Both/Other" class="radio-input"> Both/Other</label> </div> </div> <button type="submit" id="submit-eligibility-button" class="action-button bg-blue-500 hover:bg-blue-600 text-white w-full"> Submit & Check Eligibility... 🤞 </button> <p id="eligibility-error" class="text-red-500 text-sm mt-2 hidden text-center">Oops! Please fill out all required fields accurately!</p> </form> </div>
+        <div id="verifying-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-gray-700 romantic-font">Verifying Eligibility...</h2> <p class="text-lg md:text-xl text-gray-600">Running complex algorithms... checking star alignment...</p> <div class="loader"></div> <p class="text-sm text-gray-500">(This might take a moment... important stuff!)</p> </div>
+        <div id="eligible-state" class="hidden fade-in-slow content-container"> <div class="text-6xl mb-4">🎉💯✅</div> <h2 class="text-3xl md:text-4xl font-bold text-green-600 romantic-font">Congratulations! Eligible!</h2> <p class="text-lg md:text-xl text-gray-700">You've met the (extremely high) standards required to proceed!</p> <p class="text-sm text-gray-500">(Phew! That was close 😉)</p> </div>
+        <div id="rejection-message-state" class="hidden fade-in-slow content-container"> <div class="text-6xl mb-4">🤔🚫❓</div> <h2 class="text-2xl md:text-3xl font-bold text-red-600 romantic-font">Eligibility Check Failed...</h2> <p class="text-lg md:text-xl text-gray-700">You are not the girl I am looking for. Thank you for your shown interest.</p> <p class="text-md md:text-lg text-gray-600">If in future I think about it we can think of it..</p> <button id="goto-rejection-form-button" class="action-button bg-gray-500 hover:bg-gray-600 text-white">Continue...</button> </div>
+        <div id="rejection-form-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-gray-700 romantic-font">For Future Reference...</h2> <p class="text-lg md:text-xl text-gray-600">If you'd like, please leave your contact details below.</p> <form id="rejection-form" class="text-left max-w-md mx-auto space-y-4 mt-4"> <div> <label for="rejection-mobile" class="form-label">Mobile Number (with country code, e.g., 91xxxxxxxxxx):</label> <input type="tel" id="rejection-mobile" name="rejection_mobile" pattern="[0-9]{10,15}" placeholder="e.g. 911234567890" required> </div> <div> <label for="rejection-insta" class="form-label">Instagram ID (Optional):</label> <input type="text" id="rejection-insta" name="rejection_insta" placeholder="@your_insta"> </div> <div> <label for="rejection-snap" class="form-label">Snapchat ID (Optional):</label> <input type="text" id="rejection-snap" name="rejection_snap" placeholder="your_snap_id"> </div> <button type="submit" id="submit-rejection-button" class="action-button bg-purple-500 hover:bg-purple-600 text-white w-full"> Submit Contact Info </button> <p id="rejection-form-error" class="text-red-500 text-sm mt-2 hidden text-center">Please enter a valid mobile number format.</p> <p id="rejection-sending-info" class="text-gray-500 text-sm mt-2 hidden text-center">Submitting...</p> </form> </div>
+        <div id="rejection-thanks-state" class="hidden fade-in-slow content-container"> <div class="text-6xl mb-4">👍✉️</div> <h2 class="text-2xl md:text-3xl font-bold text-gray-700 romantic-font">Thank You!</h2> <p class="text-lg md:text-xl text-gray-600">Your contact information has been noted.</p> <p class="text-sm text-gray-500">(Maybe we'll connect in the future!)</p> </div>
+        <div id="welcome-animation-state" class="hidden fade-in-slow content-container"> <h2 id="welcome-animation-text" class="text-3xl md:text-4xl lg:text-5xl font-bold text-pink-600 romantic-font"> Welcome back, [Name]! 🎉💖 </h2> </div>
+        <div id="gift-state" class="hidden fade-in-slow content-container"> <h2 id="gift-greeting" class="text-2xl md:text-3xl lg:text-4xl font-bold text-pink-600 romantic-font">Okay, [Name], Now For Real... Click the Gift!</h2> <button id="gift-box" class="text-6xl md:text-8xl cursor-pointer animate-bounce">🎁</button> </div>
+        <div id="memory-lane-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-rose-600 romantic-font">📸 Memory Lane 📸</h2> <p class="text-lg md:text-xl text-gray-700">Remember these moments?</p> <div class="slider-container"> <div class="slide active"> <img src="https://github.com/YUVAAN297/Made-for-khushboo/blob/main/Farewell.jpeg?raw=true" alt="Memory 1" onerror="this.src='https://placehold.co/400x300/cccccc/ffffff?text=Image+1+Error'; this.alt='Image failed to load'"> <div class="caption">Remember this farewell? 😄</div> </div> <div class="slide"> <img src="https://github.com/YUVAAN297/Made-for-khushboo/blob/main/scribble.jpeg?raw=true" alt="Memory 2" onerror="this.src='https://placehold.co/400x300/cccccc/ffffff?text=Image+2+Error'; this.alt='Image failed to load'"> <div class="caption">This scribble! 😂</div> </div> <a class="prev" onclick="changeSlide(-1)">&#10094;</a> <a class="next" onclick="changeSlide(1)">&#10095;</a> </div> <button id="goto-final-state-button" class="action-button bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white"> Okay, Let's Plan the Date! 📅 </button> </div>
+        <div id="final-state" class="hidden fade-in-slow content-container"> <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-pink-600 romantic-font animate-pulse">Yay! You made me so happy! 🥰</h1> <p class="text-lg md:text-xl text-gray-800">So... when and where for our first date? 😉</p> <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left"> <div><label for="date-input" class="form-label">Pick a Date:</label><input type="date" id="date-input" name="date"></div> <div><label for="time-input" class="form-label">Pick a Time:</label><input type="time" id="time-input" name="time"></div> </div> <div class="text-left mt-4"> <label class="block text-sm font-medium text-gray-700 mb-2">Date Idea:</label> <label class="radio-label"><input type="radio" name="date_idea" value="Coffee & Chat ☕" class="radio-input"> Coffee & Chat ☕</label> <label class="radio-label"><input type="radio" name="date_idea" value="Movie Night 🎬🍿" class="radio-input"> Movie Night 🎬🍿</label> <label class="radio-label"><input type="radio" name="date_idea" value="Dinner Date 🍽️✨" class="radio-input"> Dinner Date 🍽️✨</label> <label class="radio-label"><input type="radio" name="date_idea" value="Custom" class="radio-input" id="radio-custom"> Something else...</label> <textarea id="custom-idea-text" name="custom_idea" placeholder="Your amazing date idea..." class="mt-2 hidden"></textarea> </div> <div class="text-left mt-6 border-t border-pink-200 pt-4"> <p class="text-sm font-bold text-gray-600 mb-2">Optional Date Perks (Check any that apply! 😉):</p> <div class="flex flex-wrap justify-center gap-x-4 gap-y-2"> <label class="instruction-label"> <input type="checkbox" id="instruction-flowers" name="instruction_flowers" class="instruction-checkbox"> Bring flowers? 🌹 </label> <label class="instruction-label"> <input type="checkbox" id="instruction-chocolate" name="instruction_chocolate" class="instruction-checkbox"> Chocolate involved? 🍫 </label> <label class="instruction-label"> <input type="checkbox" id="instruction-punctual" name="instruction_punctual" class="instruction-checkbox"> Be on time! ⏰ </label> </div> <div class="mt-3"> <label for="custom-instruction-input" class="form-label text-sm text-gray-600">Any other requests/instructions?</label> <textarea id="custom-instruction-input" name="custom_instruction" placeholder="e.g., 'Pick me up', 'Wear something nice!'" rows="2"></textarea> </div> </div> <button id="date-confirm-button" class="action-button bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"> Got it, What's Next? ✨ </button> <p id="date-error" class="text-red-500 text-sm mt-2 hidden">Please select Date, Time, and a Date Idea (or write one!).</p> </div>
+        <div id="page1-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-purple-600 romantic-font">Okay, Date Info Noted! 📝</h2> <p class="text-lg md:text-xl text-gray-700">Just a couple more things...</p> <button id="goto-page2-button" class="action-button bg-pink-500 hover:bg-pink-600 text-white">Continue... 🎉</button> </div>
+        <div id="page2-state" class="hidden fade-in-slow content-container" style="background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, rgba(255,223,230,0.3) 70%); border-radius: 15px; padding: 20px;"> <div id="interactive-heart" class="pulsing-heart mb-6" onclick="changeHeartColor()">❤️</div> <p class="text-xl md:text-2xl text-gray-800 italic leading-relaxed">"Meeting you was like listening to a song for the first time and knowing it would be my favorite."</p> <p class="text-sm text-gray-600 mt-2">(Click the heart!)</p> <button id="goto-voice-message-button" class="action-button bg-teal-500 hover:bg-teal-600 text-white">Hear Something... 🎤</button> </div>
+        <div id="voice-message-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-indigo-600 romantic-font">Incoming Message...</h2> <div id="voice-message-player"> <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" /> </svg> <div id="voice-message-text">"Detecting cuteness... overload reached 💘"</div> </div> <audio id="voice-audio" src="xyz.mp3" preload="auto"></audio> <p class="text-sm text-gray-500 mt-2">(Sound should play automatically!)</p> <div class="flex flex-col sm:flex-row justify-center items-center sm:space-x-4 space-y-3 sm:space-y-0 mt-4"> <button id="replay-audio-button" class="action-button action-button-small bg-gray-400 hover:bg-gray-500 text-white">Replay 🔁</button> <button id="goto-page3-button" class="action-button action-button-small bg-orange-500 hover:bg-orange-600 text-white">Okay, Got It! 👍</button> </div> </div>
+        <div id="page3-state" class="hidden fade-in-slow content-container"> <div class="text-6xl mb-4 animate-bounce">😊</div> <h2 class="text-3xl md:text-4xl font-bold text-orange-500 romantic-font">Quick! Compliment Me Back!</h2> <p class="text-lg md:text-xl text-gray-700 handwritten-font">What's one nice thing you'd say about me?</p> <input type="text" id="compliment-input" placeholder="(Be nice! 😉)" class="mt-2"> <button id="compliment-next-button" class="action-button bg-cyan-500 hover:bg-cyan-600 text-white mt-4"> Send & Play Game! 🤔 </button> <p id="compliment-sending-info" class="text-gray-500 text-sm mt-2 hidden">Sending info...</p> </div>
+        <div id="page4-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-lime-600 romantic-font">Quick! Click the Heart!</h2> <p class="text-lg md:text-xl text-gray-700 mt-4">You have 10 seconds... Go!</p> <div id="page4-game-area"> <span id="clickable-heart" style="display: none;">💖</span> </div> <p class="mt-2 text-lg">Score: <span id="game-score">0</span> | Time Left: <span id="game-time">10</span>s</p> <p id="game-message" class="text-pink-600 font-bold mt-2"></p> <button id="goto-tarot-button-from-game" class="action-button bg-yellow-500 hover:bg-yellow-600 text-white block mx-auto mt-6 hidden">What's My Fortune? 🔮</button> </div>
+        <div id="tarot-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-purple-700 romantic-font">🔮 Valentine Tarot 🔮</h2> <p class="text-lg md:text-xl text-gray-700">Let's see what the future holds for us...</p> <button id="reveal-fortune-button" class="action-button bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-white"> Reveal My Love Fortune! </button> <p id="tarot-result" class="text-gray-800 text-lg italic mt-4 p-3 bg-purple-100 rounded-lg hidden"></p> <button id="goto-love-letter-button" class="action-button bg-red-500 hover:bg-red-600 text-white hidden">A Letter For You...</button> </div>
+        <div id="love-letter-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-rose-700 romantic-font">📝 A Little Note... 📝</h2> <p class="text-lg md:text-xl text-gray-700">How should I write it?</p> <div class="letter-options"> <div> <label>Mood:</label> <label class="radio-label"><input type="radio" name="letter_mood" value="funny" class="radio-input" checked> Funny 😂</label> <label class="radio-label"><input type="radio" name="letter_mood" value="romantic" class="radio-input"> Romantic 🥰</label> <label class="radio-label"><input type="radio" name="letter_mood" value="cheesy" class="radio-input"> Cheesy 🧀</label> </div> <div> <label>Length:</label> <label class="radio-label"><input type="radio" name="letter_length" value="short" class="radio-input" checked> Short & Sweet</label> <label class="radio-label"><input type="radio" name="letter_length" value="long" class="radio-input"> Long & Deep</label> </div> </div> <button id="generate-letter-button" class="action-button bg-gradient-to-r from-rose-400 to-red-500 text-white mt-4"> Write My Letter! </button>
+            <p id="love-letter-result" class="text-gray-800 text-lg italic mt-4 p-3 bg-pink-100 rounded-lg hidden typewriter-target"></p>
+            <button id="goto-page6-button-from-letter" class="action-button bg-emerald-500 hover:bg-emerald-600 text-white hidden">Almost Done!</button>
+        </div>
+        <div id="page6-state" class="hidden fade-in-slow content-container relative overflow-hidden min-h-[250px]" style="background: linear-gradient(to bottom, #1e3a8a, #3b82f6); border-radius: 15px; padding: 20px;"> <div id="star-container" class="absolute inset-0 pointer-events-none"></div> <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-yellow-300 romantic-font relative z-10">Feeling Lucky!</h2> <p class="text-lg md:text-xl text-gray-100 relative z-10 mb-4">On a scale of 1-5 stars, how happy am I right now?</p> <div class="rating-stars relative z-10" id="rating-stars"> <span data-value="1">☆</span><span data-value="2">☆</span><span data-value="3">☆</span><span data-value="4">☆</span><span data-value="5">☆</span> </div> <p class="text-yellow-300 text-sm mt-2 relative z-10">(Hint: It's definitely 5! ⭐⭐⭐⭐⭐)</p> <button id="goto-page7-button" class="action-button bg-emerald-500 hover:bg-emerald-600 text-white relative z-10 mt-6">The Grand Finale! 🏁</button> </div>
+        <div id="page7-state" class="hidden fade-in-slow content-container"> <div class="final-burst text-yellow-400 mb-4">🎉✨🥳</div>
+            <h2 id="final-heading" class="text-3xl md:text-4xl lg:text-5xl font-bold text-indigo-600 romantic-font typewriter-target"></h2>
+            <div id="countdown-timer" class="text-xl font-semibold text-pink-600 mt-4"></div>
+            <p class="text-lg md:text-xl text-gray-800">Counting down the moments until our date! Get ready for fun!</p>
+            <p class="text-md md:text-lg text-gray-600 mt-6 italic">I’m waiting for you. Happy Valentine’s, love.</p>
+            <div class="text-4xl mt-4 text-red-500">❤️💖❤️</div>
+        </div>
 
     </div>
 
@@ -161,8 +221,8 @@
 
     <script>
         // --- DOM Elements ---
-        const states = { question: document.getElementById('question-state'), eligibilityForm: document.getElementById('eligibility-form-state'), verifying: document.getElementById('verifying-state'), welcomeAnimation: document.getElementById('welcome-animation-state'), eligible: document.getElementById('eligible-state'), failurePopup: document.getElementById('failure-modal-overlay'), /* New */ rejectionMessage: document.getElementById('rejection-message-state'), rejectionForm: document.getElementById('rejection-form-state'), rejectionThanks: document.getElementById('rejection-thanks-state'), gift: document.getElementById('gift-state'), memoryLane: document.getElementById('memory-lane-state'), final: document.getElementById('final-state'), page1: document.getElementById('page1-state'), page2: document.getElementById('page2-state'), voiceMessage: document.getElementById('voice-message-state'), page3: document.getElementById('page3-state'), page4: document.getElementById('page4-state'), tarot: document.getElementById('tarot-state'), loveLetter: document.getElementById('love-letter-state'), page6: document.getElementById('page6-state'), page7: document.getElementById('page7-state') };
-        const failureModalOverlay = document.getElementById('failure-modal-overlay'); // Get modal overlay
+        const states = { question: document.getElementById('question-state'), eligibilityForm: document.getElementById('eligibility-form-state'), verifying: document.getElementById('verifying-state'), welcomeAnimation: document.getElementById('welcome-animation-state'), eligible: document.getElementById('eligible-state'), failurePopup: document.getElementById('failure-modal-overlay'), rejectionMessage: document.getElementById('rejection-message-state'), rejectionForm: document.getElementById('rejection-form-state'), rejectionThanks: document.getElementById('rejection-thanks-state'), gift: document.getElementById('gift-state'), memoryLane: document.getElementById('memory-lane-state'), final: document.getElementById('final-state'), page1: document.getElementById('page1-state'), page2: document.getElementById('page2-state'), voiceMessage: document.getElementById('voice-message-state'), page3: document.getElementById('page3-state'), page4: document.getElementById('page4-state'), tarot: document.getElementById('tarot-state'), loveLetter: document.getElementById('love-letter-state'), page6: document.getElementById('page6-state'), page7: document.getElementById('page7-state') };
+        const failureModalOverlay = document.getElementById('failure-modal-overlay');
         const welcomeAnimationText = document.getElementById('welcome-animation-text');
         const questionText = document.getElementById('question-text');
         const yesButton = document.getElementById('yes-button');
@@ -219,6 +279,7 @@
         const gotoVoiceMessageButton = document.getElementById('goto-voice-message-button');
         const gotoPage3Button = document.getElementById('goto-page3-button');
         const gotoTarotButtonFromGame = document.getElementById('goto-tarot-button-from-game');
+        const finalHeading = document.getElementById('final-heading'); // Final heading element
         const gotoPage7Button = document.getElementById('goto-page7-button');
         const musicToggleButton = document.getElementById('music-toggle');
         const playIcon = document.getElementById('play-icon');
@@ -245,6 +306,7 @@
         let storedCustomInstruction = "";
         let currentSlideIndex = 0;
         let countdownIntervalId = null;
+        let typewriterTimeoutId = null; // To manage typewriter timeouts
         const fortunes = [ "A surprise chocolate delivery is imminent! 🍫", "Prepare for maximum cuddles in the near future. 🤗", "Someone thinks you're incredibly cute (it's me!). 😉", "Adventure calls! A fun outing is on the horizon. 🚀", "This guy is planning to love you forever. 💍", "Your smile will brighten someone's day (mine!). ✨", "Expect a message that will make you happy very soon... 💞" ];
         const loveLetters = { funny_short: "Roses are red, violets are blue, I'm not great at poems, but I really like you! 😄", funny_long: "My dearest Khushboo,\n\nI tried writing a serious love letter, but honestly, thinking about you just makes me goofy and happy. It's like my brain turns into happy mush. Is that romantic? Probably not, but it's true! Looking forward to more happy mush moments with you.\n\nYours goofily,\nMe", romantic_short: "Khushboo, just thinking about you makes my day brighter. Can't wait to see you soon. ❤️", romantic_long: "Dearest Khushboo,\n\nEver since I met you, things just seem... better. Brighter. More fun. You have this amazing way about you that I can't get enough of. Thinking of you always brings a smile to my face, and I feel incredibly lucky that you said yes.\n\nWith all my affection,\nMe", cheesy_short: "Are you made of copper and tellurium? Because you're Cu-Te! 😉 See you soon!", cheesy_long: "To the amazing Khushboo,\n\nDo you have a map? Because I just keep getting lost in your eyes. Okay, okay, that was cheesy, but seriously, I'm so incredibly happy you said yes. You're the best!\n\nYours cheesily,\nMe" };
 
@@ -256,13 +318,39 @@
         function playFailureSound() { /* ... keep existing playFailureSound ... */ if (failureSynth) { failureSynth.triggerAttackRelease("C3", "2n", Tone.now()); failureSynth.triggerAttackRelease("C#3", "2n", Tone.now() + 0.1); } }
         function playVoiceMessageSound() { if (voiceAudioPlayer) { voiceAudioPlayer.currentTime = 0; voiceAudioPlayer.play().catch(error => { console.error("Audio play failed:", error); }); } else { console.error("Voice audio player not found!"); } }
 
+        // --- Typewriter Function ---
+        function typewriterEffect(element, text, speed = 50, callback) {
+            if (!element) return;
+            // Clear previous timeouts if any
+            if (typewriterTimeoutId) {
+                clearTimeout(typewriterTimeoutId);
+                typewriterTimeoutId = null;
+            }
+            element.textContent = ''; // Clear existing text
+            element.classList.remove('typing-done'); // Ensure animation can restart
+            element.classList.add('typewriter'); // Add class to start animation
+            let i = 0;
+            function type() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    typewriterTimeoutId = setTimeout(type, speed);
+                } else {
+                    // Animation finished
+                    element.classList.remove('typewriter');
+                    element.classList.add('typing-done');
+                    typewriterTimeoutId = null; // Clear timeout ID
+                     if (callback) callback(); // Execute callback if provided
+                }
+            }
+            type(); // Start typing
+        }
+
+
         function showState(stateToShow) {
             console.log("Showing state:", stateToShow ? stateToShow.id : 'null');
              if (countdownIntervalId && (!stateToShow || stateToShow.id !== 'page7-state')) { clearInterval(countdownIntervalId); countdownIntervalId = null; console.log("Cleared countdown timer."); }
-             // Hide failure modal if showing another state
-             if (failureModalOverlay && failureModalOverlay.classList.contains('visible') && stateToShow !== states.failurePopup) {
-                 failureModalOverlay.classList.remove('visible');
-             }
+             if (failureModalOverlay && failureModalOverlay.classList.contains('visible') && stateToShow !== states.failurePopup) { failureModalOverlay.classList.remove('visible'); }
             Object.values(states).forEach(state => {
                 if (state && stateToShow && state.id === stateToShow.id) {
                     state.classList.remove('hidden');
@@ -272,8 +360,12 @@
                     if (state.id === 'voice-message-state') playVoiceMessageSound();
                     if (state.id === 'page4-state') startGame();
                     if (state.id === 'page6-state') createStars();
-                    if (state.id === 'page7-state') { playFinaleSound(); startCountdownTimer(storedDate, storedTime); }
-                } else if (state && state.id !== 'failure-modal-overlay') { // Don't hide modal immediately
+                    if (state.id === 'page7-state') { // Start countdown and typewriter for final page
+                        playFinaleSound();
+                        startCountdownTimer(storedDate, storedTime);
+                        if (finalHeading) typewriterEffect(finalHeading, "See you soon, Khushboo!"); // Typewriter for final heading
+                    }
+                } else if (state && state.id !== 'failure-modal-overlay') {
                     state.classList.add('hidden');
                 }
             });
@@ -311,8 +403,11 @@
             const mood = moodElement.value; const length = lengthElement.value; const key = `${mood}_${length}`;
             const letterTemplate = loveLetters[key] || "Hmm, my heart's too full to find the right words right now, but know that I'm thinking of you!";
             const finalLetter = letterTemplate.replace("[Your Name]", "Me");
-            loveLetterResult.textContent = finalLetter; loveLetterResult.classList.remove('hidden');
-            gotoPage6ButtonFromLetter.classList.remove('hidden'); // Show next button
+            // Apply typewriter effect
+            typewriterEffect(loveLetterResult, finalLetter, 40, () => {
+                gotoPage6ButtonFromLetter.classList.remove('hidden'); // Show next button AFTER typing
+            });
+            loveLetterResult.classList.remove('hidden'); // Make visible before typing
             // Keep generate button enabled
             console.log(`Generated letter: ${key}`);
         }
@@ -339,6 +434,11 @@
         // --- Event Listeners Setup ---
         document.addEventListener('DOMContentLoaded', (event) => {
             console.log("DOM fully loaded and parsed");
+             // Initial typewriter effect for the question
+             if(questionText) {
+                 typewriterEffect(questionText, "💖 Will you be my girlfriend Khushboo? 💖", 75); // Slightly slower speed
+             }
+
             // Select elements safely after DOM load
             const yesBtn = document.getElementById('yes-button');
             const noBtn = document.getElementById('no-button');
@@ -356,6 +456,7 @@
             const revealFortuneBtn = document.getElementById('reveal-fortune-button');
             const generateLetterBtn = document.getElementById('generate-letter-button');
             const musicToggleBtn = document.getElementById('music-toggle');
+            const volumeSlider = document.getElementById('volume-slider');
             // Navigation buttons
             const page2Btn = document.getElementById('goto-page2-button');
             const gotoVoiceMessageBtn = document.getElementById('goto-voice-message-button');
@@ -370,10 +471,7 @@
                 yesBtn.addEventListener('click', () => {
                     console.log("Yes button clicked!");
                     Tone.start(); initAudio();
-                    // Attempt to start music immediately on first interaction
-                    if (!isMusicPlaying && backgroundAudioPlayer) {
-                        toggleBackgroundMusic();
-                    }
+                    if (!isMusicPlaying && backgroundAudioPlayer) { toggleBackgroundMusic(); }
                     showState(states.eligibilityForm);
                     createBgHearts();
                 });
@@ -398,27 +496,22 @@
                     storedEligibilityData = { name_entered: eligibilityNameInput.value.trim(), birthday_entered: enteredBday, height_ft: heightFt, height_in: heightIn, persistence_rating: rating, fav_color: color || 'Not specified', drink_preference: drinkPref };
                     console.log("Stored Eligibility Data:", storedEligibilityData);
                     localStorage.setItem('proposalRecipientName', storedEligibilityData.name_entered);
-                    showState(states.verifying); // Show verifying first
+                    showState(states.verifying);
                     const isNameMatch = enteredName === "khushboo" || enteredName === "khushboo swami";
                     const isBdayMatch = enteredBday === TARGET_BIRTHDAY;
                     console.log(`Validation - Name: ${enteredName}, Bday: ${enteredBday}. Match? Name: ${isNameMatch}, Bday: ${isBdayMatch}`);
-                    setTimeout(() => { // Wait THEN check
+                    setTimeout(() => {
                         if (isNameMatch && isBdayMatch) {
                             console.log("Eligibility PASSED!"); playSuccessSound();
-                            showState(states.eligible); // Show eligible message FIRST
-                            setTimeout(() => { showState(states.welcomeAnimation); /* Confetti removed */ }, 3000); // THEN show welcome animation after 3s
-                            setTimeout(() => { showState(states.gift); }, 7000); // THEN show gift after welcome (3s + 4s animation)
+                            showState(states.eligible);
+                            setTimeout(() => { showState(states.welcomeAnimation); createConfetti(); }, 3000);
+                            setTimeout(() => { showState(states.gift); }, 7000); // Adjusted timing
                         } else {
                             console.log("Eligibility FAILED!"); playFailureSound();
-                            // Show failure popup
                             if (failureModalOverlay) failureModalOverlay.classList.add('visible');
-                            // After a delay, hide popup and show standard rejection message page
-                            setTimeout(() => {
-                                if (failureModalOverlay) failureModalOverlay.classList.remove('visible');
-                                showState(states.rejectionMessage);
-                            }, 4000); // Show popup for 4 seconds
+                            setTimeout(() => { if (failureModalOverlay) failureModalOverlay.classList.remove('visible'); showState(states.rejectionMessage); }, 4000);
                         }
-                    }, 4500); // Initial wait time
+                    }, 4500);
                 }); console.log("Eligibility form submit listener added.");
             } else { console.error("Could not find Eligibility form!"); }
 
@@ -514,6 +607,13 @@
              // --- Listener for Music Toggle Button ---
             if (musicToggleButton) { musicToggleButton.addEventListener('click', toggleBackgroundMusic); console.log("Music toggle listener added.");} else { console.error("Could not find Music Toggle button!"); }
 
+             // --- Listener for Volume Slider ---
+             if (volumeSlider && backgroundAudioPlayer) {
+                 backgroundAudioPlayer.volume = volumeSlider.value / 100;
+                 volumeSlider.addEventListener('input', (event) => { const volume = event.target.value / 100; backgroundAudioPlayer.volume = volume; console.log("Volume set to:", volume); });
+                 console.log("Volume slider listener added.");
+             } else { console.error("Could not find Volume Slider or Background Audio Player!"); }
+
 
             // Navigation (remaining buttons)
             if (page2Btn) { page2Btn.addEventListener('click', () => showState(states.page2)); console.log("Goto Page 2 listener added."); } else { console.error("Could not find Goto Page 2 button!"); }
@@ -522,7 +622,6 @@
             if (gotoTarotButtonFromGame) { gotoTarotButtonFromGame.addEventListener('click', () => showState(states.tarot)); console.log("Goto Tarot from Game listener added."); } else { console.error("Could not find Goto Tarot from Game button!"); }
             if (gotoLoveLetterButton) { gotoLoveLetterButton.addEventListener('click', () => showState(states.loveLetter)); console.log("Goto Love Letter listener added."); } else { console.error("Could not find Goto Love Letter button!"); }
             if (page6BtnFromLetter) { page6BtnFromLetter.addEventListener('click', () => showState(states.page6)); console.log("Goto Page 6 from Letter listener added."); } else { console.error("Could not find Goto Page 6 from Letter button!"); }
-            // Removed page6BtnFromTarot
             if (page7Btn) { page7Btn.addEventListener('click', () => showState(states.page7)); console.log("Goto Page 7 listener added."); } else { console.error("Could not find Goto Page 7 button!"); }
             if (ratingStarsCont) { ratingStarsCont.addEventListener('click', handleStarRating); console.log("Rating Stars listener added."); } else { console.error("Could not find Rating Stars container!"); }
 
