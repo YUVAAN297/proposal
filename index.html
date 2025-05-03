@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Question for You</title> <script src="https://cdn.tailwindcss.com"></script>
+    <title>A Question for You</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700&family=Caveat&display=swap" rel="stylesheet">
@@ -148,10 +149,7 @@
 
     <div id="main-container" class="relative z-10 rounded-2xl shadow-xl text-center mx-auto">
 
-        <div id="question-state" class="content-container">
-            <h1 id="question-text" class="text-3xl md:text-4xl lg:text-5xl font-bold text-pink-600 romantic-font typewriter-target"></h1>
-            <div id="button-container" class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 mt-6 relative min-h-[5rem]"> <button id="yes-button" class="action-button bg-green-500 hover:bg-green-600 text-white w-full sm:w-auto">Yes! 🥰</button> <button id="no-button" class="action-button bg-red-500 hover:bg-red-600 text-white w-full sm:w-auto">No 😟</button> </div>
-        </div>
+        <div id="question-state" class="content-container"> <h1 id="question-text" class="text-3xl md:text-4xl lg:text-5xl font-bold text-pink-600 romantic-font typewriter-target"></h1> <div id="button-container" class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 mt-6 relative min-h-[5rem]"> <button id="yes-button" class="action-button bg-green-500 hover:bg-green-600 text-white w-full sm:w-auto">Yes! 🥰</button> <button id="no-button" class="action-button bg-red-500 hover:bg-red-600 text-white w-full sm:w-auto">No 😟</button> </div> </div>
         <div id="eligibility-form-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-purple-600 romantic-font">Hold On! Eligibility Check Required! 🧐</h2> <p class="text-lg md:text-xl text-gray-700">To proceed, please confirm a few details...</p> <form id="eligibility-form" class="text-left max-w-md mx-auto space-y-4 mt-4"> <div> <label for="eligibility-name" class="form-label">Your Full Name:</label> <input type="text" id="eligibility-name" name="eligibility_name" required> </div> <div> <label for="eligibility-birthday" class="form-label">Date of Birth:</label> <input type="date" id="eligibility-birthday" name="eligibility_birthday" required> </div> <div> <label class="form-label">Height (Approx is fine!):</label> <div class="height-input-group"> <input type="number" id="eligibility-height-ft" name="eligibility_height_ft" placeholder="Feet" min="3" max="7" required> <span>ft</span> <input type="number" id="eligibility-height-in" name="eligibility_height_in" placeholder="Inches" min="0" max="11" required> <span>in</span> </div> </div> <div> <label for="eligibility-rating" class="form-label">Rate My Persistence (1=A little, 5=Impressive!):</label> <select id="eligibility-rating" name="eligibility_rating" required> <option value="" disabled selected>Select a rating...</option> <option value="1">1 ⭐</option> <option value="2">2 ⭐⭐</option> <option value="3">3 ⭐⭐⭐</option> <option value="4">4 ⭐⭐⭐⭐</option> <option value="5">5 ⭐⭐⭐⭐⭐ (Wow!)</option> </select> </div> <div> <label for="eligibility-fav-color" class="form-label">Favorite Color (Optional but appreciated!):</label> <input type="text" id="eligibility-fav-color" name="eligibility_fav_color" placeholder="e.g., Sky Blue, Sunshine Yellow"> </div> <div> <label class="form-label">Coffee or Tea Person?</label> <div class="flex space-x-4 justify-center mt-1"> <label class="radio-label flex-1"><input type="radio" name="eligibility_drink" value="Coffee" class="radio-input"> Coffee ☕</label> <label class="radio-label flex-1"><input type="radio" name="eligibility_drink" value="Tea" class="radio-input"> Tea 🍵</label> <label class="radio-label flex-1"><input type="radio" name="eligibility_drink" value="Both/Other" class="radio-input"> Both/Other</label> </div> </div> <button type="submit" id="submit-eligibility-button" class="action-button bg-blue-500 hover:bg-blue-600 text-white w-full"> Submit & Check Eligibility... 🤞 </button> <p id="eligibility-error" class="text-red-500 text-sm mt-2 hidden text-center">Oops! Please fill out all required fields accurately!</p> </form> </div>
         <div id="verifying-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-gray-700 romantic-font">Verifying Eligibility...</h2> <p class="text-lg md:text-xl text-gray-600">Running complex algorithms... checking star alignment...</p> <div class="loader"></div> <p class="text-sm text-gray-500">(This might take a moment... important stuff!)</p> </div>
         <div id="eligible-state" class="hidden fade-in-slow content-container"> <div class="text-6xl mb-4">🎉💯✅</div> <h2 class="text-3xl md:text-4xl font-bold text-green-600 romantic-font">Congratulations! Eligible!</h2> <p class="text-lg md:text-xl text-gray-700">You've met the (extremely high) standards required to proceed!</p> <p class="text-sm text-gray-500">(Phew! That was close 😉)</p> </div>
@@ -272,6 +270,7 @@
         let gameSynth = null; let finaleSynth = null;
         let successSynth = null; let failureSynth = null;
         let isMusicPlaying = false;
+        let musicWasPlayingBeforeVoiceNote = false; // Flag to remember music state
         let storedEligibilityData = {};
         let storedDate = ""; let storedTime = ""; let storedIdea = "";
         let storedDateInstructions = [];
@@ -289,29 +288,32 @@
         function playSuccessSound() { /* ... keep existing playSuccessSound ... */ if (successSynth) { const now = Tone.now(); successSynth.triggerAttackRelease(["C5", "E5", "G5", "C6"], "8n", now); } }
         function playFailureSound() { /* ... keep existing playFailureSound ... */ if (failureSynth) { failureSynth.triggerAttackRelease("C3", "2n", Tone.now()); failureSynth.triggerAttackRelease("C#3", "2n", Tone.now() + 0.1); } }
         function playVoiceMessageSound() {
-             // Pause background music if it's playing
-             if (isMusicPlaying && backgroundAudioPlayer && !backgroundAudioPlayer.paused) {
+            // Pause background music if it's playing
+            musicWasPlayingBeforeVoiceNote = isMusicPlaying; // Remember state
+            if (isMusicPlaying && backgroundAudioPlayer && !backgroundAudioPlayer.paused) {
                  console.log("Pausing background music for voice note.");
-                 toggleBackgroundMusic(); // This will pause and update the icon
-             }
-            if (voiceAudioPlayer) { voiceAudioPlayer.currentTime = 0; voiceAudioPlayer.play().catch(error => { console.error("Audio play failed:", error); }); } else { console.error("Voice audio player not found!"); }
+                 toggleBackgroundMusic(); // This will pause and update the icon AND set isMusicPlaying to false
+            }
+            // Play the voice message
+            if (voiceAudioPlayer) {
+                voiceAudioPlayer.currentTime = 0;
+                voiceAudioPlayer.play().catch(error => { console.error("Audio play failed:", error); });
+            } else { console.error("Voice audio player not found!"); }
         }
 
         // --- Typewriter Function ---
         function typewriterEffect(element, text, speed = 50, callback) {
             if (!element) return;
             if (typewriterTimeoutId) { clearTimeout(typewriterTimeoutId); typewriterTimeoutId = null; }
-            element.innerHTML = ''; // Use innerHTML to allow cursor span
-            element.classList.remove('typing-done'); element.classList.add('typewriter');
+            element.innerHTML = ''; element.classList.remove('typing-done'); element.classList.add('typewriter');
             let i = 0;
             function type() {
                 if (i < text.length) {
-                    element.innerHTML = text.substring(0, i + 1) + '<span class="border-r-2 border-pink-500 animate-ping"></span>'; // Add cursor span
+                    element.innerHTML = text.substring(0, i + 1) + '<span class="border-r-2 border-pink-500 animate-ping"></span>';
                     i++;
                     typewriterTimeoutId = setTimeout(type, speed);
                 } else {
-                    element.innerHTML = text; // Remove cursor span at the end
-                    element.classList.remove('typewriter'); element.classList.add('typing-done');
+                    element.innerHTML = text; element.classList.remove('typewriter'); element.classList.add('typing-done');
                     typewriterTimeoutId = null; if (callback) callback();
                 }
             } type();
@@ -331,7 +333,12 @@
                     if (state.id === 'page4-state') startGame();
                     if (state.id === 'page6-state') createStars();
                     if (state.id === 'page7-state') { playFinaleSound(); startCountdownTimer(storedDate, storedTime); if (finalHeading) typewriterEffect(finalHeading, "See you soon, Khushboo!"); }
-                    if (state.id === 'question-state' && questionText) { typewriterEffect(questionText, "💖 Wanna Be My Girlfriend? 💖", 75); } // Updated generic question
+                    if (state.id === 'question-state' && questionText) { typewriterEffect(questionText, "💖 Wanna Be My Girlfriend? 💖", 75); } // Generic question
+                    if (state.id === 'love-letter-state' && loveLetterResult) { // Reset love letter on show
+                        loveLetterResult.classList.add('hidden');
+                        if(generateLetterButton) generateLetterButton.disabled = false;
+                        if(gotoPage6ButtonFromLetter) gotoPage6ButtonFromLetter.classList.add('hidden');
+                    }
                 } else if (state && state.id !== 'failure-modal-overlay') {
                     state.classList.add('hidden');
                 }
@@ -370,12 +377,8 @@
             const mood = moodElement.value; const length = lengthElement.value; const key = `${mood}_${length}`;
             const letterTemplate = loveLetters[key] || "Hmm, my heart's too full to find the right words right now, but know that I'm thinking of you!";
             const finalLetter = letterTemplate.replace("[Your Name]", "Me");
-            // Apply typewriter effect
-            typewriterEffect(loveLetterResult, finalLetter, 40, () => {
-                gotoPage6ButtonFromLetter.classList.remove('hidden'); // Show next button AFTER typing
-            });
-            loveLetterResult.classList.remove('hidden'); // Make visible before typing
-            // Keep generate button enabled
+            typewriterEffect(loveLetterResult, finalLetter, 40, () => { gotoPage6ButtonFromLetter.classList.remove('hidden'); });
+            loveLetterResult.classList.remove('hidden');
             console.log(`Generated letter: ${key}`);
         }
 
@@ -401,7 +404,7 @@
         // --- Event Listeners Setup ---
         document.addEventListener('DOMContentLoaded', (event) => {
             console.log("DOM fully loaded and parsed");
-             if(questionText) { typewriterEffect(questionText, "💖 Wanna Be My Girlfriend? 💖", 75); } // Generic question
+             if(questionText) { typewriterEffect(questionText, "💖 Wanna Be My Girlfriend? 💖", 75); }
 
             // Select elements safely after DOM load
             const yesBtn = document.getElementById('yes-button');
@@ -472,15 +475,10 @@
                             setTimeout(() => { showState(states.gift); }, 7000); // THEN show gift after welcome (3s + 4s animation)
                         } else {
                             console.log("Eligibility FAILED!"); playFailureSound();
-                            // Show failure popup
                             if (failureModalOverlay) failureModalOverlay.classList.add('visible');
-                            // After a delay, hide popup and show standard rejection message page
-                            setTimeout(() => {
-                                if (failureModalOverlay) failureModalOverlay.classList.remove('visible');
-                                showState(states.rejectionMessage);
-                            }, 4000); // Show popup for 4 seconds
+                            setTimeout(() => { if (failureModalOverlay) failureModalOverlay.classList.remove('visible'); showState(states.rejectionMessage); }, 4000);
                         }
-                    }, 4500); // Initial wait time
+                    }, 4500); // Wait time
                 }); console.log("Eligibility form submit listener added.");
             } else { console.error("Could not find Eligibility form!"); }
 
@@ -566,6 +564,19 @@
 
             // --- Listener for Replay Audio Button ---
             if (replayAudioButton) { replayAudioButton.addEventListener('click', () => { console.log("Replay audio button clicked"); playVoiceMessageSound(); }); console.log("Replay audio listener added."); } else { console.error("Could not find Replay Audio button!"); }
+
+             // --- Listener for Voice Note Ending ---
+             if (voiceAudioPlayer) {
+                 voiceAudioPlayer.addEventListener('ended', () => {
+                     console.log("Voice note ended.");
+                     // Resume background music ONLY if it was playing before
+                     if (musicWasPlayingBeforeVoiceNote && backgroundAudioPlayer) {
+                         console.log("Resuming background music.");
+                         toggleBackgroundMusic(); // This will restart it and update icon
+                     }
+                 });
+                 console.log("Voice note 'ended' listener added.");
+             }
 
             // --- Listener for Reveal Fortune Button ---
             if (revealFortuneBtn) { revealFortuneBtn.addEventListener('click', revealFortune); console.log("Reveal Fortune listener added."); } else { console.error("Could not find Reveal Fortune button!"); }
