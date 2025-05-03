@@ -24,8 +24,22 @@
 
         /* Interactive & Animation Styles */
         #no-button.moving { position: fixed; transition: top 0.3s ease, left 0.3s ease, transform 0.3s ease; z-index: 50; }
-        .heart-bg { position: absolute; font-size: 18px; color: rgba(255, 105, 180, 0.15); animation: float 12s ease-in-out infinite; user-select: none; pointer-events: none; z-index: 0; opacity: 0; }
-        @keyframes float { 0% { transform: translateY(5vh) rotate(0deg); opacity: 0; } 20% { opacity: 0.6; } 50% { transform: translateY(-35vh) rotate(25deg); opacity: 0.4; } 80% { opacity: 0.6; } 100% { transform: translateY(5vh) rotate(0deg); opacity: 0; } }
+        /* Updated Heart Background Animation */
+        .heart-bg {
+            position: absolute;
+            font-size: 18px;
+            color: rgba(255, 105, 180, 0.2); /* Slightly more visible */
+            animation: float 12s ease-in-out infinite; /* Slower animation */
+            user-select: none; pointer-events: none; z-index: 0;
+            opacity: 0; /* Start hidden */
+        }
+        @keyframes float {
+            0% { transform: translateY(5vh) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.7; } /* Fade in quicker and more opaque */
+            50% { transform: translateY(-40vh) rotate(25deg); opacity: 0.5; } /* Move higher */
+            80% { opacity: 0.7; } /* Fade slightly back */
+            100% { transform: translateY(5vh) rotate(0deg); opacity: 0; } /* Fade out */
+        }
         .confetti { position: fixed; opacity: 1; pointer-events: none; z-index: 9999; transition: transform 1s linear, opacity 1s linear; }
         .pulsing-heart { font-size: 4rem; color: #e11d48; animation: pulse 1.5s ease-in-out infinite; display: inline-block; cursor: pointer; transition: color 0.3s ease; }
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
@@ -299,7 +313,7 @@
             const finalLetter = letterTemplate.replace("[Your Name]", "Me");
             loveLetterResult.textContent = finalLetter; loveLetterResult.classList.remove('hidden');
             gotoPage6ButtonFromLetter.classList.remove('hidden'); // Show next button
-            // Keep generate button enabled
+            // Keep generate button enabled to allow re-generation
             // if(generateLetterButton) generateLetterButton.disabled = true;
             console.log(`Generated letter: ${key}`);
         }
@@ -355,7 +369,7 @@
                     if (!enteredName || !enteredBday || !heightFt || heightIn === '' || !rating || !drinkPref) { if(eligibilityError) { eligibilityError.textContent = "Please fill out Name, Birthday, Height, Rating, and Drink Preference!"; eligibilityError.classList.remove('hidden'); } return; }
                     storedEligibilityData = { name_entered: eligibilityNameInput.value.trim(), birthday_entered: enteredBday, height_ft: heightFt, height_in: heightIn, persistence_rating: rating, fav_color: color || 'Not specified', drink_preference: drinkPref };
                     console.log("Stored Eligibility Data:", storedEligibilityData);
-                    localStorage.setItem('proposalRecipientName', storedEligibilityData.name_entered); // Store name for personalization
+                    localStorage.setItem('proposalRecipientName', storedEligibilityData.name_entered);
                     showState(states.verifying);
                     const isNameMatch = enteredName === "khushboo" || enteredName === "khushboo swami";
                     const isBdayMatch = enteredBday === TARGET_BIRTHDAY;
