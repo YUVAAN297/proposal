@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Question for Khushboo</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>A Question for You</title> <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700&family=Caveat&display=swap" rel="stylesheet">
@@ -149,7 +148,10 @@
 
     <div id="main-container" class="relative z-10 rounded-2xl shadow-xl text-center mx-auto">
 
-        <div id="question-state" class="content-container"> <h1 id="question-text" class="text-3xl md:text-4xl lg:text-5xl font-bold text-pink-600 romantic-font typewriter-target"></h1> <div id="button-container" class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 mt-6 relative min-h-[5rem]"> <button id="yes-button" class="action-button bg-green-500 hover:bg-green-600 text-white w-full sm:w-auto">Yes! 🥰</button> <button id="no-button" class="action-button bg-red-500 hover:bg-red-600 text-white w-full sm:w-auto">No 😟</button> </div> </div>
+        <div id="question-state" class="content-container">
+            <h1 id="question-text" class="text-3xl md:text-4xl lg:text-5xl font-bold text-pink-600 romantic-font typewriter-target"></h1>
+            <div id="button-container" class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 mt-6 relative min-h-[5rem]"> <button id="yes-button" class="action-button bg-green-500 hover:bg-green-600 text-white w-full sm:w-auto">Yes! 🥰</button> <button id="no-button" class="action-button bg-red-500 hover:bg-red-600 text-white w-full sm:w-auto">No 😟</button> </div>
+        </div>
         <div id="eligibility-form-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-purple-600 romantic-font">Hold On! Eligibility Check Required! 🧐</h2> <p class="text-lg md:text-xl text-gray-700">To proceed, please confirm a few details...</p> <form id="eligibility-form" class="text-left max-w-md mx-auto space-y-4 mt-4"> <div> <label for="eligibility-name" class="form-label">Your Full Name:</label> <input type="text" id="eligibility-name" name="eligibility_name" required> </div> <div> <label for="eligibility-birthday" class="form-label">Date of Birth:</label> <input type="date" id="eligibility-birthday" name="eligibility_birthday" required> </div> <div> <label class="form-label">Height (Approx is fine!):</label> <div class="height-input-group"> <input type="number" id="eligibility-height-ft" name="eligibility_height_ft" placeholder="Feet" min="3" max="7" required> <span>ft</span> <input type="number" id="eligibility-height-in" name="eligibility_height_in" placeholder="Inches" min="0" max="11" required> <span>in</span> </div> </div> <div> <label for="eligibility-rating" class="form-label">Rate My Persistence (1=A little, 5=Impressive!):</label> <select id="eligibility-rating" name="eligibility_rating" required> <option value="" disabled selected>Select a rating...</option> <option value="1">1 ⭐</option> <option value="2">2 ⭐⭐</option> <option value="3">3 ⭐⭐⭐</option> <option value="4">4 ⭐⭐⭐⭐</option> <option value="5">5 ⭐⭐⭐⭐⭐ (Wow!)</option> </select> </div> <div> <label for="eligibility-fav-color" class="form-label">Favorite Color (Optional but appreciated!):</label> <input type="text" id="eligibility-fav-color" name="eligibility_fav_color" placeholder="e.g., Sky Blue, Sunshine Yellow"> </div> <div> <label class="form-label">Coffee or Tea Person?</label> <div class="flex space-x-4 justify-center mt-1"> <label class="radio-label flex-1"><input type="radio" name="eligibility_drink" value="Coffee" class="radio-input"> Coffee ☕</label> <label class="radio-label flex-1"><input type="radio" name="eligibility_drink" value="Tea" class="radio-input"> Tea 🍵</label> <label class="radio-label flex-1"><input type="radio" name="eligibility_drink" value="Both/Other" class="radio-input"> Both/Other</label> </div> </div> <button type="submit" id="submit-eligibility-button" class="action-button bg-blue-500 hover:bg-blue-600 text-white w-full"> Submit & Check Eligibility... 🤞 </button> <p id="eligibility-error" class="text-red-500 text-sm mt-2 hidden text-center">Oops! Please fill out all required fields accurately!</p> </form> </div>
         <div id="verifying-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-gray-700 romantic-font">Verifying Eligibility...</h2> <p class="text-lg md:text-xl text-gray-600">Running complex algorithms... checking star alignment...</p> <div class="loader"></div> <p class="text-sm text-gray-500">(This might take a moment... important stuff!)</p> </div>
         <div id="eligible-state" class="hidden fade-in-slow content-container"> <div class="text-6xl mb-4">🎉💯✅</div> <h2 class="text-3xl md:text-4xl font-bold text-green-600 romantic-font">Congratulations! Eligible!</h2> <p class="text-lg md:text-xl text-gray-700">You've met the (extremely high) standards required to proceed!</p> <p class="text-sm text-gray-500">(Phew! That was close 😉)</p> </div>
@@ -249,7 +251,7 @@
         const gotoVoiceMessageButton = document.getElementById('goto-voice-message-button');
         const gotoPage3Button = document.getElementById('goto-page3-button');
         const gotoTarotButtonFromGame = document.getElementById('goto-tarot-button-from-game');
-        const finalHeading = document.getElementById('final-heading'); // Final heading element
+        const finalHeading = document.getElementById('final-heading');
         const gotoPage7Button = document.getElementById('goto-page7-button');
         const musicToggleButton = document.getElementById('music-toggle');
         const playIcon = document.getElementById('play-icon');
@@ -263,7 +265,7 @@
         const heartColors = ['#e11d48', '#ec4899', '#f472b6', '#f9a8d4'];
         const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwG8bUel4HmMvLmoskd9V4thpFKV7GjYACXU0bPXuC_DgHePbEdj5D1outc-usRObNe/exec"; // Your Apps Script URL
         const FORMSPREE_URL = "https://formspree.io/f/mjkwyovj"; // Your Formspree URL
-        const RECIPIENT_NAME = "Khushboo";
+        const RECIPIENT_NAME = "Khushboo"; // Default if localStorage fails
         const TARGET_BIRTHDAY = "2007-09-23";
 
         let gameScore = 0; let gameTimerId = null; let gameTimeLeft = 10; let gameActive = false;
@@ -287,16 +289,32 @@
         function playSuccessSound() { /* ... keep existing playSuccessSound ... */ if (successSynth) { const now = Tone.now(); successSynth.triggerAttackRelease(["C5", "E5", "G5", "C6"], "8n", now); } }
         function playFailureSound() { /* ... keep existing playFailureSound ... */ if (failureSynth) { failureSynth.triggerAttackRelease("C3", "2n", Tone.now()); failureSynth.triggerAttackRelease("C#3", "2n", Tone.now() + 0.1); } }
         function playVoiceMessageSound() {
-            // Pause background music if it's playing
-            if (isMusicPlaying && backgroundAudioPlayer) {
+             // Pause background music if it's playing
+             if (isMusicPlaying && backgroundAudioPlayer && !backgroundAudioPlayer.paused) {
                  console.log("Pausing background music for voice note.");
                  toggleBackgroundMusic(); // This will pause and update the icon
-            }
-            // Play the voice message
-            if (voiceAudioPlayer) {
-                voiceAudioPlayer.currentTime = 0;
-                voiceAudioPlayer.play().catch(error => { console.error("Voice audio play failed:", error); });
-            } else { console.error("Voice audio player not found!"); }
+             }
+            if (voiceAudioPlayer) { voiceAudioPlayer.currentTime = 0; voiceAudioPlayer.play().catch(error => { console.error("Audio play failed:", error); }); } else { console.error("Voice audio player not found!"); }
+        }
+
+        // --- Typewriter Function ---
+        function typewriterEffect(element, text, speed = 50, callback) {
+            if (!element) return;
+            if (typewriterTimeoutId) { clearTimeout(typewriterTimeoutId); typewriterTimeoutId = null; }
+            element.innerHTML = ''; // Use innerHTML to allow cursor span
+            element.classList.remove('typing-done'); element.classList.add('typewriter');
+            let i = 0;
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML = text.substring(0, i + 1) + '<span class="border-r-2 border-pink-500 animate-ping"></span>'; // Add cursor span
+                    i++;
+                    typewriterTimeoutId = setTimeout(type, speed);
+                } else {
+                    element.innerHTML = text; // Remove cursor span at the end
+                    element.classList.remove('typewriter'); element.classList.add('typing-done');
+                    typewriterTimeoutId = null; if (callback) callback();
+                }
+            } type();
         }
 
         function showState(stateToShow) {
@@ -313,8 +331,7 @@
                     if (state.id === 'page4-state') startGame();
                     if (state.id === 'page6-state') createStars();
                     if (state.id === 'page7-state') { playFinaleSound(); startCountdownTimer(storedDate, storedTime); if (finalHeading) typewriterEffect(finalHeading, "See you soon, Khushboo!"); }
-                    // Start typewriter for initial question
-                    if (state.id === 'question-state' && questionText) { typewriterEffect(questionText, "💖 Will you be my girlfriend Khushboo? 💖", 75); }
+                    if (state.id === 'question-state' && questionText) { typewriterEffect(questionText, "💖 Wanna Be My Girlfriend? 💖", 75); } // Updated generic question
                 } else if (state && state.id !== 'failure-modal-overlay') {
                     state.classList.add('hidden');
                 }
@@ -384,10 +401,7 @@
         // --- Event Listeners Setup ---
         document.addEventListener('DOMContentLoaded', (event) => {
             console.log("DOM fully loaded and parsed");
-             // Initial typewriter effect for the question
-             if(questionText) {
-                 typewriterEffect(questionText, "💖 Will you be my girlfriend Khushboo? 💖", 75); // Slightly slower speed
-             }
+             if(questionText) { typewriterEffect(questionText, "💖 Wanna Be My Girlfriend? 💖", 75); } // Generic question
 
             // Select elements safely after DOM load
             const yesBtn = document.getElementById('yes-button');
@@ -421,10 +435,7 @@
                 yesBtn.addEventListener('click', () => {
                     console.log("Yes button clicked!");
                     Tone.start(); initAudio();
-                    // Attempt to start music immediately on first interaction
-                    if (!isMusicPlaying && backgroundAudioPlayer) {
-                        toggleBackgroundMusic();
-                    }
+                    if (!isMusicPlaying && backgroundAudioPlayer) { toggleBackgroundMusic(); }
                     showState(states.eligibilityForm);
                     createBgHearts();
                 });
@@ -589,4 +600,3 @@
     </script>
 </body>
 </html>
-
