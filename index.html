@@ -51,6 +51,10 @@
         .form-label { display: block; text-align: left; font-weight: bold; color: #4b5563; margin-bottom: 0.25rem; font-size: 0.9rem;}
         .instruction-label { display: inline-flex; align-items: center; margin-right: 1rem; cursor: pointer; font-size: 0.9rem; color: #4b5563;}
         .instruction-checkbox { margin-right: 0.5rem; accent-color: #db2777; width: 1rem; height: 1rem;}
+        /* Height Input Specific */
+        .height-input-group { display: flex; gap: 0.5rem; align-items: flex-end; }
+        .height-input-group input { width: auto; flex-grow: 1; }
+        .height-input-group span { padding-bottom: 10px; color: #4b5563; font-size: 0.9rem;}
 
 
         /* Page Specific Styles & Loading Spinner */
@@ -79,7 +83,7 @@
     <div id="main-container" class="relative z-10 rounded-2xl shadow-xl text-center mx-auto">
 
         <div id="question-state" class="content-container"> <h1 id="question-text" class="text-2xl md:text-3xl font-bold text-pink-600 romantic-font">💖 Will you be my girlfriend Khushboo? 💖</h1> <div id="button-container" class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 mt-4 relative min-h-[5rem]"> <button id="yes-button" class="action-button bg-green-500 hover:bg-green-600 text-white w-full sm:w-auto">Yes! 🥰</button> <button id="no-button" class="action-button bg-red-500 hover:bg-red-600 text-white w-full sm:w-auto">No 😟</button> </div> </div>
-        <div id="eligibility-form-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-purple-600 romantic-font">Hold On! Eligibility Check Required! 🧐</h2> <p class="text-gray-700 text-lg">To proceed, please confirm a few details...</p> <form id="eligibility-form" class="text-left max-w-md mx-auto space-y-4 mt-4"> <div> <label for="eligibility-name" class="form-label">Your Full Name:</label> <input type="text" id="eligibility-name" name="eligibility_name" required> </div> <div> <label for="eligibility-birthday" class="form-label">Date of Birth:</label> <input type="date" id="eligibility-birthday" name="eligibility_birthday" required> </div> <div> <label for="eligibility-rating" class="form-label">Rate My Persistence (1=A little, 5=Impressive!):</label> <select id="eligibility-rating" name="eligibility_rating" required> <option value="" disabled selected>Select a rating...</option> <option value="1">1 ⭐</option> <option value="2">2 ⭐⭐</option> <option value="3">3 ⭐⭐⭐</option> <option value="4">4 ⭐⭐⭐⭐</option> <option value="5">5 ⭐⭐⭐⭐⭐ (Wow!)</option> </select> </div> <div> <label for="eligibility-fav-color" class="form-label">Favorite Color (Optional but appreciated!):</label> <input type="text" id="eligibility-fav-color" name="eligibility_fav_color" placeholder="e.g., Sky Blue, Sunshine Yellow"> </div> <div> <label class="form-label">Coffee or Tea Person?</label> <div class="flex space-x-4 justify-center mt-1"> <label class="radio-label flex-1"><input type="radio" name="eligibility_drink" value="Coffee" class="radio-input"> Coffee ☕</label> <label class="radio-label flex-1"><input type="radio" name="eligibility_drink" value="Tea" class="radio-input"> Tea 🍵</label> <label class="radio-label flex-1"><input type="radio" name="eligibility_drink" value="Both/Other" class="radio-input"> Both/Other</label> </div> </div> <button type="submit" id="submit-eligibility-button" class="action-button bg-blue-500 hover:bg-blue-600 text-white w-full"> Submit & Check Eligibility... 🤞 </button> <p id="eligibility-error" class="text-red-500 text-sm mt-2 hidden text-center">Oops! Please double-check the name and birthday!</p> </form> </div>
+        <div id="eligibility-form-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-purple-600 romantic-font">Hold On! Eligibility Check Required! 🧐</h2> <p class="text-gray-700 text-lg">To proceed, please confirm a few details...</p> <form id="eligibility-form" class="text-left max-w-md mx-auto space-y-4 mt-4"> <div> <label for="eligibility-name" class="form-label">Your Full Name:</label> <input type="text" id="eligibility-name" name="eligibility_name" required> </div> <div> <label for="eligibility-birthday" class="form-label">Date of Birth:</label> <input type="date" id="eligibility-birthday" name="eligibility_birthday" required> </div> <div> <label class="form-label">Height (Approx is fine!):</label> <div class="height-input-group"> <input type="number" id="eligibility-height-ft" name="eligibility_height_ft" placeholder="Feet" min="3" max="7" required> <span>ft</span> <input type="number" id="eligibility-height-in" name="eligibility_height_in" placeholder="Inches" min="0" max="11" required> <span>in</span> </div> </div> <div> <label for="eligibility-rating" class="form-label">Rate My Persistence (1=A little, 5=Impressive!):</label> <select id="eligibility-rating" name="eligibility_rating" required> <option value="" disabled selected>Select a rating...</option> <option value="1">1 ⭐</option> <option value="2">2 ⭐⭐</option> <option value="3">3 ⭐⭐⭐</option> <option value="4">4 ⭐⭐⭐⭐</option> <option value="5">5 ⭐⭐⭐⭐⭐ (Wow!)</option> </select> </div> <div> <label for="eligibility-fav-color" class="form-label">Favorite Color (Optional but appreciated!):</label> <input type="text" id="eligibility-fav-color" name="eligibility_fav_color" placeholder="e.g., Sky Blue, Sunshine Yellow"> </div> <div> <label class="form-label">Coffee or Tea Person?</label> <div class="flex space-x-4 justify-center mt-1"> <label class="radio-label flex-1"><input type="radio" name="eligibility_drink" value="Coffee" class="radio-input"> Coffee ☕</label> <label class="radio-label flex-1"><input type="radio" name="eligibility_drink" value="Tea" class="radio-input"> Tea 🍵</label> <label class="radio-label flex-1"><input type="radio" name="eligibility_drink" value="Both/Other" class="radio-input"> Both/Other</label> </div> </div> <button type="submit" id="submit-eligibility-button" class="action-button bg-blue-500 hover:bg-blue-600 text-white w-full"> Submit & Check Eligibility... 🤞 </button> <p id="eligibility-error" class="text-red-500 text-sm mt-2 hidden text-center">Oops! Please fill out all required fields accurately!</p> </form> </div>
         <div id="verifying-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-gray-700 romantic-font">Verifying Eligibility...</h2> <p class="text-gray-600 text-lg">Running complex algorithms... checking star alignment...</p> <div class="loader"></div> <p class="text-sm text-gray-500">(This might take a moment... important stuff!)</p> </div>
         <div id="eligible-state" class="hidden fade-in-slow content-container"> <div class="text-6xl mb-4">🎉💯✅</div> <h2 class="text-3xl md:text-4xl font-bold text-green-600 romantic-font">Congratulations! Eligible!</h2> <p class="text-gray-700 text-lg">You've met the (extremely high) standards required to proceed!</p> <p class="text-sm text-gray-500">(Phew! That was close 😉)</p> </div>
         <div id="rejection-message-state" class="hidden fade-in-slow content-container"> <div class="text-6xl mb-4">🤔🚫❓</div> <h2 class="text-2xl md:text-3xl font-bold text-red-600 romantic-font">Eligibility Check Failed...</h2> <p class="text-gray-700 text-lg">You are not the girl I am looking for. Thank you for your shown interest.</p> <p class="text-gray-600 text-md">If in future I think about it we can think of it..</p> <button id="goto-rejection-form-button" class="action-button bg-gray-500 hover:bg-gray-600 text-white">Continue...</button> </div>
@@ -108,6 +112,8 @@
         const eligibilityForm = document.getElementById('eligibility-form');
         const eligibilityNameInput = document.getElementById('eligibility-name');
         const eligibilityBirthdayInput = document.getElementById('eligibility-birthday');
+        const eligibilityHeightFtInput = document.getElementById('eligibility-height-ft');
+        const eligibilityHeightInInput = document.getElementById('eligibility-height-in');
         const eligibilityRatingSelect = document.getElementById('eligibility-rating');
         const eligibilityColorInput = document.getElementById('eligibility-fav-color');
         const submitEligibilityButton = document.getElementById('submit-eligibility-button');
@@ -124,7 +130,7 @@
         const timeInput = document.getElementById('time-input');
         const customIdeaRadio = document.getElementById('radio-custom');
         const customIdeaText = document.getElementById('custom-idea-text');
-        const customInstructionInput = document.getElementById('custom-instruction-input'); // New Input
+        const customInstructionInput = document.getElementById('custom-instruction-input');
         const dateConfirmButton = document.getElementById('date-confirm-button');
         const dateError = document.getElementById('date-error');
         const complimentInput = document.getElementById('compliment-input');
@@ -154,21 +160,27 @@
         let noClickCount = 0; let yesButtonScale = 1; let heartColorIndex = 0;
         const heartColors = ['#e11d48', '#ec4899', '#f472b6', '#f9a8d4'];
         // --- URL for Data Submission ---
-        const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby5a6rJ8xNP1vLjXJEPIIbWvtiiKbJGUt1O8Dx8LVivhQAZVDXPCvo5sBgGBJgzOZMq/exec"; // Your Apps Script URL
+        const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwG8bUel4HmMvLmoskd9V4thpFKV7GjYACXU0bPXuC_DgHePbEdj5D1outc-usRObNe/exec"; // Your Apps Script URL
+        const FORMSPREE_URL = "https://formspree.io/f/mjkwyovj"; // Your Formspree URL
 
         const RECIPIENT_NAME = "Khushboo";
         const TARGET_BIRTHDAY = "2007-09-23";
 
         let gameScore = 0; let gameTimerId = null; let gameTimeLeft = 10; let gameActive = false;
         let gameSynth = null; let finaleSynth = null;
-        // Store ALL collected data globally
+        let successSynth = null; let failureSynth = null; // Synths for eligibility sounds
         let storedEligibilityData = {};
         let storedDate = ""; let storedTime = ""; let storedIdea = "";
         let storedDateInstructions = [];
         let storedCustomInstruction = "";
 
         // --- Functions ---
-        function initAudio() { if (!gameSynth) { gameSynth = new Tone.Synth({ oscillator: { type: 'sine' }, envelope: { attack: 0.01, decay: 0.1, sustain: 0.01, release: 0.1 } }).toDestination(); } if (!finaleSynth) { finaleSynth = new Tone.PolySynth(Tone.Synth).toDestination(); } console.log("Audio initialized."); }
+        function initAudio() { if (!gameSynth) { gameSynth = new Tone.Synth({ oscillator: { type: 'sine' }, envelope: { attack: 0.01, decay: 0.1, sustain: 0.01, release: 0.1 } }).toDestination(); } if (!finaleSynth) { finaleSynth = new Tone.PolySynth(Tone.Synth).toDestination(); } if (!successSynth) { successSynth = new Tone.PolySynth({polyphony: 4, voice: Tone.Synth, options: { oscillator: {type: 'triangle'}, envelope: { attack: 0.01, decay: 0.1, sustain: 0.3, release: 0.4 } }}).toDestination(); } if (!failureSynth) { failureSynth = new Tone.Synth({ oscillator: { type: 'sawtooth' }, envelope: { attack: 0.05, decay: 0.5, sustain: 0, release: 0.2 } }).toDestination(); } console.log("Audio initialized."); }
+        // Success: Quick ascending arpeggio
+        function playSuccessSound() { if (successSynth) { const now = Tone.now(); successSynth.triggerAttackRelease(["C5", "E5", "G5", "C6"], "8n", now); } }
+        // Failure: Low dissonant notes
+        function playFailureSound() { if (failureSynth) { failureSynth.triggerAttackRelease("C3", "2n", Tone.now()); failureSynth.triggerAttackRelease("C#3", "2n", Tone.now() + 0.1); } }
+
         function showState(stateToShow) { console.log("Showing state:", stateToShow ? stateToShow.id : 'null'); Object.values(states).forEach(state => { if (state && stateToShow && state.id === stateToShow.id) { state.classList.remove('hidden'); resetPage(state); if (state.id === 'page4-state') startGame(); if (state.id === 'page6-state') createStars(); if (state.id === 'page7-state') playFinaleSound(); } else if (state) { state.classList.add('hidden'); } }); }
         function resetPage(element) { if (!element) return; element.classList.remove('fade-in-slow'); requestAnimationFrame(() => { if (element) element.classList.add('fade-in-slow'); }); }
         function handleNoClick() { console.log("No button clicked! Count:", noClickCount + 1); noClickCount++; yesButtonScale += 0.2; if (yesButton) yesButton.style.transform = `scale(${yesButtonScale})`; if (noClickCount === 1) { if (questionText) questionText.textContent = 'Please you can think about it.. ❤️'; if (noButton) noButton.addEventListener('mouseover', moveNoButton); console.log("Mouseover listener added to No button."); moveNoButton(); } else { console.log("Subsequent No click - moving button again."); moveNoButton(); } }
@@ -186,20 +198,37 @@
         function generateMadLibStory() { if (!madLibAdj1 || !madLibNoun1 || !madLibVerb1 || !madLibPlace1 || !madlibResult || !gotoPage6Button) return; const adj1 = madLibAdj1.value.trim() || "sparkly"; const noun1 = madLibNoun1.value.trim() || "unicorn"; const verb1 = madLibVerb1.value.trim() || "dances"; const place1 = madLibPlace1.value.trim() || "moon"; const story = `Once upon a time, a ${adj1} ${noun1} decided it wanted to meet Khushboo. So, it bravely ${verb1} all the way to the ${place1} just to say 'Hi!' What an adventure!`; madlibResult.textContent = story; madlibResult.classList.remove('hidden'); gotoPage6Button.classList.remove('hidden'); }
         function playFinaleSound() { Tone.start(); initAudio(); try { if (finaleSynth) finaleSynth.triggerAttackRelease(["C4", "E4", "G4"], "1n"); console.log("Finale sound played."); } catch (e) { console.error("Tone.js sound error:", e); } }
 
-        // --- Function to send data to Google Apps Script ---
+        // --- Function to send data to BACKEND (Apps Script) ---
         async function sendDataToBackend(formData, buttonElement, infoElement) {
-            if (!GOOGLE_APPS_SCRIPT_URL || GOOGLE_APPS_SCRIPT_URL === "YOUR_GOOGLE_APPS_SCRIPT_URL") { console.error("Google Apps Script URL is not set in the code!"); return; }
+            // Check if the URL is the placeholder
+            if (!GOOGLE_APPS_SCRIPT_URL || GOOGLE_APPS_SCRIPT_URL === "YOUR_GOOGLE_APPS_SCRIPT_URL") {
+                console.error("Google Apps Script URL is not set in the code!");
+                return; // Stop if URL is missing
+            }
+            // Add recipient name if not already present
             if (!formData.recipient_name) formData.recipient_name = RECIPIENT_NAME;
+
             if(buttonElement) buttonElement.disabled = true; if(infoElement) infoElement.classList.remove('hidden');
             console.log("Attempting to send data to Apps Script:", formData);
+
             try {
                 const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
-                    method: 'POST', mode: 'no-cors', body: JSON.stringify(formData),
-                    headers: { 'Content-Type': 'text/plain', }
+                    method: 'POST',
+                    mode: 'no-cors', // Use no-cors for simple Apps Script deployment
+                    body: JSON.stringify(formData),
+                    headers: { 'Content-Type': 'text/plain', } // Send as text/plain for simpler doPost handling
                 });
+                // Cannot reliably check response status with no-cors
                 console.log('Data send initiated to Google Apps Script (no-cors).');
-            } catch (error) { console.error('Network or other error sending data to Google Apps Script:', error); }
-            finally { if(buttonElement) buttonElement.disabled = false; if(infoElement) infoElement.classList.add('hidden'); console.log("Finished initiating send attempt to Apps Script."); }
+
+            } catch (error) {
+                console.error('Network or other error sending data to Google Apps Script:', error);
+            } finally {
+                // Re-enable button and hide sending message
+                if(buttonElement) buttonElement.disabled = false;
+                if(infoElement) infoElement.classList.add('hidden');
+                console.log("Finished initiating send attempt to Apps Script.");
+            }
         }
 
 
@@ -237,27 +266,40 @@
                     if(eligibilityError) eligibilityError.classList.add('hidden');
                     const enteredName = eligibilityNameInput ? eligibilityNameInput.value.trim().toLowerCase() : '';
                     const enteredBday = eligibilityBirthdayInput ? eligibilityBirthdayInput.value : '';
+                    const heightFt = eligibilityHeightFtInput ? eligibilityHeightFtInput.value : '';
+                    const heightIn = eligibilityHeightInInput ? eligibilityHeightInInput.value : '';
                     const rating = eligibilityRatingSelect ? eligibilityRatingSelect.value : '';
                     const color = eligibilityColorInput ? eligibilityColorInput.value.trim() : '';
                     const drinkChecked = document.querySelector('input[name="eligibility_drink"]:checked');
                     const drinkPref = drinkChecked ? drinkChecked.value : '';
-                    if (!enteredName || !enteredBday || !rating || !drinkPref) { if(eligibilityError) { eligibilityError.textContent = "Please fill out Name, Birthday, Rating, and Drink Preference!"; eligibilityError.classList.remove('hidden'); } return; }
+                    if (!enteredName || !enteredBday || !heightFt || heightIn === '' || !rating || !drinkPref) { if(eligibilityError) { eligibilityError.textContent = "Please fill out Name, Birthday, Height, Rating, and Drink Preference!"; eligibilityError.classList.remove('hidden'); } return; }
                     // Store Eligibility Data Temporarily
-                    storedEligibilityData = { name_entered: eligibilityNameInput.value.trim(), birthday_entered: enteredBday, persistence_rating: rating, fav_color: color || 'Not specified', drink_preference: drinkPref };
-                    console.log("Stored Eligibility Data:", storedEligibilityData); // DEBUG LOG
+                    storedEligibilityData = { name_entered: eligibilityNameInput.value.trim(), birthday_entered: enteredBday, height_ft: heightFt, height_in: heightIn, persistence_rating: rating, fav_color: color || 'Not specified', drink_preference: drinkPref };
+                    console.log("Stored Eligibility Data:", storedEligibilityData);
                     // Eligibility Check
                     const isNameMatch = enteredName === "khushboo" || enteredName === "khushboo swami";
                     const isBdayMatch = enteredBday === TARGET_BIRTHDAY;
                     console.log(`Validation - Name: ${enteredName}, Bday: ${enteredBday}. Match? Name: ${isNameMatch}, Bday: ${isBdayMatch}`);
-                    if (isNameMatch && isBdayMatch) {
-                        // SUCCESS PATH - NO SEND YET
-                        console.log("Eligibility PASSED!"); showState(states.verifying);
-                        setTimeout(() => { showState(states.eligible); setTimeout(() => { showState(states.gift); createConfetti(); }, 3000); }, 45000); // 45s delay
-                    } else {
-                        // FAILURE PATH - NO SEND YET
-                        console.log("Eligibility FAILED!"); if(eligibilityError) { eligibilityError.textContent = "Checking details..."; eligibilityError.classList.remove('hidden'); }
-                        setTimeout(() => { showState(states.rejectionMessage); }, 1500);
-                    }
+
+                    // Show Verifying state FIRST
+                    showState(states.verifying);
+
+                    // Wait 4.5 seconds THEN check and show result
+                    setTimeout(() => {
+                        if (isNameMatch && isBdayMatch) {
+                            // SUCCESS PATH - NO SEND YET
+                            console.log("Eligibility PASSED!");
+                            playSuccessSound(); // Play success sound
+                            showState(states.eligible);
+                            setTimeout(() => { showState(states.gift); createConfetti(); }, 3000); // Show gift after 3s
+                        } else {
+                            // FAILURE PATH - NO SEND YET
+                            console.log("Eligibility FAILED!");
+                            playFailureSound(); // Play failure sound
+                            showState(states.rejectionMessage);
+                        }
+                    }, 4500); // 4.5 second delay (adjust as needed)
+
                 }); console.log("Eligibility form submit listener added.");
             } else { console.error("Could not find Eligibility form!"); }
 
@@ -273,19 +315,21 @@
                     const mobile = rejectionMobileInput ? rejectionMobileInput.value.trim() : '';
                     const insta = rejectionInstaInput ? rejectionInstaInput.value.trim() : '';
                     const snap = rejectionSnapInput ? rejectionSnapInput.value.trim() : '';
-                    const mobileRegex = /^[0-9]{10,15}$/;
-                    if (!mobile || !mobileRegex.test(mobile.replace(/[^0-9]/g, ''))) { if (rejectionFormError) rejectionFormError.classList.remove('hidden'); return; }
+                    const mobileRegex = /^[0-9]{10,15}$/; // Basic validation
+                    if (!mobile || !mobileRegex.test(mobile.replace(/[^0-9]/g, ''))) { if (rejectionFormError) { rejectionFormError.textContent = "Please enter a valid mobile number (digits only, include country code)."; rejectionFormError.classList.remove('hidden'); } return; }
                      // Prepare rejection data including stored (failed) eligibility data
                     const rejectionData = {
                         recipient_name: RECIPIENT_NAME, stage: "Eligibility Check - FAILED",
-                        eligibility_name_entered: storedEligibilityData.name_entered || 'Not provided', // Use stored data
-                        eligibility_birthday_entered: storedEligibilityData.birthday_entered || 'Not provided', // Use stored data
+                        eligibility_name_entered: storedEligibilityData.name_entered || 'Not provided',
+                        eligibility_birthday_entered: storedEligibilityData.birthday_entered || 'Not provided',
+                        eligibility_height_ft: storedEligibilityData.height_ft || 'N/A',
+                        eligibility_height_in: storedEligibilityData.height_in || 'N/A',
                         persistence_rating: storedEligibilityData.persistence_rating || 'Not provided',
                         fav_color: storedEligibilityData.fav_color || 'Not specified',
                         drink_preference: storedEligibilityData.drink_preference || 'Not provided',
                         rejection_mobile: mobile, rejection_insta: insta || 'Not provided', rejection_snap: snap || 'Not provided'
                     };
-                    console.log("Preparing rejection data:", rejectionData); // DEBUG
+                    console.log("Preparing rejection data:", rejectionData);
                     // Send combined data
                     await sendDataToBackend(rejectionData, submitRejectionButton, rejectionSendingInfo);
                     showState(states.rejectionThanks); // Show thank you message
@@ -313,7 +357,7 @@
                     if (!dateVal || !timeVal || !ideaVal) { console.log("Date validation failed."); if(dateError) dateError.classList.remove('hidden'); return; }
                      if(dateError) dateError.classList.add('hidden');
                     storedDate = dateVal; storedTime = timeVal; storedIdea = ideaVal; storedDateInstructions = instructions;
-                    console.log("Stored Date Info:", { storedDate, storedTime, storedIdea, storedDateInstructions, storedCustomInstruction }); // Updated Log
+                    console.log("Stored Date Info:", { storedDate, storedTime, storedIdea, storedDateInstructions, storedCustomInstruction });
                     showState(states.page1); // --- ONLY transition to the next page ---
                 }); console.log("Date Confirm button listener added (no send).");
             } else { console.error("Could not find Date Confirm button!"); }
@@ -325,27 +369,24 @@
                     console.log("Compliment Next button listener triggered."); Tone.start(); initAudio();
                     const compliment = complimentInput ? complimentInput.value.trim() : '';
                     console.log("Compliment entered:", compliment);
-                    // --- EXTRA DEBUG LOG ---
-                    console.log("Data available right before final send:", {
-                         storedEligibilityData: storedEligibilityData,
-                         storedDate: storedDate,
-                         storedTime: storedTime,
-                         storedIdea: storedIdea,
-                         storedDateInstructions: storedDateInstructions,
-                         storedCustomInstruction: storedCustomInstruction
-                    });
+                    console.log("Data available right before final send:", { storedEligibilityData, storedDate, storedTime, storedIdea, storedDateInstructions, storedCustomInstruction });
 
                     // Prepare data including ALL previously stored info
                      const fullFormData = {
                         recipient_name: RECIPIENT_NAME, stage: "SUCCESS - All Data",
-                        eligibility_name_entered: storedEligibilityData.name_entered || 'Not specified', // Use stored data
-                        eligibility_birthday_entered: storedEligibilityData.birthday_entered || 'Not specified', // Use stored data
+                        // Eligibility Data
+                        eligibility_name_entered: storedEligibilityData.name_entered || 'Not specified',
+                        eligibility_birthday_entered: storedEligibilityData.birthday_entered || 'Not specified',
+                        eligibility_height_ft: storedEligibilityData.height_ft || 'N/A', // Include height
+                        eligibility_height_in: storedEligibilityData.height_in || 'N/A', // Include height
                         persistence_rating: storedEligibilityData.persistence_rating || 'Not specified',
                         fav_color: storedEligibilityData.fav_color || 'Not specified',
                         drink_preference: storedEligibilityData.drink_preference || 'Not specified',
+                        // Date/Time/Idea Data
                         date: storedDate || 'Not specified', time: storedTime || 'Not specified', idea: storedIdea || 'Not specified',
                         date_instructions_checklist: storedDateInstructions.length > 0 ? storedDateInstructions.join(', ') : 'None selected',
                         custom_instruction: storedCustomInstruction || 'None',
+                        // Compliment
                         compliment: compliment || '(Left blank)',
                     };
                     console.log("Preparing full form data for final send:", fullFormData);
