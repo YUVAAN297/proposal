@@ -65,13 +65,11 @@
         #page4-game-area { position: relative; height: 200px; background-color: rgba(255, 182, 193, 0.2); border-radius: 10px; margin-top: 1rem; border: 1px dashed #f472b6; overflow: hidden; }
         #clickable-heart { position: absolute; font-size: 3rem; color: red; cursor: pointer; transition: top 0.1s, left 0.1s; user-select: none; }
         #tarot-result { background-color: #ede9fe; border: 1px solid #c4b5fd; border-radius: 10px; padding: 1rem; margin-top: 1.5rem; font-style: italic; color: #5b21b6; min-height: 3em; }
-        /* Love Letter Style */
         #love-letter-result { background-color: #fff1f2; border: 1px dashed #fda4af; border-radius: 10px; padding: 1.5rem; margin-top: 1.5rem; font-family: 'Caveat', cursive; font-size: 1.5rem; line-height: 1.6; color: #be185d; text-align: left; white-space: pre-wrap; min-height: 100px; }
         .letter-options { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; flex-wrap: wrap;}
         .letter-options div { text-align: left;}
         .letter-options label { font-size: 0.9rem; font-weight: bold; color: #4b5563; margin-bottom: 0.5rem; display: block;}
         .letter-options .radio-label { background-color: transparent; padding: 5px 0; }
-
         #page6-state .star { position: absolute; color: #ffd700; font-size: 1rem; animation: twinkle 3s infinite ease-in-out; opacity: 0; }
         @keyframes twinkle { 0%, 100% { opacity: 0; transform: scale(0.5); } 50% { opacity: 1; transform: scale(1); } }
         #page7-state .final-burst { font-size: 4rem; animation: burst 1s ease-out forwards; }
@@ -112,50 +110,28 @@
         <div id="rejection-form-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-gray-700 romantic-font">For Future Reference...</h2> <p class="text-gray-600 text-lg">If you'd like, please leave your contact details below.</p> <form id="rejection-form" class="text-left max-w-md mx-auto space-y-4 mt-4"> <div> <label for="rejection-mobile" class="form-label">Mobile Number (with country code, e.g., 91xxxxxxxxxx):</label> <input type="tel" id="rejection-mobile" name="rejection_mobile" pattern="[0-9]{10,15}" placeholder="e.g. 911234567890" required> </div> <div> <label for="rejection-insta" class="form-label">Instagram ID (Optional):</label> <input type="text" id="rejection-insta" name="rejection_insta" placeholder="@your_insta"> </div> <div> <label for="rejection-snap" class="form-label">Snapchat ID (Optional):</label> <input type="text" id="rejection-snap" name="rejection_snap" placeholder="your_snap_id"> </div> <button type="submit" id="submit-rejection-button" class="action-button bg-purple-500 hover:bg-purple-600 text-white w-full"> Submit Contact Info </button> <p id="rejection-form-error" class="text-red-500 text-sm mt-2 hidden text-center">Please enter a valid mobile number format.</p> <p id="rejection-sending-info" class="text-gray-500 text-sm mt-2 hidden text-center">Submitting...</p> </form> </div>
         <div id="rejection-thanks-state" class="hidden fade-in-slow content-container"> <div class="text-6xl mb-4">👍✉️</div> <h2 class="text-2xl md:text-3xl font-bold text-gray-700 romantic-font">Thank You!</h2> <p class="text-gray-600 text-lg">Your contact information has been noted.</p> <p class="text-sm text-gray-500">(Maybe we'll connect in the future!)</p> </div>
         <div id="gift-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-pink-600 romantic-font">Okay, Now For Real... Click the Gift!</h2> <button id="gift-box" class="text-6xl md:text-8xl cursor-pointer animate-bounce">🎁</button> </div>
-        <div id="memory-lane-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-rose-600 romantic-font">📸 Memory Lane 📸</h2> <p class="text-gray-700 text-lg">Remember these moments?</p> <div class="slider-container"> <div class="slide active"> <img src="https://github.com/YUVAAN297/Made-for-khushboo/blob/main/Farewell.jpeg?raw=true" alt="Memory 1" onerror="this.src='https://placehold.co/400x300/cccccc/ffffff?text=Image+1+Error'; this.alt='Image failed to load'"> <div class="caption">Remember this farewell? 😄</div> </div> <div class="slide"> <img src="https://github.com/YUVAAN297/Made-for-khushboo/blob/main/scribble.jpeg?raw=true" alt="Memory 2" onerror="this.src='https://placehold.co/400x300/cccccc/ffffff?text=Image+2+Error'; this.alt='Image failed to load'"> <div class="caption">This scribble! 😂</div> </div> <div class="slide"> <img src="https://placehold.co/400x300/D5F5E3/196F3D?text=Your+Photo+3" alt="Memory 3" onerror="this.src='https://placehold.co/400x300/cccccc/ffffff?text=Image+3+Error'; this.alt='Image failed to load'"> <div class="caption">Such a great memory! ❤️</div> </div> <a class="prev" onclick="changeSlide(-1)">&#10094;</a> <a class="next" onclick="changeSlide(1)">&#10095;</a> </div> <button id="goto-final-state-button" class="action-button bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white"> Okay, Let's Plan the Date! 📅 </button> </div>
+        <div id="memory-lane-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-rose-600 romantic-font">📸 Memory Lane 📸</h2> <p class="text-gray-700 text-lg">Remember these moments?</p> <div class="slider-container">
+                <div class="slide active">
+                    <img src="https://github.com/YUVAAN297/Made-for-khushboo/blob/main/Farewell.jpeg?raw=true" alt="Memory 1" onerror="this.src='https://placehold.co/400x300/cccccc/ffffff?text=Image+1+Error'; this.alt='Image failed to load'">
+                    <div class="caption">Remember this farewell? 😄</div>
+                </div>
+                <div class="slide">
+                     <img src="https://github.com/YUVAAN297/Made-for-khushboo/blob/main/scribble.jpeg?raw=true" alt="Memory 2" onerror="this.src='https://placehold.co/400x300/cccccc/ffffff?text=Image+2+Error'; this.alt='Image failed to load'">
+                    <div class="caption">This scribble! 😂</div>
+                </div>
+                <a class="prev" onclick="changeSlide(-1)">&#10094;</a> <a class="next" onclick="changeSlide(1)">&#10095;</a> </div> <button id="goto-final-state-button" class="action-button bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white"> Okay, Let's Plan the Date! 📅 </button> </div>
         <div id="final-state" class="hidden fade-in-slow content-container"> <h1 class="text-3xl md:text-4xl font-bold text-pink-600 romantic-font animate-pulse">Yay! You made me so happy! 🥰</h1> <p class="text-gray-800 text-lg">So... when and where for our first date? 😉</p> <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left"> <div><label for="date-input" class="block text-sm font-medium text-gray-700 mb-1">Pick a Date:</label><input type="date" id="date-input" name="date"></div> <div><label for="time-input" class="block text-sm font-medium text-gray-700 mb-1">Pick a Time:</label><input type="time" id="time-input" name="time"></div> </div> <div class="text-left mt-4"> <label class="block text-sm font-medium text-gray-700 mb-2">Date Idea:</label> <label class="radio-label"><input type="radio" name="date_idea" value="Coffee & Chat ☕" class="radio-input"> Coffee & Chat ☕</label> <label class="radio-label"><input type="radio" name="date_idea" value="Movie Night 🎬🍿" class="radio-input"> Movie Night 🎬🍿</label> <label class="radio-label"><input type="radio" name="date_idea" value="Dinner Date 🍽️✨" class="radio-input"> Dinner Date 🍽️✨</label> <label class="radio-label"><input type="radio" name="date_idea" value="Custom" class="radio-input" id="radio-custom"> Something else...</label> <textarea id="custom-idea-text" name="custom_idea" placeholder="Your amazing date idea..." class="mt-2 hidden"></textarea> </div> <div class="text-left mt-6 border-t border-pink-200 pt-4"> <p class="text-sm font-bold text-gray-600 mb-2">Optional Date Perks (Check any that apply! 😉):</p> <div class="flex flex-wrap justify-center gap-x-4 gap-y-2"> <label class="instruction-label"> <input type="checkbox" id="instruction-flowers" name="instruction_flowers" class="instruction-checkbox"> Bring flowers? 🌹 </label> <label class="instruction-label"> <input type="checkbox" id="instruction-chocolate" name="instruction_chocolate" class="instruction-checkbox"> Chocolate involved? 🍫 </label> <label class="instruction-label"> <input type="checkbox" id="instruction-punctual" name="instruction_punctual" class="instruction-checkbox"> Be on time! ⏰ </label> </div> <div class="mt-3"> <label for="custom-instruction-input" class="form-label text-sm text-gray-600">Any other requests/instructions?</label> <textarea id="custom-instruction-input" name="custom_instruction" placeholder="e.g., 'Pick me up', 'Wear something nice!'" rows="2"></textarea> </div> </div> <button id="date-confirm-button" class="action-button bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"> Got it, What's Next? ✨ </button> <p id="date-error" class="text-red-500 text-sm mt-2 hidden">Please select Date, Time, and a Date Idea (or write one!).</p> </div>
         <div id="page1-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-purple-600 romantic-font">Okay, Date Info Noted! 📝</h2> <p class="text-gray-700 text-lg">Just a couple more things...</p> <button id="goto-page2-button" class="action-button bg-pink-500 hover:bg-pink-600 text-white">Continue... 🎉</button> </div>
         <div id="page2-state" class="hidden fade-in-slow content-container" style="background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, rgba(255,223,230,0.3) 70%); border-radius: 15px; padding: 20px;"> <div id="interactive-heart" class="pulsing-heart mb-6" onclick="changeHeartColor()">❤️</div> <p class="text-gray-800 text-xl italic leading-relaxed">"Meeting you was like listening to a song for the first time and knowing it would be my favorite."</p> <p class="text-sm text-gray-600 mt-2">(Click the heart!)</p> <button id="goto-voice-message-button" class="action-button bg-teal-500 hover:bg-teal-600 text-white">Hear Something... 🎤</button> </div>
         <div id="voice-message-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-indigo-600 romantic-font">Incoming Message...</h2> <div id="voice-message-player"> <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" /> </svg> <div id="voice-message-text">"Detecting cuteness... overload reached 💘"</div> </div> <audio id="voice-audio" src="xyz.mp3" preload="auto"></audio> <p class="text-sm text-gray-500 mt-2">(Sound should play automatically!)</p> <div class="flex flex-col sm:flex-row justify-center items-center sm:space-x-4 space-y-3 sm:space-y-0 mt-4"> <button id="replay-audio-button" class="action-button action-button-small bg-gray-400 hover:bg-gray-500 text-white">Replay 🔁</button> <button id="goto-page3-button" class="action-button action-button-small bg-orange-500 hover:bg-orange-600 text-white">Okay, Got It! 👍</button> </div> </div>
         <div id="page3-state" class="hidden fade-in-slow content-container"> <div class="text-6xl mb-4 animate-bounce">😊</div> <h2 class="text-3xl md:text-4xl font-bold text-orange-500 romantic-font">Quick! Compliment Me Back!</h2> <p class="text-gray-700 text-lg handwritten-font">What's one nice thing you'd say about me?</p> <input type="text" id="compliment-input" placeholder="(Be nice! 😉)" class="mt-2"> <button id="compliment-next-button" class="action-button bg-cyan-500 hover:bg-cyan-600 text-white mt-4"> Send & Play Game! 🤔 </button> <p id="compliment-sending-info" class="text-gray-500 text-sm mt-2 hidden">Sending info...</p> </div>
         <div id="page4-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-lime-600 romantic-font">Quick! Click the Heart!</h2> <p class="text-gray-700 text-lg mt-4">You have 10 seconds... Go!</p> <div id="page4-game-area"> <span id="clickable-heart" style="display: none;">💖</span> </div> <p class="mt-2">Score: <span id="game-score">0</span> | Time Left: <span id="game-time">10</span>s</p> <p id="game-message" class="text-pink-600 font-bold mt-2"></p>
-             <button id="goto-tarot-button-from-game" class="action-button bg-yellow-500 hover:bg-yellow-600 text-white block mx-auto mt-6 hidden">What's My Fortune? 🔮</button>
+            <button id="goto-tarot-button-from-game" class="action-button bg-yellow-500 hover:bg-yellow-600 text-white block mx-auto mt-6 hidden">What's My Fortune? 🔮</button>
         </div>
-
-        <div id="tarot-state" class="hidden fade-in-slow content-container">
-            <h2 class="text-2xl md:text-3xl font-bold text-purple-700 romantic-font">🔮 Valentine Tarot 🔮</h2>
-            <p class="text-gray-700 text-lg">Let's see what the future holds for us...</p>
-            <button id="reveal-fortune-button" class="action-button bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-white">
-                Reveal My Love Fortune!
-            </button>
-            <p id="tarot-result" class="text-gray-800 text-lg italic mt-4 p-3 bg-purple-100 rounded-lg hidden"></p>
-             <button id="goto-love-letter-button" class="action-button bg-red-500 hover:bg-red-600 text-white hidden">A Letter For You...</button>
+        <div id="tarot-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-purple-700 romantic-font">🔮 Valentine Tarot 🔮</h2> <p class="text-gray-700 text-lg">Let's see what the future holds for us...</p> <button id="reveal-fortune-button" class="action-button bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-white"> Reveal My Love Fortune! </button> <p id="tarot-result" class="text-gray-800 text-lg italic mt-4 p-3 bg-purple-100 rounded-lg hidden"></p>
+            <button id="goto-love-letter-button" class="action-button bg-red-500 hover:bg-red-600 text-white hidden">A Letter For You...</button>
         </div>
-
-        <div id="love-letter-state" class="hidden fade-in-slow content-container">
-            <h2 class="text-2xl md:text-3xl font-bold text-rose-700 romantic-font">📝 A Little Note... 📝</h2>
-            <p class="text-gray-700 text-lg">How should I write it?</p>
-            <div class="letter-options">
-                <div>
-                    <label>Mood:</label>
-                    <label class="radio-label"><input type="radio" name="letter_mood" value="funny" class="radio-input" checked> Funny 😂</label>
-                    <label class="radio-label"><input type="radio" name="letter_mood" value="romantic" class="radio-input"> Romantic 🥰</label>
-                    <label class="radio-label"><input type="radio" name="letter_mood" value="cheesy" class="radio-input"> Cheesy 🧀</label>
-                </div>
-                <div>
-                    <label>Length:</label>
-                    <label class="radio-label"><input type="radio" name="letter_length" value="short" class="radio-input" checked> Short & Sweet</label>
-                    <label class="radio-label"><input type="radio" name="letter_length" value="long" class="radio-input"> Long & Deep</label>
-                </div>
-            </div>
-            <button id="generate-letter-button" class="action-button bg-gradient-to-r from-rose-400 to-red-500 text-white mt-4">
-                Write My Letter!
-            </button>
-            <p id="love-letter-result" class="hidden"></p>
-            <button id="goto-page6-button-from-letter" class="action-button bg-emerald-500 hover:bg-emerald-600 text-white hidden">Almost Done!</button>
-        </div>
-
-
+        <div id="love-letter-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-rose-700 romantic-font">📝 A Little Note... 📝</h2> <p class="text-gray-700 text-lg">How should I write it?</p> <div class="letter-options"> <div> <label>Mood:</label> <label class="radio-label"><input type="radio" name="letter_mood" value="funny" class="radio-input" checked> Funny 😂</label> <label class="radio-label"><input type="radio" name="letter_mood" value="romantic" class="radio-input"> Romantic 🥰</label> <label class="radio-label"><input type="radio" name="letter_mood" value="cheesy" class="radio-input"> Cheesy 🧀</label> </div> <div> <label>Length:</label> <label class="radio-label"><input type="radio" name="letter_length" value="short" class="radio-input" checked> Short & Sweet</label> <label class="radio-label"><input type="radio" name="letter_length" value="long" class="radio-input"> Long & Deep</label> </div> </div> <button id="generate-letter-button" class="action-button bg-gradient-to-r from-rose-400 to-red-500 text-white mt-4"> Write My Letter! </button> <p id="love-letter-result" class="hidden"></p> <button id="goto-page6-button-from-letter" class="action-button bg-emerald-500 hover:bg-emerald-600 text-white hidden">Almost Done!</button> </div>
         <div id="page6-state" class="hidden fade-in-slow content-container relative overflow-hidden min-h-[250px]" style="background: linear-gradient(to bottom, #1e3a8a, #3b82f6); border-radius: 15px; padding: 20px;"> <div id="star-container" class="absolute inset-0 pointer-events-none"></div> <h2 class="text-2xl md:text-3xl font-bold text-yellow-300 romantic-font relative z-10">Feeling Lucky!</h2> <p class="text-gray-100 text-lg relative z-10 mb-4">On a scale of 1-5 stars, how happy am I right now?</p> <div class="rating-stars relative z-10" id="rating-stars"> <span data-value="1">☆</span><span data-value="2">☆</span><span data-value="3">☆</span><span data-value="4">☆</span><span data-value="5">☆</span> </div> <p class="text-yellow-300 text-sm mt-2 relative z-10">(Hint: It's definitely 5! ⭐⭐⭐⭐⭐)</p> <button id="goto-page7-button" class="action-button bg-emerald-500 hover:bg-emerald-600 text-white relative z-10 mt-6">The Grand Finale! 🏁</button> </div>
         <div id="page7-state" class="hidden fade-in-slow content-container"> <div class="final-burst text-yellow-400 mb-4">🎉✨🥳</div> <h2 class="text-3xl md:text-4xl font-bold text-indigo-600 romantic-font">See you soon, Khushboo!</h2> <p class="text-gray-800 text-lg">Counting down the moments until our date! Get ready for fun!</p> <div class="text-4xl mt-4 text-red-500">❤️💖❤️</div> </div>
 
@@ -163,7 +139,6 @@
 
     <script>
         // --- DOM Elements ---
-        // Updated states object to include love letter and tarot
         const states = { question: document.getElementById('question-state'), eligibilityForm: document.getElementById('eligibility-form-state'), verifying: document.getElementById('verifying-state'), eligible: document.getElementById('eligible-state'), rejectionMessage: document.getElementById('rejection-message-state'), rejectionForm: document.getElementById('rejection-form-state'), rejectionThanks: document.getElementById('rejection-thanks-state'), gift: document.getElementById('gift-state'), memoryLane: document.getElementById('memory-lane-state'), final: document.getElementById('final-state'), page1: document.getElementById('page1-state'), page2: document.getElementById('page2-state'), voiceMessage: document.getElementById('voice-message-state'), page3: document.getElementById('page3-state'), page4: document.getElementById('page4-state'), tarot: document.getElementById('tarot-state'), loveLetter: document.getElementById('love-letter-state'), page6: document.getElementById('page6-state'), page7: document.getElementById('page7-state') };
         const questionText = document.getElementById('question-text');
         const yesButton = document.getElementById('yes-button');
@@ -207,24 +182,19 @@
         const gameScoreDisplay = document.getElementById('game-score');
         const gameTimeDisplay = document.getElementById('game-time');
         const gameMessage = document.getElementById('game-message');
-        // Tarot elements
         const revealFortuneButton = document.getElementById('reveal-fortune-button');
         const tarotResult = document.getElementById('tarot-result');
-        const gotoPage6ButtonFromTarot = document.getElementById('goto-page6-button-from-tarot');
-        // Love Letter elements
+        const gotoLoveLetterButton = document.getElementById('goto-love-letter-button');
         const generateLetterButton = document.getElementById('generate-letter-button');
         const loveLetterResult = document.getElementById('love-letter-result');
-        const gotoPage6ButtonFromLetter = document.getElementById('goto-page6-button-from-letter'); // New button
-        // Memory Lane Elements
+        const gotoPage6ButtonFromLetter = document.getElementById('goto-page6-button-from-letter');
         const memoryLaneSlides = document.querySelectorAll('#memory-lane-state .slide');
         const gotoFinalStateButton = document.getElementById('goto-final-state-button');
-        // Navigation Buttons
         const gotoPage2Button = document.getElementById('goto-page2-button');
         const gotoVoiceMessageButton = document.getElementById('goto-voice-message-button');
         const gotoPage3Button = document.getElementById('goto-page3-button');
         const gotoTarotButtonFromGame = document.getElementById('goto-tarot-button-from-game');
-        const gotoLoveLetterButton = document.getElementById('goto-love-letter-button'); // New button after Tarot
-        // Removed page6BtnFromGame
+        // Removed page6BtnFromTarot
         const gotoPage7Button = document.getElementById('goto-page7-button');
 
         // --- State Variables ---
@@ -244,15 +214,7 @@
         let storedCustomInstruction = "";
         let currentSlideIndex = 0;
         const fortunes = [ "A surprise chocolate delivery is imminent! 🍫", "Prepare for maximum cuddles in the near future. 🤗", "Someone thinks you're incredibly cute (it's me!). 😉", "Adventure calls! A fun outing is on the horizon. 🚀", "This guy is planning to love you forever. 💍", "Your smile will brighten someone's day (mine!). ✨", "Expect a message that will make you happy very soon... 💞" ];
-        // Love Letter Templates
-        const loveLetters = {
-            funny_short: "Roses are red, violets are blue, I'm not great at poems, but I really like you! 😄",
-            funny_long: "My dearest Khushboo,\n\nI tried writing a serious love letter, but honestly, thinking about you just makes me goofy and happy. It's like my brain turns into happy mush. Is that romantic? Probably not, but it's true! Looking forward to more happy mush moments with you.\n\nYours goofily,\n[Your Name]", // Replace [Your Name]
-            romantic_short: "Khushboo, just thinking about you makes my day brighter. Can't wait to see you soon. ❤️",
-            romantic_long: "Dearest Khushboo,\n\nEver since I met you, things just seem... better. Brighter. More fun. You have this amazing way about you that I can't get enough of. Thinking of you always brings a smile to my face, and I feel incredibly lucky that you said yes.\n\nWith all my affection,\n[Your Name]", // Replace [Your Name]
-            cheesy_short: "Are you made of copper and tellurium? Because you're Cu-Te! 😉 See you soon!",
-            cheesy_long: "To the amazing Khushboo,\n\nDo you have a map? Because I just keep getting lost in your eyes. Okay, okay, that was cheesy, but seriously, I'm so incredibly happy you said yes. You're the best!\n\nYours cheesily,\n[Your Name]" // Replace [Your Name]
-        };
+        const loveLetters = { funny_short: "Roses are red, violets are blue, I'm not great at poems, but I really like you! 😄", funny_long: "My dearest Khushboo,\n\nI tried writing a serious love letter, but honestly, thinking about you just makes me goofy and happy. It's like my brain turns into happy mush. Is that romantic? Probably not, but it's true! Looking forward to more happy mush moments with you.\n\nYours goofily,\nMe", romantic_short: "Khushboo, just thinking about you makes my day brighter. Can't wait to see you soon. ❤️", romantic_long: "Dearest Khushboo,\n\nEver since I met you, things just seem... better. Brighter. More fun. You have this amazing way about you that I can't get enough of. Thinking of you always brings a smile to my face, and I feel incredibly lucky that you said yes.\n\nWith all my affection,\nMe", cheesy_short: "Are you made of copper and tellurium? Because you're Cu-Te! 😉 See you soon!", cheesy_long: "To the amazing Khushboo,\n\nDo you have a map? Because I just keep getting lost in your eyes. Okay, okay, that was cheesy, but seriously, I'm so incredibly happy you said yes. You're the best!\n\nYours cheesily,\nMe" };
 
 
         // --- Functions ---
@@ -301,26 +263,27 @@
         function changeSlide(n) { showSlide(currentSlideIndex + n); }
 
         // --- Tarot Function ---
-        function revealFortune() { if (!tarotResult || !gotoPage6ButtonFromTarot) return; const randomIndex = Math.floor(Math.random() * fortunes.length); tarotResult.textContent = fortunes[randomIndex]; tarotResult.classList.remove('hidden'); gotoPage6ButtonFromTarot.classList.remove('hidden'); if(revealFortuneButton) revealFortuneButton.disabled = true; }
+        function revealFortune() {
+            if (!tarotResult || !gotoLoveLetterButton) return; // Check for CORRECT next button
+            const randomIndex = Math.floor(Math.random() * fortunes.length);
+            tarotResult.textContent = fortunes[randomIndex];
+            tarotResult.classList.remove('hidden');
+            gotoLoveLetterButton.classList.remove('hidden'); // Show CORRECT next button
+            if(revealFortuneButton) revealFortuneButton.disabled = true;
+        }
 
         // --- Love Letter Function ---
         function generateLoveLetter() {
             const moodElement = document.querySelector('input[name="letter_mood"]:checked');
             const lengthElement = document.querySelector('input[name="letter_length"]:checked');
-            if (!moodElement || !lengthElement || !loveLetterResult || !gotoPage6ButtonFromLetter) return;
-
-            const mood = moodElement.value;
-            const length = lengthElement.value;
-            const key = `${mood}_${length}`;
-            const letterTemplate = loveLetters[key] || "Hmm, my heart's too full to find the right words right now, but know that I'm thinking of you!"; // Fallback
-
-            // Replace placeholder name if needed (adjust placeholder in templates if different)
-            const finalLetter = letterTemplate.replace("[Your Name]", "Me"); // Or use your actual name
-
-            loveLetterResult.textContent = finalLetter;
-            loveLetterResult.classList.remove('hidden');
-            gotoPage6ButtonFromLetter.classList.remove('hidden');
-            if(generateLetterButton) generateLetterButton.disabled = true;
+            if (!moodElement || !lengthElement || !loveLetterResult || !gotoPage6ButtonFromLetter || !generateLetterButton) { console.error("Love letter elements not found!"); return; }
+            const mood = moodElement.value; const length = lengthElement.value; const key = `${mood}_${length}`;
+            const letterTemplate = loveLetters[key] || "Hmm, my heart's too full to find the right words right now, but know that I'm thinking of you!";
+            const finalLetter = letterTemplate.replace("[Your Name]", "Me");
+            loveLetterResult.textContent = finalLetter; loveLetterResult.classList.remove('hidden');
+            gotoPage6ButtonFromLetter.classList.remove('hidden'); // Show next button
+            // generateLetterButton.disabled = true; // Keep enabled for re-generation
+            console.log(`Generated letter: ${key}`);
         }
 
 
@@ -348,8 +311,8 @@
             const gotoVoiceMessageBtn = document.getElementById('goto-voice-message-button');
             const page3Btn = document.getElementById('goto-page3-button');
             const gotoTarotBtnFromGame = document.getElementById('goto-tarot-button-from-game');
-            const gotoLoveLetterBtn = document.getElementById('goto-love-letter-button'); // New button after Tarot
-            const page6BtnFromLetter = document.getElementById('goto-page6-button-from-letter'); // New button after Letter
+            const gotoLoveLetterBtn = document.getElementById('goto-love-letter-button'); // After Tarot
+            const page6BtnFromLetter = document.getElementById('goto-page6-button-from-letter'); // After Letter
             // Removed page6BtnFromTarot
             const page7Btn = document.getElementById('goto-page7-button');
 
@@ -484,13 +447,10 @@
             if (page2Btn) { page2Btn.addEventListener('click', () => showState(states.page2)); console.log("Goto Page 2 listener added."); } else { console.error("Could not find Goto Page 2 button!"); }
             if (gotoVoiceMessageButton) { gotoVoiceMessageButton.addEventListener('click', () => showState(states.voiceMessage)); console.log("Goto Voice Message listener added."); } else { console.error("Could not find Goto Voice Message button!"); }
             if (page3Btn) { page3Btn.addEventListener('click', () => showState(states.page3)); console.log("Goto Page 3 listener added."); } else { console.error("Could not find Goto Page 3 button!"); }
-            // Updated listener for button after game -> Tarot
             if (gotoTarotButtonFromGame) { gotoTarotButtonFromGame.addEventListener('click', () => showState(states.tarot)); console.log("Goto Tarot from Game listener added."); } else { console.error("Could not find Goto Tarot from Game button!"); }
-             // Listener for button after Tarot -> Love Letter
             if (gotoLoveLetterButton) { gotoLoveLetterButton.addEventListener('click', () => showState(states.loveLetter)); console.log("Goto Love Letter listener added."); } else { console.error("Could not find Goto Love Letter button!"); }
-             // Listener for button after Love Letter -> Page 6
             if (page6BtnFromLetter) { page6BtnFromLetter.addEventListener('click', () => showState(states.page6)); console.log("Goto Page 6 from Letter listener added."); } else { console.error("Could not find Goto Page 6 from Letter button!"); }
-            // Removed old page6Btn listener
+            // Removed page6BtnFromTarot
             if (page7Btn) { page7Btn.addEventListener('click', () => showState(states.page7)); console.log("Goto Page 7 listener added."); } else { console.error("Could not find Goto Page 7 button!"); }
             if (ratingStarsCont) { ratingStarsCont.addEventListener('click', handleStarRating); console.log("Rating Stars listener added."); } else { console.error("Could not find Rating Stars container!"); }
 
