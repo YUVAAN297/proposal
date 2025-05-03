@@ -51,17 +51,24 @@
         .form-label { display: block; text-align: left; font-weight: bold; color: #4b5563; margin-bottom: 0.25rem; font-size: 0.9rem;}
         .instruction-label { display: inline-flex; align-items: center; margin-right: 1rem; cursor: pointer; font-size: 0.9rem; color: #4b5563;}
         .instruction-checkbox { margin-right: 0.5rem; accent-color: #db2777; width: 1rem; height: 1rem;}
-        /* Height Input Specific */
         .height-input-group { display: flex; gap: 0.5rem; align-items: flex-end; }
         .height-input-group input { width: auto; flex-grow: 1; }
         .height-input-group span { padding-bottom: 10px; color: #4b5563; font-size: 0.9rem;}
 
-
         /* Page Specific Styles & Loading Spinner */
         #page2-state { background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, rgba(255,223,230,0.3) 70%); border-radius: 15px; padding: 20px; }
+        /* Voice Message Style */
+        #voice-message-player { background-color: #fce7f3; border: 1px solid #fbcfe8; border-radius: 12px; padding: 1rem 1.5rem; display: flex; align-items: center; gap: 1rem; max-width: 350px; margin: 1rem auto; }
+        #voice-message-player svg { flex-shrink: 0; color: #db2777; }
+        #voice-message-text { font-style: italic; color: #4b5563; text-align: left; }
+        /* Hide default audio controls */
+        #voice-audio::-webkit-media-controls-panel { display: none !important; -webkit-appearance: none; }
+        #voice-audio::-webkit-media-controls-play-button { display: none !important; -webkit-appearance: none; }
+        #voice-audio::-webkit-media-controls-start-playback-button { display: none !important; -webkit-appearance: none; }
+
+
         #page4-game-area { position: relative; height: 200px; background-color: rgba(255, 182, 193, 0.2); border-radius: 10px; margin-top: 1rem; border: 1px dashed #f472b6; overflow: hidden; }
         #clickable-heart { position: absolute; font-size: 3rem; color: red; cursor: pointer; transition: top 0.1s, left 0.1s; user-select: none; }
-        #page5-state input[type="text"] { margin-bottom: 0.75rem; }
         #page6-state .star { position: absolute; color: #ffd700; font-size: 1rem; animation: twinkle 3s infinite ease-in-out; opacity: 0; }
         @keyframes twinkle { 0%, 100% { opacity: 0; transform: scale(0.5); } 50% { opacity: 1; transform: scale(1); } }
         #page7-state .final-burst { font-size: 4rem; animation: burst 1s ease-out forwards; }
@@ -92,10 +99,21 @@
         <div id="gift-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-pink-600 romantic-font">Okay, Now For Real... Click the Gift!</h2> <button id="gift-box" class="text-6xl md:text-8xl cursor-pointer animate-bounce">🎁</button> </div>
         <div id="final-state" class="hidden fade-in-slow content-container"> <h1 class="text-3xl md:text-4xl font-bold text-pink-600 romantic-font animate-pulse">Yay! You made me so happy! 🥰</h1> <p class="text-gray-800 text-lg">So... when and where for our first date? 😉</p> <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left"> <div><label for="date-input" class="block text-sm font-medium text-gray-700 mb-1">Pick a Date:</label><input type="date" id="date-input" name="date"></div> <div><label for="time-input" class="block text-sm font-medium text-gray-700 mb-1">Pick a Time:</label><input type="time" id="time-input" name="time"></div> </div> <div class="text-left mt-4"> <label class="block text-sm font-medium text-gray-700 mb-2">Date Idea:</label> <label class="radio-label"><input type="radio" name="date_idea" value="Coffee & Chat ☕" class="radio-input"> Coffee & Chat ☕</label> <label class="radio-label"><input type="radio" name="date_idea" value="Movie Night 🎬🍿" class="radio-input"> Movie Night 🎬🍿</label> <label class="radio-label"><input type="radio" name="date_idea" value="Dinner Date 🍽️✨" class="radio-input"> Dinner Date 🍽️✨</label> <label class="radio-label"><input type="radio" name="date_idea" value="Custom" class="radio-input" id="radio-custom"> Something else...</label> <textarea id="custom-idea-text" name="custom_idea" placeholder="Your amazing date idea..." class="mt-2 hidden"></textarea> </div> <div class="text-left mt-6 border-t border-pink-200 pt-4"> <p class="text-sm font-bold text-gray-600 mb-2">Optional Date Perks (Check any that apply! 😉):</p> <div class="flex flex-wrap justify-center gap-x-4 gap-y-2"> <label class="instruction-label"> <input type="checkbox" id="instruction-flowers" name="instruction_flowers" class="instruction-checkbox"> Bring flowers? 🌹 </label> <label class="instruction-label"> <input type="checkbox" id="instruction-chocolate" name="instruction_chocolate" class="instruction-checkbox"> Chocolate involved? 🍫 </label> <label class="instruction-label"> <input type="checkbox" id="instruction-punctual" name="instruction_punctual" class="instruction-checkbox"> Be on time! ⏰ </label> </div> <div class="mt-3"> <label for="custom-instruction-input" class="form-label text-sm text-gray-600">Any other requests/instructions?</label> <textarea id="custom-instruction-input" name="custom_instruction" placeholder="e.g., 'Pick me up', 'Wear something nice!'" rows="2"></textarea> </div> </div> <button id="date-confirm-button" class="action-button bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"> Got it, What's Next? ✨ </button> <p id="date-error" class="text-red-500 text-sm mt-2 hidden">Please select Date, Time, and a Date Idea (or write one!).</p> </div>
         <div id="page1-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-purple-600 romantic-font">Okay, Date Info Noted! 📝</h2> <p class="text-gray-700 text-lg">Just a couple more things...</p> <button id="goto-page2-button" class="action-button bg-pink-500 hover:bg-pink-600 text-white">Continue... 🎉</button> </div>
-        <div id="page2-state" class="hidden fade-in-slow content-container" style="background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, rgba(255,223,230,0.3) 70%); border-radius: 15px; padding: 20px;"> <div id="interactive-heart" class="pulsing-heart mb-6" onclick="changeHeartColor()">❤️</div> <p class="text-gray-800 text-xl italic leading-relaxed">"Meeting you was like listening to a song for the first time and knowing it would be my favorite."</p> <p class="text-sm text-gray-600 mt-2">(Click the heart!)</p> <button id="goto-page3-button" class="action-button bg-teal-500 hover:bg-teal-600 text-white">Next Challenge... 😉</button> </div>
+        <div id="page2-state" class="hidden fade-in-slow content-container" style="background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, rgba(255,223,230,0.3) 70%); border-radius: 15px; padding: 20px;"> <div id="interactive-heart" class="pulsing-heart mb-6" onclick="changeHeartColor()">❤️</div> <p class="text-gray-800 text-xl italic leading-relaxed">"Meeting you was like listening to a song for the first time and knowing it would be my favorite."</p> <p class="text-sm text-gray-600 mt-2">(Click the heart!)</p> <button id="goto-voice-message-button" class="action-button bg-teal-500 hover:bg-teal-600 text-white">Hear Something... 🎤</button> </div>
+
+        <div id="voice-message-state" class="hidden fade-in-slow content-container">
+            <h2 class="text-2xl md:text-3xl font-bold text-indigo-600 romantic-font">Incoming Message...</h2>
+            <div id="voice-message-player">
+                 <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" /> </svg>
+                 <div id="voice-message-text">"Detecting cuteness... overload reached 💘"</div>
+            </div>
+             <audio id="voice-audio" src="xyz.mp3" preload="auto"></audio>
+             <p class="text-sm text-gray-500 mt-2">(Sound should play automatically!)</p>
+            <button id="goto-page3-button" class="action-button bg-orange-500 hover:bg-orange-600 text-white">Okay, Got It! 👍</button>
+        </div>
+
         <div id="page3-state" class="hidden fade-in-slow content-container"> <div class="text-6xl mb-4 animate-bounce">😊</div> <h2 class="text-3xl md:text-4xl font-bold text-orange-500 romantic-font">Quick! Compliment Me Back!</h2> <p class="text-gray-700 text-lg handwritten-font">What's one nice thing you'd say about me?</p> <input type="text" id="compliment-input" placeholder="(Be nice! 😉)" class="mt-2"> <button id="compliment-next-button" class="action-button bg-cyan-500 hover:bg-cyan-600 text-white mt-4"> Send & Play Game! 🤔 </button> <p id="compliment-sending-info" class="text-gray-500 text-sm mt-2 hidden">Sending info...</p> </div>
-        <div id="page4-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-lime-600 romantic-font">Quick! Click the Heart!</h2> <p class="text-gray-700 text-lg mt-4">You have 10 seconds... Go!</p> <div id="page4-game-area"> <span id="clickable-heart" style="display: none;">💖</span> </div> <p class="mt-2">Score: <span id="game-score">0</span> | Time Left: <span id="game-time">10</span>s</p> <p id="game-message" class="text-pink-600 font-bold mt-2"></p> <button id="goto-page5-button" class="action-button bg-yellow-500 hover:bg-yellow-600 text-white block mx-auto mt-6 hidden">Next: Mad Libs! 🤞</button> </div>
-        <div id="page5-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-fuchsia-600 romantic-font">Let's Write a Silly Story!</h2> <p class="text-gray-700 text-lg">Fill in the blanks:</p> <div class="text-left max-w-xs mx-auto space-y-3"> <input type="text" id="madlib-adj1" placeholder="An Adjective (e.g., sparkly)"> <input type="text" id="madlib-noun1" placeholder="A Noun (e.g., unicorn)"> <input type="text" id="madlib-verb1" placeholder="A Verb (e.g., dances)"> <input type="text" id="madlib-place1" placeholder="A Place (e.g., moon)"> </div> <button id="generate-madlib" class="action-button bg-blue-500 hover:bg-blue-600 text-white mt-4">Generate Story!</button> <p id="madlib-result" class="text-gray-800 text-lg italic mt-4 p-3 bg-pink-100 rounded-lg hidden"></p> <button id="goto-page6-button" class="action-button bg-red-500 hover:bg-red-600 text-white hidden">One Last Thought... </button> </div>
+        <div id="page4-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-lime-600 romantic-font">Quick! Click the Heart!</h2> <p class="text-gray-700 text-lg mt-4">You have 10 seconds... Go!</p> <div id="page4-game-area"> <span id="clickable-heart" style="display: none;">💖</span> </div> <p class="mt-2">Score: <span id="game-score">0</span> | Time Left: <span id="game-time">10</span>s</p> <p id="game-message" class="text-pink-600 font-bold mt-2"></p> <button id="goto-page6-button-from-game" class="action-button bg-yellow-500 hover:bg-yellow-600 text-white block mx-auto mt-6 hidden">One Last Thought... 🤞</button> </div>
         <div id="page6-state" class="hidden fade-in-slow content-container relative overflow-hidden min-h-[250px]" style="background: linear-gradient(to bottom, #1e3a8a, #3b82f6); border-radius: 15px; padding: 20px;"> <div id="star-container" class="absolute inset-0 pointer-events-none"></div> <h2 class="text-2xl md:text-3xl font-bold text-yellow-300 romantic-font relative z-10">Feeling Lucky!</h2> <p class="text-gray-100 text-lg relative z-10 mb-4">On a scale of 1-5 stars, how happy am I right now?</p> <div class="rating-stars relative z-10" id="rating-stars"> <span data-value="1">☆</span><span data-value="2">☆</span><span data-value="3">☆</span><span data-value="4">☆</span><span data-value="5">☆</span> </div> <p class="text-yellow-300 text-sm mt-2 relative z-10">(Hint: It's definitely 5! ⭐⭐⭐⭐⭐)</p> <button id="goto-page7-button" class="action-button bg-emerald-500 hover:bg-emerald-600 text-white relative z-10 mt-6">The Grand Finale! 🏁</button> </div>
         <div id="page7-state" class="hidden fade-in-slow content-container"> <div class="final-burst text-yellow-400 mb-4">🎉✨🥳</div> <h2 class="text-3xl md:text-4xl font-bold text-indigo-600 romantic-font">See you soon, Khushboo!</h2> <p class="text-gray-800 text-lg">Counting down the moments until our date! Get ready for fun!</p> <div class="text-4xl mt-4 text-red-500">❤️💖❤️</div> </div>
 
@@ -103,7 +121,7 @@
 
     <script>
         // --- DOM Elements ---
-        const states = { question: document.getElementById('question-state'), eligibilityForm: document.getElementById('eligibility-form-state'), verifying: document.getElementById('verifying-state'), eligible: document.getElementById('eligible-state'), rejectionMessage: document.getElementById('rejection-message-state'), rejectionForm: document.getElementById('rejection-form-state'), rejectionThanks: document.getElementById('rejection-thanks-state'), gift: document.getElementById('gift-state'), final: document.getElementById('final-state'), page1: document.getElementById('page1-state'), page2: document.getElementById('page2-state'), page3: document.getElementById('page3-state'), page4: document.getElementById('page4-state'), page5: document.getElementById('page5-state'), page6: document.getElementById('page6-state'), page7: document.getElementById('page7-state') };
+        const states = { question: document.getElementById('question-state'), eligibilityForm: document.getElementById('eligibility-form-state'), verifying: document.getElementById('verifying-state'), eligible: document.getElementById('eligible-state'), rejectionMessage: document.getElementById('rejection-message-state'), rejectionForm: document.getElementById('rejection-form-state'), rejectionThanks: document.getElementById('rejection-thanks-state'), gift: document.getElementById('gift-state'), final: document.getElementById('final-state'), page1: document.getElementById('page1-state'), page2: document.getElementById('page2-state'), voiceMessage: document.getElementById('voice-message-state'), page3: document.getElementById('page3-state'), page4: document.getElementById('page4-state'), page6: document.getElementById('page6-state'), page7: document.getElementById('page7-state') };
         const questionText = document.getElementById('question-text');
         const yesButton = document.getElementById('yes-button');
         const noButton = document.getElementById('no-button');
@@ -133,6 +151,7 @@
         const customInstructionInput = document.getElementById('custom-instruction-input');
         const dateConfirmButton = document.getElementById('date-confirm-button');
         const dateError = document.getElementById('date-error');
+        const voiceAudioPlayer = document.getElementById('voice-audio'); // Audio element
         const complimentInput = document.getElementById('compliment-input');
         const complimentNextButton = document.getElementById('compliment-next-button');
         const complimentSendingInfo = document.getElementById('compliment-sending-info');
@@ -144,31 +163,27 @@
         const gameScoreDisplay = document.getElementById('game-score');
         const gameTimeDisplay = document.getElementById('game-time');
         const gameMessage = document.getElementById('game-message');
-        const madLibAdj1 = document.getElementById('madlib-adj1');
-        const madLibNoun1 = document.getElementById('madlib-noun1');
-        const madLibVerb1 = document.getElementById('madlib-verb1');
-        const madLibPlace1 = document.getElementById('madlib-place1');
-        const generateMadlibButton = document.getElementById('generate-madlib');
-        const madlibResult = document.getElementById('madlib-result');
+        // Removed Mad Libs elements
+        // Navigation Buttons
         const gotoPage2Button = document.getElementById('goto-page2-button');
-        const gotoPage3Button = document.getElementById('goto-page3-button');
-        const gotoPage5Button = document.getElementById('goto-page5-button');
-        const gotoPage6Button = document.getElementById('goto-page6-button');
+        const gotoVoiceMessageButton = document.getElementById('goto-voice-message-button'); // Renamed
+        const gotoPage3Button = document.getElementById('goto-page3-button'); // Now on voice message page
+        const gotoPage6ButtonFromGame = document.getElementById('goto-page6-button-from-game'); // Renamed button from game page
+        // Removed gotoPage6Button
         const gotoPage7Button = document.getElementById('goto-page7-button');
 
         // --- State Variables ---
         let noClickCount = 0; let yesButtonScale = 1; let heartColorIndex = 0;
         const heartColors = ['#e11d48', '#ec4899', '#f472b6', '#f9a8d4'];
-        // --- URLs for Data Submission ---
         const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwG8bUel4HmMvLmoskd9V4thpFKV7GjYACXU0bPXuC_DgHePbEdj5D1outc-usRObNe/exec"; // Your Apps Script URL
         const FORMSPREE_URL = "https://formspree.io/f/mjkwyovj"; // Your Formspree URL
-
         const RECIPIENT_NAME = "Khushboo";
         const TARGET_BIRTHDAY = "2007-09-23";
 
         let gameScore = 0; let gameTimerId = null; let gameTimeLeft = 10; let gameActive = false;
         let gameSynth = null; let finaleSynth = null;
-        let successSynth = null; let failureSynth = null; // Synths for eligibility sounds
+        let successSynth = null; let failureSynth = null;
+        // Removed voiceSynth, using HTML audio now
         let storedEligibilityData = {};
         let storedDate = ""; let storedTime = ""; let storedIdea = "";
         let storedDateInstructions = [];
@@ -176,12 +191,21 @@
 
         // --- Functions ---
         function initAudio() { if (!gameSynth) { gameSynth = new Tone.Synth({ oscillator: { type: 'sine' }, envelope: { attack: 0.01, decay: 0.1, sustain: 0.01, release: 0.1 } }).toDestination(); } if (!finaleSynth) { finaleSynth = new Tone.PolySynth(Tone.Synth).toDestination(); } if (!successSynth) { successSynth = new Tone.PolySynth({polyphony: 4, voice: Tone.Synth, options: { oscillator: {type: 'triangle'}, envelope: { attack: 0.01, decay: 0.1, sustain: 0.3, release: 0.4 } }}).toDestination(); } if (!failureSynth) { failureSynth = new Tone.Synth({ oscillator: { type: 'sawtooth' }, envelope: { attack: 0.05, decay: 0.5, sustain: 0, release: 0.2 } }).toDestination(); } console.log("Audio initialized."); }
-        // Success: Quick ascending arpeggio
         function playSuccessSound() { if (successSynth) { const now = Tone.now(); successSynth.triggerAttackRelease(["C5", "E5", "G5", "C6"], "8n", now); } }
-        // Failure: Low dissonant notes
         function playFailureSound() { if (failureSynth) { failureSynth.triggerAttackRelease("C3", "2n", Tone.now()); failureSynth.triggerAttackRelease("C#3", "2n", Tone.now() + 0.1); } }
+        // Play custom audio file
+        function playVoiceMessageSound() {
+             if (voiceAudioPlayer) {
+                 voiceAudioPlayer.play().catch(error => {
+                     console.error("Audio play failed:", error);
+                     // Autoplay might be blocked, user might need to interact first
+                 });
+             } else {
+                 console.error("Voice audio player not found!");
+             }
+        }
 
-        function showState(stateToShow) { console.log("Showing state:", stateToShow ? stateToShow.id : 'null'); Object.values(states).forEach(state => { if (state && stateToShow && state.id === stateToShow.id) { state.classList.remove('hidden'); resetPage(state); if (state.id === 'page4-state') startGame(); if (state.id === 'page6-state') createStars(); if (state.id === 'page7-state') playFinaleSound(); } else if (state) { state.classList.add('hidden'); } }); }
+        function showState(stateToShow) { console.log("Showing state:", stateToShow ? stateToShow.id : 'null'); Object.values(states).forEach(state => { if (state && stateToShow && state.id === stateToShow.id) { state.classList.remove('hidden'); resetPage(state); if (state.id === 'voice-message-state') playVoiceMessageSound(); if (state.id === 'page4-state') startGame(); if (state.id === 'page6-state') createStars(); if (state.id === 'page7-state') playFinaleSound(); } else if (state) { state.classList.add('hidden'); } }); }
         function resetPage(element) { if (!element) return; element.classList.remove('fade-in-slow'); requestAnimationFrame(() => { if (element) element.classList.add('fade-in-slow'); }); }
         function handleNoClick() { console.log("No button clicked! Count:", noClickCount + 1); noClickCount++; yesButtonScale += 0.2; if (yesButton) yesButton.style.transform = `scale(${yesButtonScale})`; if (noClickCount === 1) { if (questionText) questionText.textContent = 'Please you can think about it.. ❤️'; if (noButton) noButton.addEventListener('mouseover', moveNoButton); console.log("Mouseover listener added to No button."); moveNoButton(); } else { console.log("Subsequent No click - moving button again."); moveNoButton(); } }
         function moveNoButton() { if (!noButton || !yesButton) return; console.log("moveNoButton called"); if (!noButton.classList.contains('moving')) { noButton.classList.add('moving'); console.log("Added 'moving' class"); } const vpW = window.innerWidth; const vpH = window.innerHeight; const btnRect = noButton.getBoundingClientRect(); const maxT = vpH - btnRect.height - 20; const maxL = vpW - btnRect.width - 20; let newT = Math.random() * maxT; let newL = Math.random() * maxL; const yesRect = yesButton.getBoundingClientRect(); let att = 0; const maxAtt = 20; while (att < maxAtt && newL < yesRect.right && newL + btnRect.width > yesRect.left && newT < yesRect.bottom && newT + btnRect.height > yesRect.top) { newT = Math.random() * maxT; newL = Math.random() * maxL; att++; } noButton.style.top = `${newT}px`; noButton.style.left = `${newL}px`; console.log(`Moved No button to: top=${newT.toFixed(0)}px, left=${newL.toFixed(0)}px`); }
@@ -190,21 +214,19 @@
         function changeHeartColor() { if (!interactiveHeart) return; heartColorIndex = (heartColorIndex + 1) % heartColors.length; interactiveHeart.style.color = heartColors[heartColorIndex]; }
         function createStars() { if (!starContainer) return; starContainer.innerHTML = ''; const starCount = 50; for (let i = 0; i < starCount; i++) { const star = document.createElement('div'); star.classList.add('star'); star.textContent = '✨'; star.style.left = `${Math.random() * 100}%`; star.style.top = `${Math.random() * 100}%`; star.style.animationDelay = `${Math.random() * 3}s`; starContainer.appendChild(star); } }
         function handleStarRating(event) { if (!ratingStarsContainer) return; if (event.target.tagName === 'SPAN') { const value = parseInt(event.target.dataset.value); const stars = ratingStarsContainer.querySelectorAll('span'); stars.forEach(star => { star.classList.toggle('active', parseInt(star.dataset.value) <= value); star.textContent = parseInt(star.dataset.value) <= value ? '★' : '☆'; }); } }
-        function startGame() { Tone.start(); initAudio(); if (gameActive || !gameArea || !clickableHeart || !gameScoreDisplay || !gameTimeDisplay || !gameMessage || !gotoPage5Button) return; console.log("Starting game..."); gameActive = true; gameScore = 0; gameTimeLeft = 10; gameScoreDisplay.textContent = gameScore; gameTimeDisplay.textContent = gameTimeLeft; gameMessage.textContent = ""; clickableHeart.style.display = 'block'; gotoPage5Button.classList.add('hidden'); moveClickableHeart(); gameTimerId = setInterval(gameTick, 1000); }
+        function startGame() { Tone.start(); initAudio(); if (gameActive || !gameArea || !clickableHeart || !gameScoreDisplay || !gameTimeDisplay || !gameMessage || !gotoPage6ButtonFromGame) return; console.log("Starting game..."); gameActive = true; gameScore = 0; gameTimeLeft = 10; gameScoreDisplay.textContent = gameScore; gameTimeDisplay.textContent = gameTimeLeft; gameMessage.textContent = ""; clickableHeart.style.display = 'block'; gotoPage6ButtonFromGame.classList.add('hidden'); moveClickableHeart(); gameTimerId = setInterval(gameTick, 1000); }
         function gameTick() { gameTimeLeft--; if(gameTimeDisplay) gameTimeDisplay.textContent = gameTimeLeft; if (gameTimeLeft <= 0) { endGame(); } else { moveClickableHeart(); } }
         function moveClickableHeart() { if (!gameActive || !gameArea || !clickableHeart) return; const areaRect = gameArea.getBoundingClientRect(); const heartRect = clickableHeart.getBoundingClientRect(); const maxTop = gameArea.clientHeight - heartRect.height; const maxLeft = gameArea.clientWidth - heartRect.width; clickableHeart.style.top = `${Math.random() * maxTop}px`; clickableHeart.style.left = `${Math.random() * maxLeft}px`; }
         function clickHeart() { if (!gameActive || !gameSynth || !gameScoreDisplay || !clickableHeart) return; gameScore++; gameScoreDisplay.textContent = gameScore; gameSynth.triggerAttackRelease("C5", "8n"); clickableHeart.style.transform = 'scale(1.2)'; setTimeout(() => { if(clickableHeart) clickableHeart.style.transform = 'scale(1)'; }, 100); moveClickableHeart(); }
-        function endGame() { console.log("Ending game..."); clearInterval(gameTimerId); gameActive = false; if(clickableHeart) clickableHeart.style.display = 'none'; if(gameMessage) gameMessage.textContent = `Game Over! Final Score: ${gameScore}. Nice reflexes! 😉`; if(gotoPage5Button) gotoPage5Button.classList.remove('hidden'); }
-        function generateMadLibStory() { if (!madLibAdj1 || !madLibNoun1 || !madLibVerb1 || !madLibPlace1 || !madlibResult || !gotoPage6Button) return; const adj1 = madLibAdj1.value.trim() || "sparkly"; const noun1 = madLibNoun1.value.trim() || "unicorn"; const verb1 = madLibVerb1.value.trim() || "dances"; const place1 = madLibPlace1.value.trim() || "moon"; const story = `Once upon a time, a ${adj1} ${noun1} decided it wanted to meet Khushboo. So, it bravely ${verb1} all the way to the ${place1} just to say 'Hi!' What an adventure!`; madlibResult.textContent = story; madlibResult.classList.remove('hidden'); gotoPage6Button.classList.remove('hidden'); }
+        function endGame() { console.log("Ending game..."); clearInterval(gameTimerId); gameActive = false; if(clickableHeart) clickableHeart.style.display = 'none'; if(gameMessage) gameMessage.textContent = `Game Over! Final Score: ${gameScore}. Nice reflexes! 😉`; if(gotoPage6ButtonFromGame) gotoPage6ButtonFromGame.classList.remove('hidden'); }
+        // Removed Mad Libs function
         function playFinaleSound() { Tone.start(); initAudio(); try { if (finaleSynth) finaleSynth.triggerAttackRelease(["C4", "E4", "G4"], "1n"); console.log("Finale sound played."); } catch (e) { console.error("Tone.js sound error:", e); } }
 
         // --- Function to send data to BACKENDS (Formspree & Apps Script) ---
         async function sendDataToBackend(formData, buttonElement, infoElement) {
-            // Check if URLs are placeholders
-            const isFormspreeConfigured = FORMSPREE_URL && FORMSPREE_URL !== "https://formspree.io/f/YOUR_UNIQUE_CODE"; // Replace with your actual placeholder if different
-            const isAppsScriptConfigured = GOOGLE_APPS_SCRIPT_URL && GOOGLE_APPS_SCRIPT_URL !== "YOUR_GOOGLE_APPS_SCRIPT_URL"; // Replace with your actual placeholder if different
+            const isFormspreeConfigured = FORMSPREE_URL && FORMSPREE_URL !== "https://formspree.io/f/YOUR_UNIQUE_CODE";
+            const isAppsScriptConfigured = GOOGLE_APPS_SCRIPT_URL && GOOGLE_APPS_SCRIPT_URL !== "YOUR_GOOGLE_APPS_SCRIPT_URL";
 
-            // Add recipient name if not already present
             if (!formData.recipient_name) formData.recipient_name = RECIPIENT_NAME;
 
             if (!isFormspreeConfigured) { console.warn("Formspree URL is not set. Skipping email send."); }
@@ -214,25 +236,21 @@
             if(buttonElement) buttonElement.disabled = true; if(infoElement) infoElement.classList.remove('hidden');
             console.log("Attempting to send data:", formData);
 
-            const promises = []; // Array to hold fetch promises
+            const promises = [];
 
-            // --- Prepare and Send to Formspree (if configured) ---
             if (isFormspreeConfigured) {
-                 const formspreeData = { ...formData }; // Clone data
+                 const formspreeData = { ...formData };
                  if (!formspreeData._subject) formspreeData._subject = `Proposal Submission from ${formData.recipient_name} (${formData.stage || 'Unknown Stage'})!`;
                  const fetchOptionsFs = { method: 'POST', body: JSON.stringify(formspreeData), headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' } };
                  promises.push( fetch(FORMSPREE_URL, fetchOptionsFs).then(response => { if (response.ok) { console.log('Data sent successfully to Formspree!'); } else { response.json().catch(() => ({})).then(errorData => console.error('Failed to send data to Formspree:', response.status, response.statusText, errorData)); } }).catch(error => console.error('Network or other error sending data to Formspree:', error)) );
                  console.log("Initiated send to Formspree.");
             }
-
-            // --- Prepare and Send to Google Apps Script (if configured) ---
             if (isAppsScriptConfigured) {
                  const fetchOptionsGas = { method: 'POST', mode: 'no-cors', body: JSON.stringify(formData), headers: { 'Content-Type': 'text/plain', } };
                  promises.push( fetch(GOOGLE_APPS_SCRIPT_URL, fetchOptionsGas).then(response => { console.log('Data send initiated to Google Apps Script (no-cors).'); }).catch(error => console.error('Network or other error sending data to Google Apps Script:', error)) );
                  console.log("Initiated send to Google Apps Script.");
             }
 
-            // Wait for both sends to initiate before re-enabling button
             await Promise.all(promises);
             if(buttonElement) buttonElement.disabled = false;
             if(infoElement) infoElement.classList.add('hidden');
@@ -253,14 +271,15 @@
             const submitRejectionBtn = document.getElementById('submit-rejection-button');
             const dateConfirmBtn = document.getElementById('date-confirm-button');
             const complimentNextBtn = document.getElementById('compliment-next-button');
-            const genMadlibBtn = document.getElementById('generate-madlib');
+            // Removed Mad Libs button
             const clickableHeartBtn = document.getElementById('clickable-heart');
             const ratingStarsCont = document.getElementById('rating-stars');
             // Navigation buttons
             const page2Btn = document.getElementById('goto-page2-button');
-            const page3Btn = document.getElementById('goto-page3-button');
-            const page5Btn = document.getElementById('goto-page5-button');
-            const page6Btn = document.getElementById('goto-page6-button');
+            const gotoVoiceMessageBtn = document.getElementById('goto-voice-message-button'); // Renamed
+            const page3Btn = document.getElementById('goto-page3-button'); // Now on voice message page
+            const page6BtnFromGame = document.getElementById('goto-page6-button-from-game'); // Renamed
+            // Removed page6Btn
             const page7Btn = document.getElementById('goto-page7-button');
 
             // Add listener for YES button
@@ -293,7 +312,7 @@
                     const isBdayMatch = enteredBday === TARGET_BIRTHDAY;
                     console.log(`Validation - Name: ${enteredName}, Bday: ${enteredBday}. Match? Name: ${isNameMatch}, Bday: ${isBdayMatch}`);
 
-                    // Wait 4.5 seconds THEN check, play sound, and show result
+                    // Wait ~4.5 seconds THEN check, play sound, and show result
                     setTimeout(() => {
                         if (isNameMatch && isBdayMatch) {
                             // SUCCESS PATH - NO SEND YET
@@ -409,13 +428,16 @@
 
             // Page 4 Game Listener
             if (clickableHeartBtn) { clickableHeartBtn.addEventListener('click', clickHeart); console.log("Clickable Heart listener added."); } else { console.error("Could not find Clickable Heart button!"); }
-            // Page 5 Mad Libs Listener
-            if (genMadlibBtn) { genMadlibBtn.addEventListener('click', generateMadLibStory); console.log("Generate Madlib listener added."); } else { console.error("Could not find Generate Madlib button!"); }
+            // Removed Mad Libs listener
             // Navigation (remaining buttons)
             if (page2Btn) { page2Btn.addEventListener('click', () => showState(states.page2)); console.log("Goto Page 2 listener added."); } else { console.error("Could not find Goto Page 2 button!"); }
+            // Updated listener for button on Page 2
+            if (gotoVoiceMessageButton) { gotoVoiceMessageButton.addEventListener('click', () => showState(states.voiceMessage)); console.log("Goto Voice Message listener added."); } else { console.error("Could not find Goto Voice Message button!"); }
+            // Updated listener for button on Voice Message Page
             if (page3Btn) { page3Btn.addEventListener('click', () => showState(states.page3)); console.log("Goto Page 3 listener added."); } else { console.error("Could not find Goto Page 3 button!"); }
-            if (page5Btn) { page5Btn.addEventListener('click', () => showState(states.page5)); console.log("Goto Page 5 listener added."); } else { console.error("Could not find Goto Page 5 button!"); }
-            if (page6Btn) { page6Btn.addEventListener('click', () => showState(states.page6)); console.log("Goto Page 6 listener added."); } else { console.error("Could not find Goto Page 6 button!"); }
+            // Updated listener for button after game
+            if (page6BtnFromGame) { page6BtnFromGame.addEventListener('click', () => showState(states.page6)); console.log("Goto Page 6 from Game listener added."); } else { console.error("Could not find Goto Page 6 from Game button!"); }
+            // Removed old page6Btn listener
             if (page7Btn) { page7Btn.addEventListener('click', () => showState(states.page7)); console.log("Goto Page 7 listener added."); } else { console.error("Could not find Goto Page 7 button!"); }
             if (ratingStarsCont) { ratingStarsCont.addEventListener('click', handleStarRating); console.log("Rating Stars listener added."); } else { console.error("Could not find Rating Stars container!"); }
 
