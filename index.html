@@ -34,9 +34,7 @@
         .action-button { padding: 12px 28px; font-size: 1rem; border-radius: 50px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: inline-block; margin-top: 15px; min-width: 160px; border: none; }
         .action-button:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
         .action-button:disabled { opacity: 0.7; cursor: not-allowed; background-image: none; background-color: #9ca3af; }
-         /* Smaller button variant */
         .action-button-small { padding: 10px 20px; font-size: 0.9rem; min-width: 120px; }
-
 
         /* Main container adjustments */
         #main-container { width: 100%; max-width: 600px; margin: auto; padding: 2rem 1.5rem; background-color: rgba(255, 255, 255, 0.92); border-radius: 1.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
@@ -60,14 +58,20 @@
 
         /* Page Specific Styles & Loading Spinner */
         #page2-state { background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, rgba(255,223,230,0.3) 70%); border-radius: 15px; padding: 20px; }
-        /* Voice Message Style */
         #voice-message-player { background-color: #fce7f3; border: 1px solid #fbcfe8; border-radius: 12px; padding: 1rem 1.5rem; display: flex; align-items: center; gap: 1rem; max-width: 350px; margin: 1rem auto; }
         #voice-message-player svg { flex-shrink: 0; color: #db2777; }
         #voice-message-text { font-style: italic; color: #4b5563; text-align: left; }
         #voice-audio::-webkit-media-controls-panel, #voice-audio::-webkit-media-controls-play-button, #voice-audio::-webkit-media-controls-start-playback-button { display: none !important; -webkit-appearance: none; }
-
         #page4-game-area { position: relative; height: 200px; background-color: rgba(255, 182, 193, 0.2); border-radius: 10px; margin-top: 1rem; border: 1px dashed #f472b6; overflow: hidden; }
         #clickable-heart { position: absolute; font-size: 3rem; color: red; cursor: pointer; transition: top 0.1s, left 0.1s; user-select: none; }
+        #tarot-result { background-color: #ede9fe; border: 1px solid #c4b5fd; border-radius: 10px; padding: 1rem; margin-top: 1.5rem; font-style: italic; color: #5b21b6; min-height: 3em; }
+        /* Love Letter Style */
+        #love-letter-result { background-color: #fff1f2; border: 1px dashed #fda4af; border-radius: 10px; padding: 1.5rem; margin-top: 1.5rem; font-family: 'Caveat', cursive; font-size: 1.5rem; line-height: 1.6; color: #be185d; text-align: left; white-space: pre-wrap; min-height: 100px; }
+        .letter-options { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; flex-wrap: wrap;}
+        .letter-options div { text-align: left;}
+        .letter-options label { font-size: 0.9rem; font-weight: bold; color: #4b5563; margin-bottom: 0.5rem; display: block;}
+        .letter-options .radio-label { background-color: transparent; padding: 5px 0; }
+
         #page6-state .star { position: absolute; color: #ffd700; font-size: 1rem; animation: twinkle 3s infinite ease-in-out; opacity: 0; }
         @keyframes twinkle { 0%, 100% { opacity: 0; transform: scale(0.5); } 50% { opacity: 1; transform: scale(1); } }
         #page7-state .final-burst { font-size: 4rem; animation: burst 1s ease-out forwards; }
@@ -81,6 +85,18 @@
         @keyframes stroke { 100% { stroke-dashoffset: 0; } }
         .loader { border: 5px solid #f3f3f3; border-top: 5px solid #ec4899; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 2rem auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Memory Lane Slider Styles */
+        .slider-container { position: relative; overflow: hidden; width: 100%; max-width: 400px; margin: 1rem auto; border-radius: 15px; background-color: #fdf2f8; padding: 1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .slide { display: none; animation: fadeEffect 1s; }
+        .slide img { display: block; width: 100%; height: auto; border-radius: 10px; margin-bottom: 0.75rem; }
+        .slide .caption { font-size: 0.9rem; color: #be185d; font-style: italic; min-height: 2.5em; }
+        .slide.active { display: block; }
+        @keyframes fadeEffect { from {opacity: .4} to {opacity: 1} }
+        .prev, .next { cursor: pointer; position: absolute; top: 50%; width: auto; transform: translateY(-50%); padding: 12px; color: white; font-weight: bold; font-size: 18px; transition: 0.6s ease; border-radius: 0 3px 3px 0; user-select: none; background-color: rgba(0,0,0,0.4); z-index: 2; }
+        .next { right: 1rem; border-radius: 3px 0 0 3px; }
+        .prev { left: 1rem; border-radius: 0 3px 3px 0; }
+        .prev:hover, .next:hover { background-color: rgba(0,0,0,0.8); }
 
     </style>
 </head>
@@ -96,27 +112,50 @@
         <div id="rejection-form-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-gray-700 romantic-font">For Future Reference...</h2> <p class="text-gray-600 text-lg">If you'd like, please leave your contact details below.</p> <form id="rejection-form" class="text-left max-w-md mx-auto space-y-4 mt-4"> <div> <label for="rejection-mobile" class="form-label">Mobile Number (with country code, e.g., 91xxxxxxxxxx):</label> <input type="tel" id="rejection-mobile" name="rejection_mobile" pattern="[0-9]{10,15}" placeholder="e.g. 911234567890" required> </div> <div> <label for="rejection-insta" class="form-label">Instagram ID (Optional):</label> <input type="text" id="rejection-insta" name="rejection_insta" placeholder="@your_insta"> </div> <div> <label for="rejection-snap" class="form-label">Snapchat ID (Optional):</label> <input type="text" id="rejection-snap" name="rejection_snap" placeholder="your_snap_id"> </div> <button type="submit" id="submit-rejection-button" class="action-button bg-purple-500 hover:bg-purple-600 text-white w-full"> Submit Contact Info </button> <p id="rejection-form-error" class="text-red-500 text-sm mt-2 hidden text-center">Please enter a valid mobile number format.</p> <p id="rejection-sending-info" class="text-gray-500 text-sm mt-2 hidden text-center">Submitting...</p> </form> </div>
         <div id="rejection-thanks-state" class="hidden fade-in-slow content-container"> <div class="text-6xl mb-4">👍✉️</div> <h2 class="text-2xl md:text-3xl font-bold text-gray-700 romantic-font">Thank You!</h2> <p class="text-gray-600 text-lg">Your contact information has been noted.</p> <p class="text-sm text-gray-500">(Maybe we'll connect in the future!)</p> </div>
         <div id="gift-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-pink-600 romantic-font">Okay, Now For Real... Click the Gift!</h2> <button id="gift-box" class="text-6xl md:text-8xl cursor-pointer animate-bounce">🎁</button> </div>
+        <div id="memory-lane-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-rose-600 romantic-font">📸 Memory Lane 📸</h2> <p class="text-gray-700 text-lg">Remember these moments?</p> <div class="slider-container"> <div class="slide active"> <img src="https://github.com/YUVAAN297/Made-for-khushboo/blob/main/Farewell.jpeg?raw=true" alt="Memory 1" onerror="this.src='https://placehold.co/400x300/cccccc/ffffff?text=Image+1+Error'; this.alt='Image failed to load'"> <div class="caption">Remember this farewell? 😄</div> </div> <div class="slide"> <img src="https://github.com/YUVAAN297/Made-for-khushboo/blob/main/scribble.jpeg?raw=true" alt="Memory 2" onerror="this.src='https://placehold.co/400x300/cccccc/ffffff?text=Image+2+Error'; this.alt='Image failed to load'"> <div class="caption">This scribble! 😂</div> </div> <div class="slide"> <img src="https://placehold.co/400x300/D5F5E3/196F3D?text=Your+Photo+3" alt="Memory 3" onerror="this.src='https://placehold.co/400x300/cccccc/ffffff?text=Image+3+Error'; this.alt='Image failed to load'"> <div class="caption">Such a great memory! ❤️</div> </div> <a class="prev" onclick="changeSlide(-1)">&#10094;</a> <a class="next" onclick="changeSlide(1)">&#10095;</a> </div> <button id="goto-final-state-button" class="action-button bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white"> Okay, Let's Plan the Date! 📅 </button> </div>
         <div id="final-state" class="hidden fade-in-slow content-container"> <h1 class="text-3xl md:text-4xl font-bold text-pink-600 romantic-font animate-pulse">Yay! You made me so happy! 🥰</h1> <p class="text-gray-800 text-lg">So... when and where for our first date? 😉</p> <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left"> <div><label for="date-input" class="block text-sm font-medium text-gray-700 mb-1">Pick a Date:</label><input type="date" id="date-input" name="date"></div> <div><label for="time-input" class="block text-sm font-medium text-gray-700 mb-1">Pick a Time:</label><input type="time" id="time-input" name="time"></div> </div> <div class="text-left mt-4"> <label class="block text-sm font-medium text-gray-700 mb-2">Date Idea:</label> <label class="radio-label"><input type="radio" name="date_idea" value="Coffee & Chat ☕" class="radio-input"> Coffee & Chat ☕</label> <label class="radio-label"><input type="radio" name="date_idea" value="Movie Night 🎬🍿" class="radio-input"> Movie Night 🎬🍿</label> <label class="radio-label"><input type="radio" name="date_idea" value="Dinner Date 🍽️✨" class="radio-input"> Dinner Date 🍽️✨</label> <label class="radio-label"><input type="radio" name="date_idea" value="Custom" class="radio-input" id="radio-custom"> Something else...</label> <textarea id="custom-idea-text" name="custom_idea" placeholder="Your amazing date idea..." class="mt-2 hidden"></textarea> </div> <div class="text-left mt-6 border-t border-pink-200 pt-4"> <p class="text-sm font-bold text-gray-600 mb-2">Optional Date Perks (Check any that apply! 😉):</p> <div class="flex flex-wrap justify-center gap-x-4 gap-y-2"> <label class="instruction-label"> <input type="checkbox" id="instruction-flowers" name="instruction_flowers" class="instruction-checkbox"> Bring flowers? 🌹 </label> <label class="instruction-label"> <input type="checkbox" id="instruction-chocolate" name="instruction_chocolate" class="instruction-checkbox"> Chocolate involved? 🍫 </label> <label class="instruction-label"> <input type="checkbox" id="instruction-punctual" name="instruction_punctual" class="instruction-checkbox"> Be on time! ⏰ </label> </div> <div class="mt-3"> <label for="custom-instruction-input" class="form-label text-sm text-gray-600">Any other requests/instructions?</label> <textarea id="custom-instruction-input" name="custom_instruction" placeholder="e.g., 'Pick me up', 'Wear something nice!'" rows="2"></textarea> </div> </div> <button id="date-confirm-button" class="action-button bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white"> Got it, What's Next? ✨ </button> <p id="date-error" class="text-red-500 text-sm mt-2 hidden">Please select Date, Time, and a Date Idea (or write one!).</p> </div>
         <div id="page1-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-purple-600 romantic-font">Okay, Date Info Noted! 📝</h2> <p class="text-gray-700 text-lg">Just a couple more things...</p> <button id="goto-page2-button" class="action-button bg-pink-500 hover:bg-pink-600 text-white">Continue... 🎉</button> </div>
         <div id="page2-state" class="hidden fade-in-slow content-container" style="background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, rgba(255,223,230,0.3) 70%); border-radius: 15px; padding: 20px;"> <div id="interactive-heart" class="pulsing-heart mb-6" onclick="changeHeartColor()">❤️</div> <p class="text-gray-800 text-xl italic leading-relaxed">"Meeting you was like listening to a song for the first time and knowing it would be my favorite."</p> <p class="text-sm text-gray-600 mt-2">(Click the heart!)</p> <button id="goto-voice-message-button" class="action-button bg-teal-500 hover:bg-teal-600 text-white">Hear Something... 🎤</button> </div>
+        <div id="voice-message-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-indigo-600 romantic-font">Incoming Message...</h2> <div id="voice-message-player"> <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" /> </svg> <div id="voice-message-text">"Detecting cuteness... overload reached 💘"</div> </div> <audio id="voice-audio" src="xyz.mp3" preload="auto"></audio> <p class="text-sm text-gray-500 mt-2">(Sound should play automatically!)</p> <div class="flex flex-col sm:flex-row justify-center items-center sm:space-x-4 space-y-3 sm:space-y-0 mt-4"> <button id="replay-audio-button" class="action-button action-button-small bg-gray-400 hover:bg-gray-500 text-white">Replay 🔁</button> <button id="goto-page3-button" class="action-button action-button-small bg-orange-500 hover:bg-orange-600 text-white">Okay, Got It! 👍</button> </div> </div>
+        <div id="page3-state" class="hidden fade-in-slow content-container"> <div class="text-6xl mb-4 animate-bounce">😊</div> <h2 class="text-3xl md:text-4xl font-bold text-orange-500 romantic-font">Quick! Compliment Me Back!</h2> <p class="text-gray-700 text-lg handwritten-font">What's one nice thing you'd say about me?</p> <input type="text" id="compliment-input" placeholder="(Be nice! 😉)" class="mt-2"> <button id="compliment-next-button" class="action-button bg-cyan-500 hover:bg-cyan-600 text-white mt-4"> Send & Play Game! 🤔 </button> <p id="compliment-sending-info" class="text-gray-500 text-sm mt-2 hidden">Sending info...</p> </div>
+        <div id="page4-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-lime-600 romantic-font">Quick! Click the Heart!</h2> <p class="text-gray-700 text-lg mt-4">You have 10 seconds... Go!</p> <div id="page4-game-area"> <span id="clickable-heart" style="display: none;">💖</span> </div> <p class="mt-2">Score: <span id="game-score">0</span> | Time Left: <span id="game-time">10</span>s</p> <p id="game-message" class="text-pink-600 font-bold mt-2"></p>
+             <button id="goto-tarot-button-from-game" class="action-button bg-yellow-500 hover:bg-yellow-600 text-white block mx-auto mt-6 hidden">What's My Fortune? 🔮</button>
+        </div>
 
-        <div id="voice-message-state" class="hidden fade-in-slow content-container">
-            <h2 class="text-2xl md:text-3xl font-bold text-indigo-600 romantic-font">Incoming Message...</h2>
-            <div id="voice-message-player">
-                 <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor"> <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" /> </svg>
-                 <div id="voice-message-text">"Detecting cuteness... overload reached 💘"</div>
+        <div id="tarot-state" class="hidden fade-in-slow content-container">
+            <h2 class="text-2xl md:text-3xl font-bold text-purple-700 romantic-font">🔮 Valentine Tarot 🔮</h2>
+            <p class="text-gray-700 text-lg">Let's see what the future holds for us...</p>
+            <button id="reveal-fortune-button" class="action-button bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-white">
+                Reveal My Love Fortune!
+            </button>
+            <p id="tarot-result" class="text-gray-800 text-lg italic mt-4 p-3 bg-purple-100 rounded-lg hidden"></p>
+             <button id="goto-love-letter-button" class="action-button bg-red-500 hover:bg-red-600 text-white hidden">A Letter For You...</button>
+        </div>
+
+        <div id="love-letter-state" class="hidden fade-in-slow content-container">
+            <h2 class="text-2xl md:text-3xl font-bold text-rose-700 romantic-font">📝 A Little Note... 📝</h2>
+            <p class="text-gray-700 text-lg">How should I write it?</p>
+            <div class="letter-options">
+                <div>
+                    <label>Mood:</label>
+                    <label class="radio-label"><input type="radio" name="letter_mood" value="funny" class="radio-input" checked> Funny 😂</label>
+                    <label class="radio-label"><input type="radio" name="letter_mood" value="romantic" class="radio-input"> Romantic 🥰</label>
+                    <label class="radio-label"><input type="radio" name="letter_mood" value="cheesy" class="radio-input"> Cheesy 🧀</label>
+                </div>
+                <div>
+                    <label>Length:</label>
+                    <label class="radio-label"><input type="radio" name="letter_length" value="short" class="radio-input" checked> Short & Sweet</label>
+                    <label class="radio-label"><input type="radio" name="letter_length" value="long" class="radio-input"> Long & Deep</label>
+                </div>
             </div>
-             <audio id="voice-audio" src="xyz.mp3" preload="auto"></audio>
-             <p class="text-sm text-gray-500 mt-2">(Sound should play automatically!)</p>
-             <div class="flex flex-col sm:flex-row justify-center items-center sm:space-x-4 space-y-3 sm:space-y-0 mt-4">
-                 <button id="replay-audio-button" class="action-button action-button-small bg-gray-400 hover:bg-gray-500 text-white">Replay 🔁</button>
-                 <button id="goto-page3-button" class="action-button action-button-small bg-orange-500 hover:bg-orange-600 text-white">Okay, Got It! 👍</button>
-             </div>
+            <button id="generate-letter-button" class="action-button bg-gradient-to-r from-rose-400 to-red-500 text-white mt-4">
+                Write My Letter!
+            </button>
+            <p id="love-letter-result" class="hidden"></p>
+            <button id="goto-page6-button-from-letter" class="action-button bg-emerald-500 hover:bg-emerald-600 text-white hidden">Almost Done!</button>
         </div>
 
 
-        <div id="page3-state" class="hidden fade-in-slow content-container"> <div class="text-6xl mb-4 animate-bounce">😊</div> <h2 class="text-3xl md:text-4xl font-bold text-orange-500 romantic-font">Quick! Compliment Me Back!</h2> <p class="text-gray-700 text-lg handwritten-font">What's one nice thing you'd say about me?</p> <input type="text" id="compliment-input" placeholder="(Be nice! 😉)" class="mt-2"> <button id="compliment-next-button" class="action-button bg-cyan-500 hover:bg-cyan-600 text-white mt-4"> Send & Play Game! 🤔 </button> <p id="compliment-sending-info" class="text-gray-500 text-sm mt-2 hidden">Sending info...</p> </div>
-        <div id="page4-state" class="hidden fade-in-slow content-container"> <h2 class="text-2xl md:text-3xl font-bold text-lime-600 romantic-font">Quick! Click the Heart!</h2> <p class="text-gray-700 text-lg mt-4">You have 10 seconds... Go!</p> <div id="page4-game-area"> <span id="clickable-heart" style="display: none;">💖</span> </div> <p class="mt-2">Score: <span id="game-score">0</span> | Time Left: <span id="game-time">10</span>s</p> <p id="game-message" class="text-pink-600 font-bold mt-2"></p> <button id="goto-page6-button-from-game" class="action-button bg-yellow-500 hover:bg-yellow-600 text-white block mx-auto mt-6 hidden">One Last Thought... 🤞</button> </div>
         <div id="page6-state" class="hidden fade-in-slow content-container relative overflow-hidden min-h-[250px]" style="background: linear-gradient(to bottom, #1e3a8a, #3b82f6); border-radius: 15px; padding: 20px;"> <div id="star-container" class="absolute inset-0 pointer-events-none"></div> <h2 class="text-2xl md:text-3xl font-bold text-yellow-300 romantic-font relative z-10">Feeling Lucky!</h2> <p class="text-gray-100 text-lg relative z-10 mb-4">On a scale of 1-5 stars, how happy am I right now?</p> <div class="rating-stars relative z-10" id="rating-stars"> <span data-value="1">☆</span><span data-value="2">☆</span><span data-value="3">☆</span><span data-value="4">☆</span><span data-value="5">☆</span> </div> <p class="text-yellow-300 text-sm mt-2 relative z-10">(Hint: It's definitely 5! ⭐⭐⭐⭐⭐)</p> <button id="goto-page7-button" class="action-button bg-emerald-500 hover:bg-emerald-600 text-white relative z-10 mt-6">The Grand Finale! 🏁</button> </div>
         <div id="page7-state" class="hidden fade-in-slow content-container"> <div class="final-burst text-yellow-400 mb-4">🎉✨🥳</div> <h2 class="text-3xl md:text-4xl font-bold text-indigo-600 romantic-font">See you soon, Khushboo!</h2> <p class="text-gray-800 text-lg">Counting down the moments until our date! Get ready for fun!</p> <div class="text-4xl mt-4 text-red-500">❤️💖❤️</div> </div>
 
@@ -124,7 +163,8 @@
 
     <script>
         // --- DOM Elements ---
-        const states = { question: document.getElementById('question-state'), eligibilityForm: document.getElementById('eligibility-form-state'), verifying: document.getElementById('verifying-state'), eligible: document.getElementById('eligible-state'), rejectionMessage: document.getElementById('rejection-message-state'), rejectionForm: document.getElementById('rejection-form-state'), rejectionThanks: document.getElementById('rejection-thanks-state'), gift: document.getElementById('gift-state'), final: document.getElementById('final-state'), page1: document.getElementById('page1-state'), page2: document.getElementById('page2-state'), voiceMessage: document.getElementById('voice-message-state'), page3: document.getElementById('page3-state'), page4: document.getElementById('page4-state'), page6: document.getElementById('page6-state'), page7: document.getElementById('page7-state') };
+        // Updated states object to include love letter and tarot
+        const states = { question: document.getElementById('question-state'), eligibilityForm: document.getElementById('eligibility-form-state'), verifying: document.getElementById('verifying-state'), eligible: document.getElementById('eligible-state'), rejectionMessage: document.getElementById('rejection-message-state'), rejectionForm: document.getElementById('rejection-form-state'), rejectionThanks: document.getElementById('rejection-thanks-state'), gift: document.getElementById('gift-state'), memoryLane: document.getElementById('memory-lane-state'), final: document.getElementById('final-state'), page1: document.getElementById('page1-state'), page2: document.getElementById('page2-state'), voiceMessage: document.getElementById('voice-message-state'), page3: document.getElementById('page3-state'), page4: document.getElementById('page4-state'), tarot: document.getElementById('tarot-state'), loveLetter: document.getElementById('love-letter-state'), page6: document.getElementById('page6-state'), page7: document.getElementById('page7-state') };
         const questionText = document.getElementById('question-text');
         const yesButton = document.getElementById('yes-button');
         const noButton = document.getElementById('no-button');
@@ -154,8 +194,8 @@
         const customInstructionInput = document.getElementById('custom-instruction-input');
         const dateConfirmButton = document.getElementById('date-confirm-button');
         const dateError = document.getElementById('date-error');
-        const voiceAudioPlayer = document.getElementById('voice-audio'); // Audio element
-        const replayAudioButton = document.getElementById('replay-audio-button'); // Replay Button
+        const voiceAudioPlayer = document.getElementById('voice-audio');
+        const replayAudioButton = document.getElementById('replay-audio-button');
         const complimentInput = document.getElementById('compliment-input');
         const complimentNextButton = document.getElementById('compliment-next-button');
         const complimentSendingInfo = document.getElementById('compliment-sending-info');
@@ -167,13 +207,24 @@
         const gameScoreDisplay = document.getElementById('game-score');
         const gameTimeDisplay = document.getElementById('game-time');
         const gameMessage = document.getElementById('game-message');
-        // Removed Mad Libs elements
+        // Tarot elements
+        const revealFortuneButton = document.getElementById('reveal-fortune-button');
+        const tarotResult = document.getElementById('tarot-result');
+        const gotoPage6ButtonFromTarot = document.getElementById('goto-page6-button-from-tarot');
+        // Love Letter elements
+        const generateLetterButton = document.getElementById('generate-letter-button');
+        const loveLetterResult = document.getElementById('love-letter-result');
+        const gotoPage6ButtonFromLetter = document.getElementById('goto-page6-button-from-letter'); // New button
+        // Memory Lane Elements
+        const memoryLaneSlides = document.querySelectorAll('#memory-lane-state .slide');
+        const gotoFinalStateButton = document.getElementById('goto-final-state-button');
         // Navigation Buttons
         const gotoPage2Button = document.getElementById('goto-page2-button');
-        const gotoVoiceMessageButton = document.getElementById('goto-voice-message-button'); // Renamed
-        const gotoPage3Button = document.getElementById('goto-page3-button'); // Now on voice message page
-        const gotoPage6ButtonFromGame = document.getElementById('goto-page6-button-from-game'); // Renamed button from game page
-        // Removed gotoPage6Button
+        const gotoVoiceMessageButton = document.getElementById('goto-voice-message-button');
+        const gotoPage3Button = document.getElementById('goto-page3-button');
+        const gotoTarotButtonFromGame = document.getElementById('goto-tarot-button-from-game');
+        const gotoLoveLetterButton = document.getElementById('goto-love-letter-button'); // New button after Tarot
+        // Removed page6BtnFromGame
         const gotoPage7Button = document.getElementById('goto-page7-button');
 
         // --- State Variables ---
@@ -187,70 +238,89 @@
         let gameScore = 0; let gameTimerId = null; let gameTimeLeft = 10; let gameActive = false;
         let gameSynth = null; let finaleSynth = null;
         let successSynth = null; let failureSynth = null;
-        // Removed voiceSynth
         let storedEligibilityData = {};
         let storedDate = ""; let storedTime = ""; let storedIdea = "";
         let storedDateInstructions = [];
         let storedCustomInstruction = "";
+        let currentSlideIndex = 0;
+        const fortunes = [ "A surprise chocolate delivery is imminent! 🍫", "Prepare for maximum cuddles in the near future. 🤗", "Someone thinks you're incredibly cute (it's me!). 😉", "Adventure calls! A fun outing is on the horizon. 🚀", "This guy is planning to love you forever. 💍", "Your smile will brighten someone's day (mine!). ✨", "Expect a message that will make you happy very soon... 💞" ];
+        // Love Letter Templates
+        const loveLetters = {
+            funny_short: "Roses are red, violets are blue, I'm not great at poems, but I really like you! 😄",
+            funny_long: "My dearest Khushboo,\n\nI tried writing a serious love letter, but honestly, thinking about you just makes me goofy and happy. It's like my brain turns into happy mush. Is that romantic? Probably not, but it's true! Looking forward to more happy mush moments with you.\n\nYours goofily,\n[Your Name]", // Replace [Your Name]
+            romantic_short: "Khushboo, just thinking about you makes my day brighter. Can't wait to see you soon. ❤️",
+            romantic_long: "Dearest Khushboo,\n\nEver since I met you, things just seem... better. Brighter. More fun. You have this amazing way about you that I can't get enough of. Thinking of you always brings a smile to my face, and I feel incredibly lucky that you said yes.\n\nWith all my affection,\n[Your Name]", // Replace [Your Name]
+            cheesy_short: "Are you made of copper and tellurium? Because you're Cu-Te! 😉 See you soon!",
+            cheesy_long: "To the amazing Khushboo,\n\nDo you have a map? Because I just keep getting lost in your eyes. Okay, okay, that was cheesy, but seriously, I'm so incredibly happy you said yes. You're the best!\n\nYours cheesily,\n[Your Name]" // Replace [Your Name]
+        };
+
 
         // --- Functions ---
-        function initAudio() { if (!gameSynth) { gameSynth = new Tone.Synth({ oscillator: { type: 'sine' }, envelope: { attack: 0.01, decay: 0.1, sustain: 0.01, release: 0.1 } }).toDestination(); } if (!finaleSynth) { finaleSynth = new Tone.PolySynth(Tone.Synth).toDestination(); } if (!successSynth) { successSynth = new Tone.PolySynth({polyphony: 4, voice: Tone.Synth, options: { oscillator: {type: 'triangle'}, envelope: { attack: 0.01, decay: 0.1, sustain: 0.3, release: 0.4 } }}).toDestination(); } if (!failureSynth) { failureSynth = new Tone.Synth({ oscillator: { type: 'sawtooth' }, envelope: { attack: 0.05, decay: 0.5, sustain: 0, release: 0.2 } }).toDestination(); } console.log("Audio initialized."); }
-        function playSuccessSound() { if (successSynth) { const now = Tone.now(); successSynth.triggerAttackRelease(["C5", "E5", "G5", "C6"], "8n", now); } }
-        function playFailureSound() { if (failureSynth) { failureSynth.triggerAttackRelease("C3", "2n", Tone.now()); failureSynth.triggerAttackRelease("C#3", "2n", Tone.now() + 0.1); } }
-        // Play custom audio file
-        function playVoiceMessageSound() {
-             if (voiceAudioPlayer) {
-                 voiceAudioPlayer.currentTime = 0; // Rewind to start
-                 voiceAudioPlayer.play().catch(error => {
-                     console.error("Audio play failed:", error);
-                 });
-             } else { console.error("Voice audio player not found!"); }
-        }
+        function initAudio() { /* ... keep existing initAudio ... */ if (!gameSynth) { gameSynth = new Tone.Synth({ oscillator: { type: 'sine' }, envelope: { attack: 0.01, decay: 0.1, sustain: 0.01, release: 0.1 } }).toDestination(); } if (!finaleSynth) { finaleSynth = new Tone.PolySynth(Tone.Synth).toDestination(); } if (!successSynth) { successSynth = new Tone.PolySynth({polyphony: 4, voice: Tone.Synth, options: { oscillator: {type: 'triangle'}, envelope: { attack: 0.01, decay: 0.1, sustain: 0.3, release: 0.4 } }}).toDestination(); } if (!failureSynth) { failureSynth = new Tone.Synth({ oscillator: { type: 'sawtooth' }, envelope: { attack: 0.05, decay: 0.5, sustain: 0, release: 0.2 } }).toDestination(); } console.log("Audio initialized."); }
+        function playSuccessSound() { /* ... keep existing playSuccessSound ... */ if (successSynth) { const now = Tone.now(); successSynth.triggerAttackRelease(["C5", "E5", "G5", "C6"], "8n", now); } }
+        function playFailureSound() { /* ... keep existing playFailureSound ... */ if (failureSynth) { failureSynth.triggerAttackRelease("C3", "2n", Tone.now()); failureSynth.triggerAttackRelease("C#3", "2n", Tone.now() + 0.1); } }
+        function playVoiceMessageSound() { if (voiceAudioPlayer) { voiceAudioPlayer.currentTime = 0; voiceAudioPlayer.play().catch(error => { console.error("Audio play failed:", error); }); } else { console.error("Voice audio player not found!"); } }
 
-        function showState(stateToShow) { console.log("Showing state:", stateToShow ? stateToShow.id : 'null'); Object.values(states).forEach(state => { if (state && stateToShow && state.id === stateToShow.id) { state.classList.remove('hidden'); resetPage(state); if (state.id === 'voice-message-state') playVoiceMessageSound(); if (state.id === 'page4-state') startGame(); if (state.id === 'page6-state') createStars(); if (state.id === 'page7-state') playFinaleSound(); } else if (state) { state.classList.add('hidden'); } }); }
+        function showState(stateToShow) {
+            console.log("Showing state:", stateToShow ? stateToShow.id : 'null');
+            Object.values(states).forEach(state => {
+                if (state && stateToShow && state.id === stateToShow.id) {
+                    state.classList.remove('hidden');
+                    resetPage(state);
+                    if (state.id === 'memory-lane-state') showSlide(currentSlideIndex);
+                    if (state.id === 'voice-message-state') playVoiceMessageSound();
+                    if (state.id === 'page4-state') startGame();
+                    if (state.id === 'page6-state') createStars();
+                    if (state.id === 'page7-state') playFinaleSound();
+                } else if (state) {
+                    state.classList.add('hidden');
+                }
+            });
+        }
         function resetPage(element) { if (!element) return; element.classList.remove('fade-in-slow'); requestAnimationFrame(() => { if (element) element.classList.add('fade-in-slow'); }); }
-        function handleNoClick() { console.log("No button clicked! Count:", noClickCount + 1); noClickCount++; yesButtonScale += 0.2; if (yesButton) yesButton.style.transform = `scale(${yesButtonScale})`; if (noClickCount === 1) { if (questionText) questionText.textContent = 'Please you can think about it.. ❤️'; if (noButton) noButton.addEventListener('mouseover', moveNoButton); console.log("Mouseover listener added to No button."); moveNoButton(); } else { console.log("Subsequent No click - moving button again."); moveNoButton(); } }
-        function moveNoButton() { if (!noButton || !yesButton) return; console.log("moveNoButton called"); if (!noButton.classList.contains('moving')) { noButton.classList.add('moving'); console.log("Added 'moving' class"); } const vpW = window.innerWidth; const vpH = window.innerHeight; const btnRect = noButton.getBoundingClientRect(); const maxT = vpH - btnRect.height - 20; const maxL = vpW - btnRect.width - 20; let newT = Math.random() * maxT; let newL = Math.random() * maxL; const yesRect = yesButton.getBoundingClientRect(); let att = 0; const maxAtt = 20; while (att < maxAtt && newL < yesRect.right && newL + btnRect.width > yesRect.left && newT < yesRect.bottom && newT + btnRect.height > yesRect.top) { newT = Math.random() * maxT; newL = Math.random() * maxL; att++; } noButton.style.top = `${newT}px`; noButton.style.left = `${newL}px`; console.log(`Moved No button to: top=${newT.toFixed(0)}px, left=${newL.toFixed(0)}px`); }
-        function createBgHearts() { if (!heartsBgContainer) return; heartsBgContainer.innerHTML = ''; const heartCount = 30; for (let i = 0; i < heartCount; i++) { const heart = document.createElement('div'); heart.classList.add('heart-bg'); heart.textContent = ['💖', '❤️', '💕'][Math.floor(Math.random() * 3)]; heart.style.left = `${Math.random() * 100}vw`; heart.style.top = `${Math.random() * 100}vh`; heart.style.animationDelay = `${Math.random() * 8}s`; heart.style.fontSize = `${10 + Math.random() * 20}px`; heartsBgContainer.appendChild(heart); } }
-        function createConfetti() { const confettiCount = 200; const colors = ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4caf50', '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107', '#ff9800', '#ff5722']; const originEl = states.eligible; if (!originEl || originEl.classList.contains('hidden')) return; const originRect = originEl.getBoundingClientRect(); const originX = originRect.left + originRect.width / 2; const originY = originRect.top + originRect.height / 3; for (let i = 0; i < confettiCount; i++) { const conf = document.createElement('div'); conf.classList.add('confetti'); conf.style.left = `${originX}px`; conf.style.top = `${originY}px`; conf.style.width = `${4 + Math.random() * 6}px`; conf.style.height = conf.style.width; conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]; conf.style.opacity = '1'; conf.style.transform = `rotate(${Math.random() * 360}deg)`; document.body.appendChild(conf); const angle = Math.random() * Math.PI * 2; const vel = 60 + Math.random() * 110; const grav = 0.9; let vx = Math.cos(angle) * vel; let vy = Math.sin(angle) * vel; let x = originX; let y = originY; let rot = parseFloat(conf.style.transform.replace('rotate(', '').replace('deg)', '')); const rotSpd = (Math.random() - 0.5) * 15; const fall = () => { vy -= grav; x += vx * 0.018; y -= vy * 0.018; rot += rotSpd; conf.style.left = `${x}px`; conf.style.top = `${y}px`; conf.style.transform = `rotate(${rot}deg)`; conf.style.opacity = `${parseFloat(conf.style.opacity) - 0.008}`; if (y < window.innerHeight + 60 && parseFloat(conf.style.opacity) > 0) { requestAnimationFrame(fall); } else { conf.remove(); } }; requestAnimationFrame(fall); } }
-        function changeHeartColor() { if (!interactiveHeart) return; heartColorIndex = (heartColorIndex + 1) % heartColors.length; interactiveHeart.style.color = heartColors[heartColorIndex]; }
-        function createStars() { if (!starContainer) return; starContainer.innerHTML = ''; const starCount = 50; for (let i = 0; i < starCount; i++) { const star = document.createElement('div'); star.classList.add('star'); star.textContent = '✨'; star.style.left = `${Math.random() * 100}%`; star.style.top = `${Math.random() * 100}%`; star.style.animationDelay = `${Math.random() * 3}s`; starContainer.appendChild(star); } }
-        function handleStarRating(event) { if (!ratingStarsContainer) return; if (event.target.tagName === 'SPAN') { const value = parseInt(event.target.dataset.value); const stars = ratingStarsContainer.querySelectorAll('span'); stars.forEach(star => { star.classList.toggle('active', parseInt(star.dataset.value) <= value); star.textContent = parseInt(star.dataset.value) <= value ? '★' : '☆'; }); } }
-        function startGame() { Tone.start(); initAudio(); if (gameActive || !gameArea || !clickableHeart || !gameScoreDisplay || !gameTimeDisplay || !gameMessage || !gotoPage6ButtonFromGame) return; console.log("Starting game..."); gameActive = true; gameScore = 0; gameTimeLeft = 10; gameScoreDisplay.textContent = gameScore; gameTimeDisplay.textContent = gameTimeLeft; gameMessage.textContent = ""; clickableHeart.style.display = 'block'; gotoPage6ButtonFromGame.classList.add('hidden'); moveClickableHeart(); gameTimerId = setInterval(gameTick, 1000); }
-        function gameTick() { gameTimeLeft--; if(gameTimeDisplay) gameTimeDisplay.textContent = gameTimeLeft; if (gameTimeLeft <= 0) { endGame(); } else { moveClickableHeart(); } }
-        function moveClickableHeart() { if (!gameActive || !gameArea || !clickableHeart) return; const areaRect = gameArea.getBoundingClientRect(); const heartRect = clickableHeart.getBoundingClientRect(); const maxTop = gameArea.clientHeight - heartRect.height; const maxLeft = gameArea.clientWidth - heartRect.width; clickableHeart.style.top = `${Math.random() * maxTop}px`; clickableHeart.style.left = `${Math.random() * maxLeft}px`; }
-        function clickHeart() { if (!gameActive || !gameSynth || !gameScoreDisplay || !clickableHeart) return; gameScore++; gameScoreDisplay.textContent = gameScore; gameSynth.triggerAttackRelease("C5", "8n"); clickableHeart.style.transform = 'scale(1.2)'; setTimeout(() => { if(clickableHeart) clickableHeart.style.transform = 'scale(1)'; }, 100); moveClickableHeart(); }
-        function endGame() { console.log("Ending game..."); clearInterval(gameTimerId); gameActive = false; if(clickableHeart) clickableHeart.style.display = 'none'; if(gameMessage) gameMessage.textContent = `Game Over! Final Score: ${gameScore}. Nice reflexes! 😉`; if(gotoPage6ButtonFromGame) gotoPage6ButtonFromGame.classList.remove('hidden'); }
+        function handleNoClick() { /* ... keep existing handleNoClick ... */ console.log("No button clicked! Count:", noClickCount + 1); noClickCount++; yesButtonScale += 0.2; if (yesButton) yesButton.style.transform = `scale(${yesButtonScale})`; if (noClickCount === 1) { if (questionText) questionText.textContent = 'Please you can think about it.. ❤️'; if (noButton) noButton.addEventListener('mouseover', moveNoButton); console.log("Mouseover listener added to No button."); moveNoButton(); } else { console.log("Subsequent No click - moving button again."); moveNoButton(); } }
+        function moveNoButton() { /* ... keep existing moveNoButton ... */ if (!noButton || !yesButton) return; console.log("moveNoButton called"); if (!noButton.classList.contains('moving')) { noButton.classList.add('moving'); console.log("Added 'moving' class"); } const vpW = window.innerWidth; const vpH = window.innerHeight; const btnRect = noButton.getBoundingClientRect(); const maxT = vpH - btnRect.height - 20; const maxL = vpW - btnRect.width - 20; let newT = Math.random() * maxT; let newL = Math.random() * maxL; const yesRect = yesButton.getBoundingClientRect(); let att = 0; const maxAtt = 20; while (att < maxAtt && newL < yesRect.right && newL + btnRect.width > yesRect.left && newT < yesRect.bottom && newT + btnRect.height > yesRect.top) { newT = Math.random() * maxT; newL = Math.random() * maxL; att++; } noButton.style.top = `${newT}px`; noButton.style.left = `${newL}px`; console.log(`Moved No button to: top=${newT.toFixed(0)}px, left=${newL.toFixed(0)}px`); }
+        function createBgHearts() { /* ... keep existing createBgHearts ... */ if (!heartsBgContainer) return; heartsBgContainer.innerHTML = ''; const heartCount = 30; for (let i = 0; i < heartCount; i++) { const heart = document.createElement('div'); heart.classList.add('heart-bg'); heart.textContent = ['💖', '❤️', '💕'][Math.floor(Math.random() * 3)]; heart.style.left = `${Math.random() * 100}vw`; heart.style.top = `${Math.random() * 100}vh`; heart.style.animationDelay = `${Math.random() * 8}s`; heart.style.fontSize = `${10 + Math.random() * 20}px`; heartsBgContainer.appendChild(heart); } }
+        function createConfetti() { /* ... keep existing createConfetti ... */ const confettiCount = 200; const colors = ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4caf50', '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107', '#ff9800', '#ff5722']; const originEl = states.eligible; if (!originEl || originEl.classList.contains('hidden')) return; const originRect = originEl.getBoundingClientRect(); const originX = originRect.left + originRect.width / 2; const originY = originRect.top + originRect.height / 3; for (let i = 0; i < confettiCount; i++) { const conf = document.createElement('div'); conf.classList.add('confetti'); conf.style.left = `${originX}px`; conf.style.top = `${originY}px`; conf.style.width = `${4 + Math.random() * 6}px`; conf.style.height = conf.style.width; conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]; conf.style.opacity = '1'; conf.style.transform = `rotate(${Math.random() * 360}deg)`; document.body.appendChild(conf); const angle = Math.random() * Math.PI * 2; const vel = 60 + Math.random() * 110; const grav = 0.9; let vx = Math.cos(angle) * vel; let vy = Math.sin(angle) * vel; let x = originX; let y = originY; let rot = parseFloat(conf.style.transform.replace('rotate(', '').replace('deg)', '')); const rotSpd = (Math.random() - 0.5) * 15; const fall = () => { vy -= grav; x += vx * 0.018; y -= vy * 0.018; rot += rotSpd; conf.style.left = `${x}px`; conf.style.top = `${y}px`; conf.style.transform = `rotate(${rot}deg)`; conf.style.opacity = `${parseFloat(conf.style.opacity) - 0.008}`; if (y < window.innerHeight + 60 && parseFloat(conf.style.opacity) > 0) { requestAnimationFrame(fall); } else { conf.remove(); } }; requestAnimationFrame(fall); } }
+        function changeHeartColor() { /* ... keep existing changeHeartColor ... */ if (!interactiveHeart) return; heartColorIndex = (heartColorIndex + 1) % heartColors.length; interactiveHeart.style.color = heartColors[heartColorIndex]; }
+        function createStars() { /* ... keep existing createStars ... */ if (!starContainer) return; starContainer.innerHTML = ''; const starCount = 50; for (let i = 0; i < starCount; i++) { const star = document.createElement('div'); star.classList.add('star'); star.textContent = '✨'; star.style.left = `${Math.random() * 100}%`; star.style.top = `${Math.random() * 100}%`; star.style.animationDelay = `${Math.random() * 3}s`; starContainer.appendChild(star); } }
+        function handleStarRating(event) { /* ... keep existing handleStarRating ... */ if (!ratingStarsContainer) return; if (event.target.tagName === 'SPAN') { const value = parseInt(event.target.dataset.value); const stars = ratingStarsContainer.querySelectorAll('span'); stars.forEach(star => { star.classList.toggle('active', parseInt(star.dataset.value) <= value); star.textContent = parseInt(star.dataset.value) <= value ? '★' : '☆'; }); } }
+        function startGame() { /* ... keep existing startGame ... */ Tone.start(); initAudio(); if (gameActive || !gameArea || !clickableHeart || !gameScoreDisplay || !gameTimeDisplay || !gameMessage || !gotoTarotButtonFromGame) return; console.log("Starting game..."); gameActive = true; gameScore = 0; gameTimeLeft = 10; gameScoreDisplay.textContent = gameScore; gameTimeDisplay.textContent = gameTimeLeft; gameMessage.textContent = ""; clickableHeart.style.display = 'block'; gotoTarotButtonFromGame.classList.add('hidden'); moveClickableHeart(); gameTimerId = setInterval(gameTick, 1000); }
+        function gameTick() { /* ... keep existing gameTick ... */ gameTimeLeft--; if(gameTimeDisplay) gameTimeDisplay.textContent = gameTimeLeft; if (gameTimeLeft <= 0) { endGame(); } else { moveClickableHeart(); } }
+        function moveClickableHeart() { /* ... keep existing moveClickableHeart ... */ if (!gameActive || !gameArea || !clickableHeart) return; const areaRect = gameArea.getBoundingClientRect(); const heartRect = clickableHeart.getBoundingClientRect(); const maxTop = gameArea.clientHeight - heartRect.height; const maxLeft = gameArea.clientWidth - heartRect.width; clickableHeart.style.top = `${Math.random() * maxTop}px`; clickableHeart.style.left = `${Math.random() * maxLeft}px`; }
+        function clickHeart() { /* ... keep existing clickHeart ... */ if (!gameActive || !gameSynth || !gameScoreDisplay || !clickableHeart) return; gameScore++; gameScoreDisplay.textContent = gameScore; gameSynth.triggerAttackRelease("C5", "8n"); clickableHeart.style.transform = 'scale(1.2)'; setTimeout(() => { if(clickableHeart) clickableHeart.style.transform = 'scale(1)'; }, 100); moveClickableHeart(); }
+        function endGame() { /* ... keep existing endGame ... */ console.log("Ending game..."); clearInterval(gameTimerId); gameActive = false; if(clickableHeart) clickableHeart.style.display = 'none'; if(gameMessage) gameMessage.textContent = `Game Over! Final Score: ${gameScore}. Nice reflexes! 😉`; if(gotoTarotButtonFromGame) gotoTarotButtonFromGame.classList.remove('hidden'); }
         // Removed Mad Libs function
-        function playFinaleSound() { Tone.start(); initAudio(); try { if (finaleSynth) finaleSynth.triggerAttackRelease(["C4", "E4", "G4"], "1n"); console.log("Finale sound played."); } catch (e) { console.error("Tone.js sound error:", e); } }
+        function playFinaleSound() { /* ... keep existing playFinaleSound ... */ Tone.start(); initAudio(); try { if (finaleSynth) finaleSynth.triggerAttackRelease(["C4", "E4", "G4"], "1n"); console.log("Finale sound played."); } catch (e) { console.error("Tone.js sound error:", e); } }
 
         // --- Function to send data to BACKENDS (Formspree & Apps Script) ---
-        async function sendDataToBackend(formData, buttonElement, infoElement) {
-            const isFormspreeConfigured = FORMSPREE_URL && FORMSPREE_URL !== "https://formspree.io/f/YOUR_UNIQUE_CODE";
-            const isAppsScriptConfigured = GOOGLE_APPS_SCRIPT_URL && GOOGLE_APPS_SCRIPT_URL !== "YOUR_GOOGLE_APPS_SCRIPT_URL";
-            if (!formData.recipient_name) formData.recipient_name = RECIPIENT_NAME;
-            if (!isFormspreeConfigured) { console.warn("Formspree URL is not set. Skipping email send."); }
-            if (!isAppsScriptConfigured) { console.warn("Google Apps Script URL is not set. Skipping Telegram send."); }
-            if (!isFormspreeConfigured && !isAppsScriptConfigured) { console.error("Configuration error: Neither Formspree nor Google Apps Script URL is set!"); return; }
-            if(buttonElement) buttonElement.disabled = true; if(infoElement) infoElement.classList.remove('hidden');
-            console.log("Attempting to send data:", formData);
-            const promises = [];
-            if (isFormspreeConfigured) {
-                 const formspreeData = { ...formData };
-                 if (!formspreeData._subject) formspreeData._subject = `Proposal Submission from ${formData.recipient_name} (${formData.stage || 'Unknown Stage'})!`;
-                 const fetchOptionsFs = { method: 'POST', body: JSON.stringify(formspreeData), headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' } };
-                 promises.push( fetch(FORMSPREE_URL, fetchOptionsFs).then(response => { if (response.ok) { console.log('Data sent successfully to Formspree!'); } else { response.json().catch(() => ({})).then(errorData => console.error('Failed to send data to Formspree:', response.status, response.statusText, errorData)); } }).catch(error => console.error('Network or other error sending data to Formspree:', error)) );
-                 console.log("Initiated send to Formspree.");
-            }
-            if (isAppsScriptConfigured) {
-                 const fetchOptionsGas = { method: 'POST', mode: 'no-cors', body: JSON.stringify(formData), headers: { 'Content-Type': 'text/plain', } };
-                 promises.push( fetch(GOOGLE_APPS_SCRIPT_URL, fetchOptionsGas).then(response => { console.log('Data send initiated to Google Apps Script (no-cors).'); }).catch(error => console.error('Network or other error sending data to Google Apps Script:', error)) );
-                 console.log("Initiated send to Google Apps Script.");
-            }
-            await Promise.all(promises);
-            if(buttonElement) buttonElement.disabled = false;
-            if(infoElement) infoElement.classList.add('hidden');
-            console.log("Finished initiating send attempts to configured endpoints.");
+        async function sendDataToBackend(formData, buttonElement, infoElement) { /* ... keep existing sendDataToBackend ... */ const isFormspreeConfigured = FORMSPREE_URL && FORMSPREE_URL !== "https://formspree.io/f/YOUR_UNIQUE_CODE"; const isAppsScriptConfigured = GOOGLE_APPS_SCRIPT_URL && GOOGLE_APPS_SCRIPT_URL !== "YOUR_GOOGLE_APPS_SCRIPT_URL"; if (!formData.recipient_name) formData.recipient_name = RECIPIENT_NAME; if (!isFormspreeConfigured) { console.warn("Formspree URL is not set. Skipping email send."); } if (!isAppsScriptConfigured) { console.warn("Google Apps Script URL is not set. Skipping Telegram send."); } if (!isFormspreeConfigured && !isAppsScriptConfigured) { console.error("Configuration error: Neither Formspree nor Google Apps Script URL is set!"); return; } if(buttonElement) buttonElement.disabled = true; if(infoElement) infoElement.classList.remove('hidden'); console.log("Attempting to send data:", formData); const promises = []; if (isFormspreeConfigured) { const formspreeData = { ...formData }; if (!formspreeData._subject) formspreeData._subject = `Proposal Submission from ${formData.recipient_name} (${formData.stage || 'Unknown Stage'})!`; const fetchOptionsFs = { method: 'POST', body: JSON.stringify(formspreeData), headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' } }; promises.push( fetch(FORMSPREE_URL, fetchOptionsFs).then(response => { if (response.ok) { console.log('Data sent successfully to Formspree!'); } else { response.json().catch(() => ({})).then(errorData => console.error('Failed to send data to Formspree:', response.status, response.statusText, errorData)); } }).catch(error => console.error('Network or other error sending data to Formspree:', error)) ); console.log("Initiated send to Formspree."); } if (isAppsScriptConfigured) { const fetchOptionsGas = { method: 'POST', mode: 'no-cors', body: JSON.stringify(formData), headers: { 'Content-Type': 'text/plain', } }; promises.push( fetch(GOOGLE_APPS_SCRIPT_URL, fetchOptionsGas).then(response => { console.log('Data send initiated to Google Apps Script (no-cors).'); }).catch(error => console.error('Network or other error sending data to Google Apps Script:', error)) ); console.log("Initiated send to Google Apps Script."); } await Promise.all(promises); if(buttonElement) buttonElement.disabled = false; if(infoElement) infoElement.classList.add('hidden'); console.log("Finished initiating send attempts to configured endpoints."); }
+
+        // --- Memory Lane Slider Functions ---
+        function showSlide(index) { if (!memoryLaneSlides || memoryLaneSlides.length === 0) return; if (index >= memoryLaneSlides.length) { currentSlideIndex = 0; } else if (index < 0) { currentSlideIndex = memoryLaneSlides.length - 1; } else { currentSlideIndex = index; } memoryLaneSlides.forEach(slide => slide.classList.remove('active')); memoryLaneSlides[currentSlideIndex].classList.add('active'); console.log("Showing slide:", currentSlideIndex); }
+        function changeSlide(n) { showSlide(currentSlideIndex + n); }
+
+        // --- Tarot Function ---
+        function revealFortune() { if (!tarotResult || !gotoPage6ButtonFromTarot) return; const randomIndex = Math.floor(Math.random() * fortunes.length); tarotResult.textContent = fortunes[randomIndex]; tarotResult.classList.remove('hidden'); gotoPage6ButtonFromTarot.classList.remove('hidden'); if(revealFortuneButton) revealFortuneButton.disabled = true; }
+
+        // --- Love Letter Function ---
+        function generateLoveLetter() {
+            const moodElement = document.querySelector('input[name="letter_mood"]:checked');
+            const lengthElement = document.querySelector('input[name="letter_length"]:checked');
+            if (!moodElement || !lengthElement || !loveLetterResult || !gotoPage6ButtonFromLetter) return;
+
+            const mood = moodElement.value;
+            const length = lengthElement.value;
+            const key = `${mood}_${length}`;
+            const letterTemplate = loveLetters[key] || "Hmm, my heart's too full to find the right words right now, but know that I'm thinking of you!"; // Fallback
+
+            // Replace placeholder name if needed (adjust placeholder in templates if different)
+            const finalLetter = letterTemplate.replace("[Your Name]", "Me"); // Or use your actual name
+
+            loveLetterResult.textContent = finalLetter;
+            loveLetterResult.classList.remove('hidden');
+            gotoPage6ButtonFromLetter.classList.remove('hidden');
+            if(generateLetterButton) generateLetterButton.disabled = true;
         }
 
 
@@ -265,18 +335,22 @@
             const gotoRejectionFormBtn = document.getElementById('goto-rejection-form-button');
             const rejectionFormEl = document.getElementById('rejection-form');
             const submitRejectionBtn = document.getElementById('submit-rejection-button');
+            const gotoFinalStateBtn = document.getElementById('goto-final-state-button');
             const dateConfirmBtn = document.getElementById('date-confirm-button');
             const complimentNextBtn = document.getElementById('compliment-next-button');
-            // Removed Mad Libs button
             const clickableHeartBtn = document.getElementById('clickable-heart');
             const ratingStarsCont = document.getElementById('rating-stars');
-            const replayAudioBtn = document.getElementById('replay-audio-button'); // Replay button
+            const replayAudioBtn = document.getElementById('replay-audio-button');
+            const revealFortuneBtn = document.getElementById('reveal-fortune-button');
+            const generateLetterBtn = document.getElementById('generate-letter-button'); // Love Letter Button
             // Navigation buttons
             const page2Btn = document.getElementById('goto-page2-button');
-            const gotoVoiceMessageBtn = document.getElementById('goto-voice-message-button'); // Renamed
-            const page3Btn = document.getElementById('goto-page3-button'); // Now on voice message page
-            const page6BtnFromGame = document.getElementById('goto-page6-button-from-game'); // Renamed
-            // Removed page6Btn
+            const gotoVoiceMessageBtn = document.getElementById('goto-voice-message-button');
+            const page3Btn = document.getElementById('goto-page3-button');
+            const gotoTarotBtnFromGame = document.getElementById('goto-tarot-button-from-game');
+            const gotoLoveLetterBtn = document.getElementById('goto-love-letter-button'); // New button after Tarot
+            const page6BtnFromLetter = document.getElementById('goto-page6-button-from-letter'); // New button after Letter
+            // Removed page6BtnFromTarot
             const page7Btn = document.getElementById('goto-page7-button');
 
             // Add listener for YES button
@@ -297,34 +371,22 @@
                     const drinkChecked = document.querySelector('input[name="eligibility_drink"]:checked');
                     const drinkPref = drinkChecked ? drinkChecked.value : '';
                     if (!enteredName || !enteredBday || !heightFt || heightIn === '' || !rating || !drinkPref) { if(eligibilityError) { eligibilityError.textContent = "Please fill out Name, Birthday, Height, Rating, and Drink Preference!"; eligibilityError.classList.remove('hidden'); } return; }
-                    // Store Eligibility Data Temporarily
                     storedEligibilityData = { name_entered: eligibilityNameInput.value.trim(), birthday_entered: enteredBday, height_ft: heightFt, height_in: heightIn, persistence_rating: rating, fav_color: color || 'Not specified', drink_preference: drinkPref };
                     console.log("Stored Eligibility Data:", storedEligibilityData);
-
-                    // Show Verifying state FIRST
                     showState(states.verifying);
-
-                    // Eligibility Check AFTER delay
                     const isNameMatch = enteredName === "khushboo" || enteredName === "khushboo swami";
                     const isBdayMatch = enteredBday === TARGET_BIRTHDAY;
                     console.log(`Validation - Name: ${enteredName}, Bday: ${enteredBday}. Match? Name: ${isNameMatch}, Bday: ${isBdayMatch}`);
-
-                    // Wait ~4.5 seconds THEN check, play sound, and show result
                     setTimeout(() => {
                         if (isNameMatch && isBdayMatch) {
-                            // SUCCESS PATH - NO SEND YET
-                            console.log("Eligibility PASSED!");
-                            playSuccessSound(); // Play success sound
+                            console.log("Eligibility PASSED!"); playSuccessSound();
                             showState(states.eligible);
-                            setTimeout(() => { showState(states.gift); createConfetti(); }, 3000); // Show gift after 3s
+                            setTimeout(() => { showState(states.gift); createConfetti(); }, 3000);
                         } else {
-                            // FAILURE PATH - NO SEND YET
-                            console.log("Eligibility FAILED!");
-                            playFailureSound(); // Play failure sound
+                            console.log("Eligibility FAILED!"); playFailureSound();
                             showState(states.rejectionMessage);
                         }
-                    }, 4500); // 4.5 second delay
-
+                    }, 4500);
                 }); console.log("Eligibility form submit listener added.");
             } else { console.error("Could not find Eligibility form!"); }
 
@@ -332,7 +394,6 @@
             if (gotoRejectionFormButton) { gotoRejectionFormButton.addEventListener('click', () => { showState(states.rejectionForm); }); console.log("Goto Rejection Form button listener added."); } else { console.error("Could not find Goto Rejection Form button!"); }
 
             // --- Listener for Rejection Form Submission ---
-            // This sends the COMBINED eligibility (failed) + rejection contact data
             if (rejectionFormEl) {
                  rejectionFormEl.addEventListener('submit', async (e) => {
                     e.preventDefault(); console.log("Rejection form submitted."); Tone.start(); initAudio();
@@ -342,32 +403,23 @@
                     const snap = rejectionSnapInput ? rejectionSnapInput.value.trim() : '';
                     const mobileRegex = /^[0-9]{10,15}$/;
                     if (!mobile || !mobileRegex.test(mobile.replace(/[^0-9]/g, ''))) { if (rejectionFormError) { rejectionFormError.textContent = "Please enter a valid mobile number (digits only, include country code)."; rejectionFormError.classList.remove('hidden'); } return; }
-                     // Prepare rejection data including stored (failed) eligibility data
-                    const rejectionData = {
-                        recipient_name: RECIPIENT_NAME, stage: "Eligibility Check - FAILED",
-                        eligibility_name_entered: storedEligibilityData.name_entered || 'Not provided',
-                        eligibility_birthday_entered: storedEligibilityData.birthday_entered || 'Not provided',
-                        eligibility_height_ft: storedEligibilityData.height_ft || 'N/A',
-                        eligibility_height_in: storedEligibilityData.height_in || 'N/A',
-                        persistence_rating: storedEligibilityData.persistence_rating || 'Not provided',
-                        fav_color: storedEligibilityData.fav_color || 'Not specified',
-                        drink_preference: storedEligibilityData.drink_preference || 'Not provided',
-                        rejection_mobile: mobile, rejection_insta: insta || 'Not provided', rejection_snap: snap || 'Not provided'
-                    };
+                    const rejectionData = { recipient_name: RECIPIENT_NAME, stage: "Eligibility Check - FAILED", eligibility_name_entered: storedEligibilityData.name_entered || 'Not provided', eligibility_birthday_entered: storedEligibilityData.birthday_entered || 'Not provided', eligibility_height_ft: storedEligibilityData.height_ft || 'N/A', eligibility_height_in: storedEligibilityData.height_in || 'N/A', persistence_rating: storedEligibilityData.persistence_rating || 'Not provided', fav_color: storedEligibilityData.fav_color || 'Not specified', drink_preference: storedEligibilityData.drink_preference || 'Not provided', rejection_mobile: mobile, rejection_insta: insta || 'Not provided', rejection_snap: snap || 'Not provided' };
                     console.log("Preparing rejection data:", rejectionData);
-                    // Send combined data
                     await sendDataToBackend(rejectionData, submitRejectionButton, rejectionSendingInfo);
-                    showState(states.rejectionThanks); // Show thank you message
+                    showState(states.rejectionThanks);
                  }); console.log("Rejection form submit listener added.");
             } else { console.error("Could not find Rejection form!"); }
 
-            // Add listener for Gift Box click
-            if (giftBtn) { giftBtn.addEventListener('click', () => { Tone.start(); initAudio(); showState(states.final); }); console.log("Gift button listener added."); } else { console.error("Could not find Gift button!"); }
+            // Add listener for Gift Box click -> Show Memory Lane
+            if (giftBtn) { giftBtn.addEventListener('click', () => { Tone.start(); initAudio(); showState(states.memoryLane); }); console.log("Gift button listener updated -> Memory Lane."); } else { console.error("Could not find Gift button!"); }
+
+            // Listener for button after Memory Lane -> Show Date Form
+            if (gotoFinalStateButton) { gotoFinalStateButton.addEventListener('click', () => { showState(states.final); }); console.log("Goto Final State button listener added."); } else { console.error("Could not find Goto Final State button!"); }
+
             // Listener for Date Idea radio buttons
             document.querySelectorAll('input[name="date_idea"]').forEach(radio => { radio.addEventListener('change', () => { if(customIdeaText && customIdeaRadio) { customIdeaText.classList.toggle('hidden', !customIdeaRadio.checked); if (!customIdeaRadio.checked) customIdeaText.value = ''; } }); });
 
             // --- Listener for Date Confirm Button (State: final) ---
-            // This button ONLY stores data and navigates. NO sending here.
             if (dateConfirmBtn) {
                 dateConfirmBtn.addEventListener('click', () => {
                     console.log("Date confirm button clicked."); Tone.start(); initAudio();
@@ -383,23 +435,19 @@
                      if(dateError) dateError.classList.add('hidden');
                     storedDate = dateVal; storedTime = timeVal; storedIdea = ideaVal; storedDateInstructions = instructions;
                     console.log("Stored Date Info:", { storedDate, storedTime, storedIdea, storedDateInstructions, storedCustomInstruction });
-                    showState(states.page1); // --- ONLY transition to the next page ---
+                    showState(states.page1);
                 }); console.log("Date Confirm button listener added (no send).");
             } else { console.error("Could not find Date Confirm button!"); }
 
             // --- Listener for Compliment Next Button (State: page3) ---
-            // This button sends ALL final data (Eligibility + Date + Instructions + Compliment + Name) and navigates.
             if (complimentNextBtn) {
                 complimentNextBtn.addEventListener('click', () => {
                     console.log("Compliment Next button listener triggered."); Tone.start(); initAudio();
                     const compliment = complimentInput ? complimentInput.value.trim() : '';
                     console.log("Compliment entered:", compliment);
                     console.log("Data available right before final send:", { storedEligibilityData, storedDate, storedTime, storedIdea, storedDateInstructions, storedCustomInstruction });
-
-                    // Prepare data including ALL previously stored info
                      const fullFormData = {
                         recipient_name: RECIPIENT_NAME, stage: "SUCCESS - All Data",
-                        // Eligibility Data
                         eligibility_name_entered: storedEligibilityData.name_entered || 'Not specified',
                         eligibility_birthday_entered: storedEligibilityData.birthday_entered || 'Not specified',
                         eligibility_height_ft: storedEligibilityData.height_ft || 'N/A',
@@ -407,17 +455,13 @@
                         persistence_rating: storedEligibilityData.persistence_rating || 'Not specified',
                         fav_color: storedEligibilityData.fav_color || 'Not specified',
                         drink_preference: storedEligibilityData.drink_preference || 'Not specified',
-                        // Date/Time/Idea Data
                         date: storedDate || 'Not specified', time: storedTime || 'Not specified', idea: storedIdea || 'Not specified',
                         date_instructions_checklist: storedDateInstructions.length > 0 ? storedDateInstructions.join(', ') : 'None selected',
                         custom_instruction: storedCustomInstruction || 'None',
-                        // Compliment
                         compliment: compliment || '(Left blank)',
                     };
                     console.log("Preparing full form data for final send:", fullFormData);
-                    // Send ALL data in the background, DO NOT wait for it
                     sendDataToBackend(fullFormData, complimentNextBtn, complimentSendingInfo);
-                    // --- Immediately transition to the next page ---
                     showState(states.page4);
                 });
                  console.log("Compliment Next button listener added (sends all data).");
@@ -425,26 +469,27 @@
 
             // Page 4 Game Listener
             if (clickableHeartBtn) { clickableHeartBtn.addEventListener('click', clickHeart); console.log("Clickable Heart listener added."); } else { console.error("Could not find Clickable Heart button!"); }
-            // Removed Mad Libs listener
 
             // --- Listener for Replay Audio Button ---
-            if (replayAudioButton) {
-                replayAudioButton.addEventListener('click', () => {
-                    console.log("Replay audio button clicked");
-                    playVoiceMessageSound(); // Call the same function to play audio
-                });
-                console.log("Replay audio listener added.");
-            } else { console.error("Could not find Replay Audio button!"); }
+            if (replayAudioButton) { replayAudioButton.addEventListener('click', () => { console.log("Replay audio button clicked"); playVoiceMessageSound(); }); console.log("Replay audio listener added."); } else { console.error("Could not find Replay Audio button!"); }
+
+            // --- Listener for Reveal Fortune Button ---
+            if (revealFortuneBtn) { revealFortuneBtn.addEventListener('click', revealFortune); console.log("Reveal Fortune listener added."); } else { console.error("Could not find Reveal Fortune button!"); }
+
+            // --- Listener for Generate Love Letter Button ---
+            if (generateLetterButton) { generateLetterButton.addEventListener('click', generateLoveLetter); console.log("Generate Love Letter listener added."); } else { console.error("Could not find Generate Love Letter button!"); }
 
 
             // Navigation (remaining buttons)
             if (page2Btn) { page2Btn.addEventListener('click', () => showState(states.page2)); console.log("Goto Page 2 listener added."); } else { console.error("Could not find Goto Page 2 button!"); }
-            // Updated listener for button on Page 2
             if (gotoVoiceMessageButton) { gotoVoiceMessageButton.addEventListener('click', () => showState(states.voiceMessage)); console.log("Goto Voice Message listener added."); } else { console.error("Could not find Goto Voice Message button!"); }
-            // Updated listener for button on Voice Message Page
             if (page3Btn) { page3Btn.addEventListener('click', () => showState(states.page3)); console.log("Goto Page 3 listener added."); } else { console.error("Could not find Goto Page 3 button!"); }
-            // Updated listener for button after game
-            if (page6BtnFromGame) { page6BtnFromGame.addEventListener('click', () => showState(states.page6)); console.log("Goto Page 6 from Game listener added."); } else { console.error("Could not find Goto Page 6 from Game button!"); }
+            // Updated listener for button after game -> Tarot
+            if (gotoTarotButtonFromGame) { gotoTarotButtonFromGame.addEventListener('click', () => showState(states.tarot)); console.log("Goto Tarot from Game listener added."); } else { console.error("Could not find Goto Tarot from Game button!"); }
+             // Listener for button after Tarot -> Love Letter
+            if (gotoLoveLetterButton) { gotoLoveLetterButton.addEventListener('click', () => showState(states.loveLetter)); console.log("Goto Love Letter listener added."); } else { console.error("Could not find Goto Love Letter button!"); }
+             // Listener for button after Love Letter -> Page 6
+            if (page6BtnFromLetter) { page6BtnFromLetter.addEventListener('click', () => showState(states.page6)); console.log("Goto Page 6 from Letter listener added."); } else { console.error("Could not find Goto Page 6 from Letter button!"); }
             // Removed old page6Btn listener
             if (page7Btn) { page7Btn.addEventListener('click', () => showState(states.page7)); console.log("Goto Page 7 listener added."); } else { console.error("Could not find Goto Page 7 button!"); }
             if (ratingStarsCont) { ratingStarsCont.addEventListener('click', handleStarRating); console.log("Rating Stars listener added."); } else { console.error("Could not find Rating Stars container!"); }
