@@ -43,15 +43,7 @@
         .action-button-small { padding: 10px 20px; font-size: 0.9rem; min-width: 120px; }
 
         /* Main container adjustments */
-        #main-container {
-            width: 100%;
-            max-width: 600px; /* Reverted max-width */
-            margin: auto;
-            padding: 1.5rem; /* Adjusted padding */
-            background-color: rgba(255, 255, 255, 0.92);
-            border-radius: 1.5rem; /* Tailwind rounded-2xl */
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
+        #main-container { width: 100%; max-width: 600px; margin: auto; padding: 1.5rem; background-color: rgba(255, 255, 255, 0.92); border-radius: 1.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
         @media (min-width: 640px) { #main-container { padding: 2rem 1.5rem; } }
         .content-container { text-align: center; width: 100%; padding: 0; }
         .content-container > *:not(:last-child) { margin-bottom: 1.5rem; }
@@ -294,25 +286,18 @@
         function toggleBackgroundMusic() { Tone.start(); initAudio(); if (!backgroundAudioPlayer) { console.error("Background audio player element not found or not uncommented!"); return; } if (isMusicPlaying) { backgroundAudioPlayer.pause(); if(playIcon) playIcon.classList.remove('hidden'); if(pauseIcon) pauseIcon.classList.add('hidden'); console.log("Background music paused."); } else { backgroundAudioPlayer.play().catch(e => console.error("Background music play failed:", e)); if(playIcon) playIcon.classList.add('hidden'); if(pauseIcon) pauseIcon.classList.remove('hidden'); console.log("Attempting to play background music."); } isMusicPlaying = !isMusicPlaying; }
         function playSuccessSound() { /* ... keep existing playSuccessSound ... */ if (successSynth) { const now = Tone.now(); successSynth.triggerAttackRelease(["C5", "E5", "G5", "C6"], "8n", now); } }
         function playFailureSound() { /* ... keep existing playFailureSound ... */ if (failureSynth) { failureSynth.triggerAttackRelease("C3", "2n", Tone.now()); failureSynth.triggerAttackRelease("C#3", "2n", Tone.now() + 0.1); } }
-        function playVoiceMessageSound() { if (voiceAudioPlayer) { voiceAudioPlayer.currentTime = 0; voiceAudioPlayer.play().catch(error => { console.error("Audio play failed:", error); }); } else { console.error("Voice audio player not found!"); } }
-
-        // --- Typewriter Function ---
-        function typewriterEffect(element, text, speed = 50, callback) {
-            if (!element) return;
-            if (typewriterTimeoutId) { clearTimeout(typewriterTimeoutId); typewriterTimeoutId = null; }
-            element.textContent = ''; element.classList.remove('typing-done'); element.classList.add('typewriter');
-            let i = 0;
-            function type() {
-                if (i < text.length) {
-                    element.textContent += text.charAt(i); i++;
-                    typewriterTimeoutId = setTimeout(type, speed);
-                } else {
-                    element.classList.remove('typewriter'); element.classList.add('typing-done');
-                    typewriterTimeoutId = null; if (callback) callback();
-                }
-            } type();
+        function playVoiceMessageSound() {
+            // Pause background music if it's playing
+            if (isMusicPlaying && backgroundAudioPlayer) {
+                 console.log("Pausing background music for voice note.");
+                 toggleBackgroundMusic(); // This will pause and update the icon
+            }
+            // Play the voice message
+            if (voiceAudioPlayer) {
+                voiceAudioPlayer.currentTime = 0;
+                voiceAudioPlayer.play().catch(error => { console.error("Voice audio play failed:", error); });
+            } else { console.error("Voice audio player not found!"); }
         }
-
 
         function showState(stateToShow) {
             console.log("Showing state:", stateToShow ? stateToShow.id : 'null');
@@ -401,7 +386,7 @@
             console.log("DOM fully loaded and parsed");
              // Initial typewriter effect for the question
              if(questionText) {
-                 typewriterEffect(questionText, "💖 Will you be my girlfriend Khushboo? 💖", 75);
+                 typewriterEffect(questionText, "💖 Will you be my girlfriend Khushboo? 💖", 75); // Slightly slower speed
              }
 
             // Select elements safely after DOM load
@@ -436,7 +421,10 @@
                 yesBtn.addEventListener('click', () => {
                     console.log("Yes button clicked!");
                     Tone.start(); initAudio();
-                    if (!isMusicPlaying && backgroundAudioPlayer) { toggleBackgroundMusic(); }
+                    // Attempt to start music immediately on first interaction
+                    if (!isMusicPlaying && backgroundAudioPlayer) {
+                        toggleBackgroundMusic();
+                    }
                     showState(states.eligibilityForm);
                     createBgHearts();
                 });
@@ -461,22 +449,27 @@
                     storedEligibilityData = { name_entered: eligibilityNameInput.value.trim(), birthday_entered: enteredBday, height_ft: heightFt, height_in: heightIn, persistence_rating: rating, fav_color: color || 'Not specified', drink_preference: drinkPref };
                     console.log("Stored Eligibility Data:", storedEligibilityData);
                     localStorage.setItem('proposalRecipientName', storedEligibilityData.name_entered);
-                    showState(states.verifying);
+                    showState(states.verifying); // Show verifying first
                     const isNameMatch = enteredName === "khushboo" || enteredName === "khushboo swami";
                     const isBdayMatch = enteredBday === TARGET_BIRTHDAY;
                     console.log(`Validation - Name: ${enteredName}, Bday: ${enteredBday}. Match? Name: ${isNameMatch}, Bday: ${isBdayMatch}`);
-                    setTimeout(() => {
+                    setTimeout(() => { // Wait THEN check
                         if (isNameMatch && isBdayMatch) {
                             console.log("Eligibility PASSED!"); playSuccessSound();
-                            showState(states.eligible);
-                            setTimeout(() => { showState(states.welcomeAnimation); /* Confetti removed */ }, 3000);
-                            setTimeout(() => { showState(states.gift); }, 7000); // Adjusted timing
+                            showState(states.eligible); // Show eligible message FIRST
+                            setTimeout(() => { showState(states.welcomeAnimation); /* Confetti removed */ }, 3000); // THEN show welcome animation after 3s
+                            setTimeout(() => { showState(states.gift); }, 7000); // THEN show gift after welcome (3s + 4s animation)
                         } else {
                             console.log("Eligibility FAILED!"); playFailureSound();
+                            // Show failure popup
                             if (failureModalOverlay) failureModalOverlay.classList.add('visible');
-                            setTimeout(() => { if (failureModalOverlay) failureModalOverlay.classList.remove('visible'); showState(states.rejectionMessage); }, 4000);
+                            // After a delay, hide popup and show standard rejection message page
+                            setTimeout(() => {
+                                if (failureModalOverlay) failureModalOverlay.classList.remove('visible');
+                                showState(states.rejectionMessage);
+                            }, 4000); // Show popup for 4 seconds
                         }
-                    }, 4500);
+                    }, 4500); // Initial wait time
                 }); console.log("Eligibility form submit listener added.");
             } else { console.error("Could not find Eligibility form!"); }
 
@@ -596,3 +589,4 @@
     </script>
 </body>
 </html>
+
