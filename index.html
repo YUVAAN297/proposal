@@ -37,7 +37,7 @@
         .action-button-small { padding: 10px 20px; font-size: 0.9rem; min-width: 120px; }
 
         /* Main container adjustments */
-        #main-container { width: 100%; max-width: 600px; margin: auto; padding: 2rem 1.5rem; background-color: rgba(255, 255, 255, 0.92); border-radius: 1.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        #main-container { width: 100%; max-width: 720px; margin: auto; padding: 2rem 1.5rem; background-color: rgba(255, 255, 255, 0.92); border-radius: 1.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
         .content-container { text-align: center; width: 100%; padding: 0; }
         .content-container > *:not(:last-child) { margin-bottom: 1.5rem; }
 
@@ -366,7 +366,19 @@
             const page7Btn = document.getElementById('goto-page7-button');
 
             // Add listener for YES button
-            if (yesBtn) { yesBtn.addEventListener('click', () => { console.log("Yes button clicked!"); Tone.start(); initAudio(); showState(states.eligibilityForm); createBgHearts(); }); console.log("Yes button listener added."); } else { console.error("Could not find Yes button!"); }
+            if (yesBtn) {
+                yesBtn.addEventListener('click', () => {
+                    console.log("Yes button clicked!");
+                    Tone.start(); initAudio();
+                    // Attempt to start music immediately on first interaction
+                    if (!isMusicPlaying && backgroundAudioPlayer) {
+                        toggleBackgroundMusic();
+                    }
+                    showState(states.eligibilityForm);
+                    createBgHearts();
+                });
+                console.log("Yes button listener added.");
+            } else { console.error("Could not find Yes button!"); }
             if (noBtn) { noBtn.addEventListener('click', handleNoClick); console.log("No button click listener added."); } else { console.error("Could not find No button!"); }
 
              // --- Listener for Eligibility Form Submission ---
@@ -394,8 +406,8 @@
                         if (isNameMatch && isBdayMatch) {
                             console.log("Eligibility PASSED!"); playSuccessSound();
                             showState(states.eligible); // Show eligible message FIRST
-                            setTimeout(() => { showState(states.welcomeAnimation); }, 3000); // THEN show welcome animation after 3s
-                            setTimeout(() => { showState(states.gift); /* Confetti removed */ }, 7000); // THEN show gift after welcome (3s + 4s animation)
+                            setTimeout(() => { showState(states.welcomeAnimation); /* Confetti removed */ }, 3000); // THEN show welcome animation after 3s
+                            setTimeout(() => { showState(states.gift); }, 7000); // THEN show gift after welcome (3s + 4s animation)
                         } else {
                             console.log("Eligibility FAILED!"); playFailureSound();
                             // Show failure popup
